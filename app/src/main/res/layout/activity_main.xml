@@ -17,15 +17,16 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/txtWelcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/logoImageView"
-        android:text="Welcome!"
-        android:textStyle="bold"
+        android:textColor="@color/primaryBlue"
         android:gravity="center"
-        android:textSize="20sp" />
+        android:text="Welcome!"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -33,7 +34,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtWelcome"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        app:endIconMode="clear_text"
+        style="@style/TextInputLayoutStyle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEditText"
@@ -41,7 +44,6 @@
             android:layout_height="wrap_content"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            app:boxStrokeColor="@color/primaryRed"
             android:padding="12dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,13 +52,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/emailInputLayout"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        app:endIconMode="clear_text"
+        style="@style/TextInputLayoutStyle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxStrokeColor="@color/primaryRed"
+            app:endIconTint="@color/primaryBlue"
+            app:endIconMode="clear_text"
+            android:inputType="textPassword"
             android:hint="Password"
             android:padding="12dp"/>
     </com.google.android.material.textfield.TextInputLayout>

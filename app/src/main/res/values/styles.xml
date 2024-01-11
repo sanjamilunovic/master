@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="TextAppearance.MyApp.Headline3" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="android:textStyle">bold</item>
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/primaryBlue</item>
+        <item name="hintTextColor">@color/primaryBlue</item>
+        <item name="endIconTint">@color/primaryBlue</item>
     </style>
 </resources>
