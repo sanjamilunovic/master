@@ -77,12 +77,4 @@
         android:text="Login"
         android:textColor="@color/white" />
 
-    <TextView
-        android:id="@+id/signUpTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/loginButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Don't have an account? Sign up"/>
 </RelativeLayout>
