@@ -1,14 +1,19 @@
-package com.example.sufsdemoapp;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.ema;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
 
+import butterknife.ButterKnife;
+
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+
+
     }
 }
