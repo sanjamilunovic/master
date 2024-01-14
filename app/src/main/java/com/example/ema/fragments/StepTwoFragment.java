@@ -68,8 +68,7 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
           switch(view.getId()){
               case R.id.imageViewCamera:
                   Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                  // Ensure that there's a camera activity to handle the intent
-                  startActivityForResult(takePictureIntent, 1);
+                  startActivityForResult(takePictureIntent, TAKE_PICTURE_EVENT_REQUEST_CODE);
                   break;
 
               case R.id.imageViewGallery:
@@ -89,6 +88,12 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }else if (data.getExtras() != null) {
+            // Slika je snimljena kamerom
+            Bundle extras = data.getExtras();
+            Bitmap bitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(bitmap);
+
         }
     }
 
