@@ -1,6 +1,8 @@
 package com.example.ema.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.ema.R;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.StepperLayout;
@@ -26,10 +30,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StepTwoFragment extends Fragment implements Step,View.OnClickListener {
+    public static final int TAKE_PICTURE_EVENT_REQUEST_CODE = 1;
+    public static final int PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE = 2;
     @BindView(R.id.imageViewCamera)
     ImageView imageViewCamera;
     @BindView(R.id.imageViewGallery)
     ImageView imageViewGallery;
+    @BindView(R.id.imageView)
+    ImageView imageView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.step_two_fragment, container, false);
@@ -66,8 +74,23 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
 
               case R.id.imageViewGallery:
                   Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                  startActivityForResult(galleryIntent, 2);
+                  startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
                   break;
           }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+           Uri  imageUri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+                imageView.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }
