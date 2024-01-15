@@ -6,6 +6,7 @@ import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import com.example.ema.fragments.StepOneFragment;
+import com.example.ema.fragments.StepThreeFragment;
 import com.example.ema.fragments.StepTwoFragment;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.adapter.AbstractFragmentStepAdapter;
@@ -27,6 +28,13 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
             return step;
         }else if(position==1){
             final StepTwoFragment step = new StepTwoFragment();
+            Bundle b = new Bundle();
+            b.putInt(STEP_POSITION_KEY, position);
+            step.setArguments(b);
+            return step;
+        }
+        else if(position==2){
+            final StepThreeFragment step = new StepThreeFragment();
             Bundle b = new Bundle();
             b.putInt(STEP_POSITION_KEY, position);
             step.setArguments(b);

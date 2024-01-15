@@ -28,7 +28,7 @@ public class StepOneFragment extends Fragment implements Step {
         ButterKnife.bind(this,v);
 
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.option, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.students, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.drop_down_item);
 
         spinner.setAdapter(adapter);

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="option">
+    <string-array name="students">
         <item>Julie Wayne:New Worlds Scholarship Accounts</item>
         <item>Julie Wayne:Scholarship for Private Schools and transportation (NOT ENROLLED)</item>
         <item>Julie Wayne:New Worlds Reading Scholarship Accounts</item>
         <item>John Bamberg:Scholarship for Private Scchools and Transportation (ENROLLED)</item>
         <item>John Washington:Students with Unique Abilities (FES-UA)</item>
         <item>Sara Shelny:Scholarship for Private Schools and Transportation (NOT ENROLLED)</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>Instructional Material</item>
+
     </string-array>
 </resources>
