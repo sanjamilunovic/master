@@ -11,6 +11,8 @@
 
     <string-array name="categories">
         <item>Instructional Material</item>
+        <item>Private Full-Time Tutoring Services</item>
+        <item>Standardized Testing Fees</item>
 
     </string-array>
 </resources>

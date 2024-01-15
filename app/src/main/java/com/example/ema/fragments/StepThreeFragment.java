@@ -11,6 +11,7 @@ import android.speech.SpeechRecognizer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
@@ -40,14 +41,20 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
     private SpeechRecognizer speechRecognizer;
     @BindView(R.id.tilPurchaseDate)
     TextInputLayout tilPurchaseDate;
-    @BindView(R.id.tilInvoice)
-    TextInputLayout tilInvoice;
     @BindView(R.id.etPurchaseDate)
     TextInputEditText etPurchaseDate;
+    @BindView(R.id.tilInvoice)
+    TextInputLayout tilInvoice;
     @BindView(R.id.etInvoice)
     TextInputEditText etInvoice;
     @BindView(R.id.spinnerCategory)
     MaterialAutoCompleteTextView spinnerCategory;
+    @BindView(R.id.tilType)
+    TextInputLayout tilType;
+    @BindView(R.id.tilDescription)
+    TextInputLayout tilDescription;
+    @BindView(R.id.tilPayment)
+    TextInputLayout tilPayment;
 
 
     @Override
@@ -129,6 +136,15 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
         adapter.setDropDownViewResource(R.layout.drop_down_item);
 
         spinnerCategory.setAdapter(adapter);
+        spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                tilType.setVisibility(View.VISIBLE);
+                tilDescription.setVisibility(View.VISIBLE);
+                tilPayment.setVisibility(View.VISIBLE);
+
+            }
+        });
 
 
 
