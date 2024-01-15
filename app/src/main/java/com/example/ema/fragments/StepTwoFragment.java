@@ -1,12 +1,15 @@
 package com.example.ema.fragments;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -38,6 +41,8 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
     ImageView imageViewGallery;
     @BindView(R.id.imageView)
     ImageView imageView;
+    Dialog dialog;
+    Bitmap bitmap;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.step_two_fragment, container, false);
@@ -45,7 +50,38 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
 
         imageViewCamera.setOnClickListener(this);
         imageViewGallery.setOnClickListener(this);
+
+        GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public void onLongPress(MotionEvent e) {
+                showFullScreenImage();
+            }
+        });
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        dialog.cancel();
+                        break;
+                }
+                return true;
+            }
+        });
         return v;
+    }
+
+    private void showFullScreenImage() {
+        dialog = new Dialog(getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        dialog.setContentView(R.layout.dialog_full_screen_image);
+
+        ImageView fullScreenImageView = dialog.findViewById(R.id.fullScreenImageView);
+        fullScreenImageView.setImageBitmap(bitmap);
+
+        dialog.show();
     }
     @Nullable
     @Override
@@ -83,7 +119,7 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
         if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
            Uri  imageUri = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
                 imageView.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -91,7 +127,7 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
         }else if (data.getExtras() != null) {
             // Slika je snimljena kamerom
             Bundle extras = data.getExtras();
-            Bitmap bitmap = (Bitmap) extras.get("data");
+            bitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(bitmap);
 
         }
