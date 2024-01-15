@@ -1,58 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+<TextView
+    android:id="@+id/txtlabel"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:gravity="center"
+    android:textSize="18dp"
+    android:textStyle="bold"
+    android:text="Please enter the requested information below"/>
 
-    <TextView
-        android:id="@+id/txtlabel"
+<TextView
+    android:id="@+id/txtlabel1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="16dp"
+    android:gravity="center"
+    android:textSize="14dp"
+    android:text="Providing accurate details now, ensures no delays occur while processing reimbursements."/>
+
+<TextView
+    android:id="@+id/txtlabel2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="16dp"
+    android:gravity="center"
+    android:textSize="14dp"
+    android:text="Please use 'Add item' for each line item of your receipt/invoice."/>
+
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:text="Please enter the requested information below"/>
-
-
-    <TextView
-        android:id="@+id/txtlabel1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:textSize="14dp"
-        android:text="Providing accurate details now, ensures no delays occur while processing reimbursements."/>
-
-    <TextView
-        android:id="@+id/txtlabel2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:textSize="14dp"
-        android:text="Please use 'Add item' for each line item of your receipt/invoice."/>
-
-
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Purchase Date"
+                app:helperText="mm/dd/yyyy"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/date_icon"
                 style="@style/TextInputLayoutStyle">
@@ -116,75 +120,81 @@
                 android:layout_marginTop="16dp"
                 style="@style/AutoCompleteTextInputLayoutStyle">
 
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/spinnerCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none">
-            </com.google.android.material.textfield.MaterialAutoCompleteTextView>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Type"
-                android:layout_marginTop="16dp"
-                style="@style/AutoCompleteTextInputLayoutStyle">
-
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/spinnerType"
+                    android:id="@+id/spinnerCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none">
                 </com.google.android.material.textfield.MaterialAutoCompleteTextView>
             </com.google.android.material.textfield.TextInputLayout>
 
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="Description"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                style="@style/AutoCompleteTextInputLayoutStyle">-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="@style/TextInputLayoutStyle"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_mic"
+                android:hint="Amount">
 
-<!--                <com.google.android.material.textfield.MaterialAutoCompleteTextView-->
-<!--                    android:id="@+id/spinnerDescription"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="16dp"-->
-<!--                    android:inputType="none">-->
-<!--                </com.google.android.material.textfield.MaterialAutoCompleteTextView>-->
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAmount"
+                    style="@style/TextInputLayoutStyle"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:id="@+id/tilAmount"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                style="@style/TextInputLayoutStyle"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:hint="Amount">-->
+            </com.google.android.material.textfield.TextInputLayout>
 
-<!--                <com.google.android.material.textfield.TextInputEditText-->
-<!--                    android:id="@+id/etAmount"-->
-<!--                    style="@style/TextInputLayoutStyle"-->
-<!--                    android:inputType="number"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content" />-->
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEducationalBenefit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                style="@style/TextInputLayoutStyle"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_mic"
+                android:hint="Educational Benefit">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEducationalBenefit"
+                    style="@style/TextInputLayoutStyle"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type"
+                android:visibility="gone"
+                android:layout_marginTop="16dp"
+                style="@style/AutoCompleteTextInputLayoutStyle">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/spinnerDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none">
+                </com.google.android.material.textfield.MaterialAutoCompleteTextView>
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
+</com.google.android.material.card.MaterialCardView>
 
-    <Button
-        android:id="@+id/buttonAddItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/primaryBlue"
-        android:text="Add item"
-        android:textColor="@color/white" />
+<Button
+    android:id="@+id/buttonAddItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="0"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+    android:backgroundTint="@color/primaryBlue"
+    android:text="Add item"
+    android:textColor="@color/white" />
 
 </LinearLayout>

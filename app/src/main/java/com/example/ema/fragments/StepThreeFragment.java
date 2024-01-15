@@ -26,7 +26,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -46,6 +49,7 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
     @BindView(R.id.spinnerCategory)
     MaterialAutoCompleteTextView spinnerCategory;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_step_three, container, false);
@@ -54,6 +58,7 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
             checkPermission();
         }
+
 
         speechRecognizer =  SpeechRecognizer.createSpeechRecognizer(getContext());
 
@@ -147,13 +152,26 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
     private void showDatePicker() {
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTheme(R.style.ThemeOverlay_App_MaterialCalendar)
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
                 .build();
 
             datePicker.addOnPositiveButtonClickListener(selection -> {
-            etPurchaseDate.setText(datePicker.getHeaderText());
+                etPurchaseDate.setText(formatSelectedDate(selection));
+
         });
 
         datePicker.show(getParentFragmentManager(), "DATE_PICKER");
+    }
+
+    private String formatSelectedDate(Long selectedDate) {
+        // Konvertujte Long vrednost datuma u Date objekat
+        Date date = new Date(selectedDate);
+
+        // Kreirajte format za prikaz datuma u "MM/dd/yyyy" formatu
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+
+        // Vratite formatiran datum kao String
+        return sdf.format(date);
     }
     @Override
     public void onClick(View v) {
