@@ -41,15 +41,16 @@
         android:text="Please use 'Add item' for each line item of your receipt/invoice."/>
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="2dp">
 
@@ -83,7 +84,8 @@
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:endIconTint="@color/primaryBlue" />
+                    app:endIconTint="@color/primaryBlue"
+                    android:focusableInTouchMode="false"/>
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -94,6 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 style="@style/TextInputLayoutStyle"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_mic"
                 android:hint="Invoice #">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -101,7 +105,9 @@
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -169,7 +175,6 @@
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-    </RelativeLayout>
 
     <Button
         android:id="@+id/buttonAddItem"

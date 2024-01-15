@@ -6,16 +6,14 @@
 
     <style name="AppTheme.Base" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
-        <item name="android:colorBackground">@color/grey</item>
+        <item name="android:colorBackground">@color/white</item>
         <item name="android:textColorHint">@color/primaryBlue</item>
         <item name="colorAccent">@color/white</item>
-        <item name="materialCardViewStyle">@style/MaterialCardViewStyle</item>
+
 
     </style>
 
-    <style name="MaterialCardViewStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/colorTitleTransparent</item>
-    </style>
+
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/primaryBlue</item>
