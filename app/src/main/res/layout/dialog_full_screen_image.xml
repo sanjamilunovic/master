@@ -1,15 +1,31 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/blurredFrameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.github.mmin18.widget.RealtimeBlurView
+            android:id="@+id/realtimeBlurView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:realtimeBlurRadius="10dp"
+            app:realtimeOverlayColor="#8000" />
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/fullScreenImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:contentDescription="@null"/>
+        android:layout_width="wrap_content"
+        android:layout_height="600dp"
+        android:layout_centerInParent="true"
+        android:adjustViewBounds="true"
+        android:layout_margin="16dp"
+        android:scaleType="fitCenter"/>
 
 </RelativeLayout>
