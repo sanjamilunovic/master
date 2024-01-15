@@ -40,11 +40,7 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
             step.setArguments(b);
             return step;
         }
-        final StepOneFragment step = new StepOneFragment();
-        Bundle b = new Bundle();
-        b.putInt(STEP_POSITION_KEY, position);
-        step.setArguments(b);
-        return step;
+        return null;
     }
 
     @Override
