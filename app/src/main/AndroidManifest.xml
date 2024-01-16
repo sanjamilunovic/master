@@ -25,6 +25,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".AddReimbursementActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
