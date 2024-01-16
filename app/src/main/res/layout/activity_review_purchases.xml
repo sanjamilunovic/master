@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtlabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/primaryBlue"
+        android:text="Review your purchases"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- TextView za ime itema -->
+            <TextView
+                android:id="@+id/txtItemName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Desktop Computer"
+                android:textColor="@color/primaryBlue"
+                android:gravity="start"/>
+
+            <!-- TextView za iznos stavke -->
+            <TextView
+                android:id="@+id/txtAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Amount: $100.00"
+                android:textColor="@color/primaryBlue"
+                android:gravity="start"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/primaryRed"/>
+            <TextView
+                android:id="@+id/txtTotalAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total:$500"
+                android:textColor="@color/primaryBlue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="start"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/buttonSubmitForApproval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/primaryRed"
+        android:text="Submit for approval"
+        android:textColor="@color/white" />
+
+</LinearLayout>

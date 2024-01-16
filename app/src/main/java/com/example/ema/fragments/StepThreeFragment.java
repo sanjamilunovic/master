@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,20 +25,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.ema.MainActivity;
 import com.example.ema.R;
+import com.example.ema.viewmodels.ItemViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.stepstone.stepper.BlockingStep;
-import com.stepstone.stepper.Step;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -73,8 +72,14 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
     TextInputEditText etAmount;
     @BindView(R.id.etEducationalBenefit)
     TextInputEditText etEducationalBenefit;
+    @BindView(R.id.mainCont)
+    LinearLayout mainCont;
+    @BindView(R.id.subCont)
+    LinearLayout subCont;
 
-    private boolean allFieldFilled = false;
+    private ArrayList<ItemViewModel>items;
+
+
 
 
     @Override
@@ -87,6 +92,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
         }
 
         speechRecognizer =  SpeechRecognizer.createSpeechRecognizer(getContext());
+        items = new ArrayList<>();
 
         final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -304,15 +310,27 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
         if(validateForm()){
-            Intent intent = new Intent(getContext(), MainActivity.class);
-            startActivity(intent);
+            ItemViewModel itemViewModel = new ItemViewModel();
+            itemViewModel.setPurchaseDate(new Date(etPurchaseDate.getText().toString().trim()));
+            itemViewModel.setInvoice(etInvoice.getText().toString().trim());
+            itemViewModel.setCategory(spinnerCategory.getText().toString().trim());
+            itemViewModel.setAmount(Integer.valueOf(etAmount.getText().toString().trim()));
+            itemViewModel.setEducationalBenefit(etEducationalBenefit.getText().toString().trim());
+
+            items.add(itemViewModel);
+            mainCont.setVisibility(View.GONE);
+            subCont.setVisibility(View.VISIBLE);
+
+
+
         }
 
     }
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
-
+        mainCont.setVisibility(View.VISIBLE);
+        subCont.setVisibility(View.GONE);
     }
 
     private boolean validateForm() {
