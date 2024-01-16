@@ -81,8 +81,6 @@ android:orientation="vertical">
                 app:helperText="mm/dd/yyyy"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/date_icon"
-                app:errorEnabled="true"
-                app:errorText="Purchase date required."
                 style="@style/TextInputLayoutStyle">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -104,8 +102,6 @@ android:orientation="vertical">
                 style="@style/TextInputLayoutStyle"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_mic"
-                app:errorEnabled="true"
-                app:errorText="Invoice # required."
                 android:hint="Invoice #">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -178,8 +174,6 @@ android:orientation="vertical">
                 style="@style/TextInputLayoutStyle"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_mic"
-                app:errorEnabled="true"
-                app:errorText="Category required."
                 android:hint="Amount">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -198,8 +192,6 @@ android:orientation="vertical">
                 android:hint="Who did you pay?"
                 android:visibility="gone"
                 android:layout_marginTop="16dp"
-                app:errorEnabled="true"
-                app:errorText="Vendor required."
                 style="@style/AutoCompleteTextInputLayoutStyle">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -218,8 +210,6 @@ android:orientation="vertical">
                 style="@style/TextInputLayoutStyle"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/ic_mic"
-                app:errorEnabled="true"
-                app:errorText="Educational Benefit required."
                 android:hint="Educational Benefit">
 
                 <com.google.android.material.textfield.TextInputEditText
