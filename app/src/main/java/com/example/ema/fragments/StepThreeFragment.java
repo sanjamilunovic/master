@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,16 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.example.ema.MainActivity;
 import com.example.ema.R;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.Step;
+import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +41,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StepThreeFragment extends Fragment implements Step, View.OnClickListener{
+public class StepThreeFragment extends Fragment implements BlockingStep, View.OnClickListener{
     public static final Integer RecordAudioRequestCode = 1;
     private SpeechRecognizer speechRecognizer;
     @BindView(R.id.tilPurchaseDate)
@@ -55,10 +60,18 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
     TextInputLayout tilDescription;
     @BindView(R.id.tilPayment)
     TextInputLayout tilPayment;
+    @BindView(R.id.tilCategory)
+    TextInputLayout tilCategory;
+    @BindView(R.id.tilAmount)
+    TextInputLayout tilAmount;
+    @BindView(R.id.tilEducationalBenefit)
+    TextInputLayout tilEducationalBenefit;
     @BindView(R.id.etAmount)
     TextInputEditText etAmount;
     @BindView(R.id.etEducationalBenefit)
     TextInputEditText etEducationalBenefit;
+
+    private boolean allFieldFilled = false;
 
 
     @Override
@@ -197,5 +210,75 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
     @Override
     public void onError(@NonNull VerificationError error) {
 
+    }
+
+    @Override
+    public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+
+    }
+
+    @Override
+    public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+        if(validateForm()){
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            startActivity(intent);
+        }
+
+    }
+
+    @Override
+    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+
+    }
+
+    private boolean validateForm() {
+        if (isFormValid()) {
+            return true;
+        } else {
+            if (!isFieldValid(etPurchaseDate)) {
+                tilPurchaseDate.setError("Purchase date required.");
+            } else {
+                tilPurchaseDate.setError(null);
+            }
+
+            if (!isFieldValid(etInvoice)) {
+                tilInvoice.setError("Invoice # required.");
+            } else {
+                tilInvoice.setError(null);
+            }
+
+            if (!isDropDownFieldValid(spinnerCategory)) {
+                tilCategory.setError("Category required.");
+            } else {
+                tilCategory.setError(null);
+            }
+
+            if (!isFieldValid(etAmount)) {
+                tilAmount.setError("Amount required.");
+            } else {
+                tilAmount.setError(null);
+            }
+            if (!isFieldValid(etEducationalBenefit)) {
+                tilEducationalBenefit.setError("Educational benefit required.");
+            } else {
+                tilEducationalBenefit.setError(null);
+            }
+
+        }
+        return false;
+    }
+
+    private boolean isFormValid() {
+        return isFieldValid(etPurchaseDate) && isFieldValid(etInvoice) && isDropDownFieldValid(spinnerCategory) ;
+    }
+
+    // Funkcija za proveru da li je određeni TextInputEditText popunjen
+    private boolean isFieldValid(TextInputEditText editText) {
+        String text = editText.getText().toString().trim();
+        return !TextUtils.isEmpty(text);
+    }
+    private boolean isDropDownFieldValid(MaterialAutoCompleteTextView field) {
+        String text = field.getText().toString().trim();
+        return !TextUtils.isEmpty(text);
     }
 }

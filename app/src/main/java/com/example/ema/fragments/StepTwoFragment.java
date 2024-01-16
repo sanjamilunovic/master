@@ -15,19 +15,15 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.example.ema.R;
 import com.github.mmin18.widget.RealtimeBlurView;
-import com.stepstone.stepper.Step;
+import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
@@ -37,7 +33,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StepTwoFragment extends Fragment implements Step,View.OnClickListener {
+public class StepTwoFragment extends Fragment implements BlockingStep,View.OnClickListener {
     public static final int TAKE_PICTURE_EVENT_REQUEST_CODE = 1;
     public static final int PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE = 2;
     @BindView(R.id.imageViewCamera)
@@ -51,6 +47,7 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
     private Vibrator vibrator;
     private ScaleGestureDetector scaleGestureDetector;
     private float scaleFactor = 1.0f;
+    private boolean imageAdded = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.step_two_fragment, container, false);
@@ -110,6 +107,7 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
     @Nullable
     @Override
     public VerificationError verifyStep() {
+
         return null;
     }
 
@@ -145,6 +143,7 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
                 imageView.setImageBitmap(bitmap);
+                imageAdded = true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -153,9 +152,28 @@ public class StepTwoFragment extends Fragment implements Step,View.OnClickListen
             Bundle extras = data.getExtras();
             bitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(bitmap);
+            imageAdded = true;
 
         }
     }
 
 
+    @Override
+    public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+        if(imageAdded) {
+            callback.goToNextStep();
+        }else{
+            Toast.makeText(getContext(), "Please upload a picture to continue", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+
+    }
+
+    @Override
+    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+
+    }
 }

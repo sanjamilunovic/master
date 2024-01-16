@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,15 +15,19 @@ import androidx.fragment.app.Fragment;
 import com.example.ema.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.Step;
+import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StepOneFragment extends Fragment implements Step {
+public class StepOneFragment extends Fragment implements BlockingStep {
     @BindView(R.id.spinner)
     MaterialAutoCompleteTextView spinner;
+    private boolean isStepValid = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.step_one_fragment, container, false);
@@ -32,6 +38,13 @@ public class StepOneFragment extends Fragment implements Step {
         adapter.setDropDownViewResource(R.layout.drop_down_item);
 
         spinner.setAdapter(adapter);
+        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                 isStepValid = true;
+
+            }
+        });
 
         return v;
     }
@@ -48,6 +61,25 @@ public class StepOneFragment extends Fragment implements Step {
 
     @Override
     public void onError(@NonNull VerificationError error) {
+
+    }
+
+    @Override
+    public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+             if(isStepValid){
+                 callback.goToNextStep();
+             }else{
+                 Toast.makeText(getContext(), "Please select a student to continue", Toast.LENGTH_SHORT).show();
+             }
+    }
+
+    @Override
+    public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+
+    }
+
+    @Override
+    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
 
     }
 }
