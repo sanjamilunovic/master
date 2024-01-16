@@ -89,7 +89,7 @@ android:orientation="vertical">
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:endIconTint="@color/primaryBlue"
-                    android:focusableInTouchMode="false"/>
+                    android:inputType="text"/>
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -107,9 +107,9 @@ android:orientation="vertical">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etInvoice"
                     style="@style/TextInputLayoutStyle"
-                    android:focusableInTouchMode="true"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,9 +160,9 @@ android:orientation="vertical">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDescription"
                     style="@style/TextInputLayoutStyle"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,7 +181,7 @@ android:orientation="vertical">
                     style="@style/TextInputLayoutStyle"
                     android:inputType="number"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -215,7 +215,7 @@ android:orientation="vertical">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEducationalBenefit"
                     style="@style/TextInputLayoutStyle"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

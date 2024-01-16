@@ -55,6 +55,10 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
     TextInputLayout tilDescription;
     @BindView(R.id.tilPayment)
     TextInputLayout tilPayment;
+    @BindView(R.id.etAmount)
+    TextInputEditText etAmount;
+    @BindView(R.id.etEducationalBenefit)
+    TextInputEditText etEducationalBenefit;
 
 
     @Override
@@ -65,7 +69,6 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
             checkPermission();
         }
-
 
         speechRecognizer =  SpeechRecognizer.createSpeechRecognizer(getContext());
 
@@ -125,6 +128,7 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
         tilInvoice.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 speechRecognizer.startListening(speechRecognizerIntent);
             }
         });
@@ -145,16 +149,6 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
 
             }
         });
-
-
-
-        tilPurchaseDate.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker();
-            }
-        });
-
 
         return v;
     }
@@ -180,13 +174,8 @@ public class StepThreeFragment extends Fragment implements Step, View.OnClickLis
     }
 
     private String formatSelectedDate(Long selectedDate) {
-        // Konvertujte Long vrednost datuma u Date objekat
         Date date = new Date(selectedDate);
-
-        // Kreirajte format za prikaz datuma u "MM/dd/yyyy" formatu
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-
-        // Vratite formatiran datum kao String
         return sdf.format(date);
     }
     @Override
