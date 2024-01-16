@@ -9,11 +9,14 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -163,6 +166,87 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
             }
         });
 
+        etPurchaseDate.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    if(isFieldValid(etPurchaseDate)) {
+                        etPurchaseDate.clearFocus();
+                        tilPurchaseDate.setError(null);
+                        return true;
+                    }else{
+                        tilPurchaseDate.setError("Purchase date required.");
+                    }
+
+                }
+                return false;
+            }
+        });
+        etInvoice.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
+                    if(isFieldValid(etInvoice)) {
+                        etInvoice.clearFocus();
+                        tilInvoice.setError(null);
+                        return true;
+                    }else{
+                        tilInvoice.setError("Invoice # required.");
+
+                    }
+                }
+                return false;
+            }
+        });
+        spinnerCategory.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
+                    if(isDropDownFieldValid(spinnerCategory)) {
+                        spinnerCategory.clearFocus();
+                        tilCategory.setError(null);
+                        return true;
+                    }else{
+                        tilCategory.setError("Category required.");
+
+                    }
+                }
+                return false;
+            }
+        });
+
+        etAmount.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE ) {
+                    if(isFieldValid(etAmount)) {
+                        etAmount.clearFocus();
+                        tilAmount.setError(null);
+                        return true;
+                    }else{
+                        tilAmount.setError("Amount required.");
+                    }
+                }
+                return false;
+            }
+        });
+
+        etEducationalBenefit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
+                    if(isFieldValid(etEducationalBenefit)) {
+                        etEducationalBenefit.clearFocus();
+                        tilEducationalBenefit.setError(null);
+                        return true;
+                    }else{
+                        tilEducationalBenefit.setError("Educational benefit required.");
+                    }
+                }
+                return false;
+            }
+        });
+
         return v;
     }
 
@@ -272,7 +356,6 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
         return isFieldValid(etPurchaseDate) && isFieldValid(etInvoice) && isDropDownFieldValid(spinnerCategory) ;
     }
 
-    // Funkcija za proveru da li je određeni TextInputEditText popunjen
     private boolean isFieldValid(TextInputEditText editText) {
         String text = editText.getText().toString().trim();
         return !TextUtils.isEmpty(text);
