@@ -413,8 +413,9 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
-        mainCont.setVisibility(View.VISIBLE);
-        subCont.setVisibility(View.GONE);
+//        mainCont.setVisibility(View.VISIBLE);
+//        subCont.setVisibility(View.GONE);
+        callback.goToPrevStep();
     }
 
     private boolean validateForm() {

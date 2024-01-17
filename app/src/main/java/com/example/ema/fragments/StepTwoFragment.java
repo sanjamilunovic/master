@@ -197,6 +197,6 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
-
+          callback.goToPrevStep();
     }
 }
