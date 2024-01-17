@@ -134,7 +134,7 @@ android:orientation="vertical">
                     android:id="@+id/spinnerCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none">
+                    android:inputType="text">
                 </com.google.android.material.textfield.MaterialAutoCompleteTextView>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -151,7 +151,7 @@ android:orientation="vertical">
                     android:id="@+id/etType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none">
+                    android:inputType="text">
                 </com.google.android.material.textfield.MaterialAutoCompleteTextView>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -207,7 +207,7 @@ android:orientation="vertical">
                     android:id="@+id/spinnerPayment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none">
+                    android:inputType="text">
                 </com.google.android.material.textfield.MaterialAutoCompleteTextView>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -234,7 +234,7 @@ android:orientation="vertical">
     </ScrollView>
 </com.google.android.material.card.MaterialCardView>
 
-<Button
+   <Button
     android:id="@+id/buttonAddItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

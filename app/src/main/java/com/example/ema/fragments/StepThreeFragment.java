@@ -413,6 +413,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
             if (!isFieldValid(etPurchaseDate)) {
                 tilPurchaseDate.setError("Purchase date required.");
                 tilPurchaseDate.setErrorIconDrawable(null);
+                tilPurchaseDate.requestFocus();
             } else {
                 tilPurchaseDate.setError(null);
             }
@@ -420,12 +421,14 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
             if (!isFieldValid(etInvoice)) {
                 tilInvoice.setError("Invoice # required.");
                 tilInvoice.setErrorIconDrawable(null);
+                tilInvoice.requestFocus();
             } else {
                 tilInvoice.setError(null);
             }
 
             if (!isDropDownFieldValid(spinnerCategory)) {
                 tilCategory.setError("Category required.");
+                tilCategory.requestFocus();
             } else {
                 tilCategory.setError(null);
             }
@@ -433,12 +436,14 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
             if (!isFieldValid(etAmount)) {
                 tilAmount.setError("Amount required.");
                 tilAmount.setErrorIconDrawable(null);
+                tilAmount.requestFocus();
             } else {
                 tilAmount.setError(null);
             }
             if (!isFieldValid(etEducationalBenefit)) {
                 tilEducationalBenefit.setError("Educational benefit required.");
                 tilEducationalBenefit.setErrorIconDrawable(null);
+                tilEducationalBenefit.requestFocus();
             } else {
                 tilEducationalBenefit.setError(null);
             }
@@ -448,7 +453,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
     }
 
     private boolean isFormValid() {
-        return isFieldValid(etPurchaseDate) && isFieldValid(etInvoice) && isDropDownFieldValid(spinnerCategory) ;
+        return isFieldValid(etPurchaseDate) && isFieldValid(etInvoice) && isDropDownFieldValid(spinnerCategory) && isFieldValid(etAmount) && isFieldValid(etEducationalBenefit) ;
     }
 
     private boolean isFieldValid(TextInputEditText editText) {
