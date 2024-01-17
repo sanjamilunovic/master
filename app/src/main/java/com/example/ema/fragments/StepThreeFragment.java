@@ -150,8 +150,14 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
         tilInvoice.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 speechRecognizer.startListening(speechRecognizerIntent);
+            }
+        });
+
+        tilPurchaseDate.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
             }
         });
 
