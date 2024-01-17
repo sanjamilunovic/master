@@ -1,6 +1,7 @@
 package com.example.ema.fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -44,8 +45,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StepThreeFragment extends Fragment implements BlockingStep, View.OnClickListener{
-    public static final Integer RecordAudioRequestCode = 1;
-    private SpeechRecognizer speechRecognizer;
+    public static final Integer RECORD_AUDIO_RESULT_CODE = 1;
+    public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 2;
+    public static final Integer RECORD_AUDIO_AMOUNT_RESULT_CODE = 3;
+    public static final Integer RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE = 4;
+//    private SpeechRecognizer speechRecognizer;
     @BindView(R.id.tilPurchaseDate)
     TextInputLayout tilPurchaseDate;
     @BindView(R.id.etPurchaseDate)
@@ -91,68 +95,126 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
             checkPermission();
         }
 
-        speechRecognizer =  SpeechRecognizer.createSpeechRecognizer(getContext());
+       // speechRecognizer =  SpeechRecognizer.createSpeechRecognizer(getContext());
         items = new ArrayList<>();
 
-        final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-
-        speechRecognizer.setRecognitionListener(new RecognitionListener() {
-            @Override
-            public void onReadyForSpeech(Bundle bundle) {
-
-            }
-
-            @Override
-            public void onBeginningOfSpeech() {
-                etInvoice.setText("");
-                etInvoice.setHint("Listening...");
-            }
-
-            @Override
-            public void onRmsChanged(float v) {
-
-            }
-
-            @Override
-            public void onBufferReceived(byte[] bytes) {
-
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-
-            }
-
-            @Override
-            public void onError(int i) {
-
-            }
-
-            @Override
-            public void onResults(Bundle bundle) {
-                ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                etInvoice.setText(data.get(0));
-            }
-
-            @Override
-            public void onPartialResults(Bundle bundle) {
-
-            }
-
-            @Override
-            public void onEvent(int i, Bundle bundle) {
-
-            }
-        });
+//        final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+//        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+//
+//        speechRecognizer.setRecognitionListener(new RecognitionListener() {
+//            @Override
+//            public void onReadyForSpeech(Bundle bundle) {
+//
+//            }
+//
+//            @Override
+//            public void onBeginningOfSpeech() {
+////                etInvoice.setText("");
+////                etInvoice.setHint("Listening...");  Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//    // identifying your application to the Google service
+//
+//            }
+//
+//            @Override
+//            public void onRmsChanged(float v) {
+//
+//            }
+//
+//            @Override
+//            public void onBufferReceived(byte[] bytes) {
+//
+//            }
+//
+//            @Override
+//            public void onEndOfSpeech() {
+//
+//            }
+//
+//            @Override
+//            public void onError(int i) {
+//
+//            }
+//
+//            @Override
+//            public void onResults(Bundle bundle) {
+//                ArrayList<String> data = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+//                etInvoice.setText(data.get(0));
+//
+//
+//            }
+//
+//            @Override
+//            public void onPartialResults(Bundle bundle) {
+//
+//            }
+//
+//            @Override
+//            public void onEvent(int i, Bundle bundle) {
+//
+//            }
+//        });
 
         tilInvoice.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                speechRecognizer.startListening(speechRecognizerIntent);
+                tilInvoice.requestFocus();
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                // identifying application to the Google service
+                intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
+                // hint in the dialog
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Try saying something");
+                // hint to the recognizer about what the user is going to say
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                // number of results
+                intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+                // recognition language
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"en-US");
+                startActivityForResult(intent, RECORD_AUDIO_INVOICE_RESULT_CODE);
             }
         });
+
+        tilAmount.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tilAmount.requestFocus();
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                // identifying application to the Google service
+                intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
+                // hint in the dialog
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Try saying something");
+                // hint to the recognizer about what the user is going to say
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                // number of results
+                intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+                // recognition language
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"en-US");
+                startActivityForResult(intent, RECORD_AUDIO_AMOUNT_RESULT_CODE);
+            }
+        });
+
+        tilEducationalBenefit.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tilEducationalBenefit.requestFocus();
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                // identifying application to the Google service
+                intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
+                // hint in the dialog
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Try saying something");
+                // hint to the recognizer about what the user is going to say
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                // number of results
+                intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+                // recognition language
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"en-US");
+                startActivityForResult(intent, RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE);
+            }
+        });
+
 
         tilPurchaseDate.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,9 +324,25 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
         return v;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if ( resultCode == Activity.RESULT_OK) {
+            ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            String recognizedText = results.get(0);
+            if(requestCode == RECORD_AUDIO_INVOICE_RESULT_CODE) {
+                etInvoice.setText(recognizedText);
+            }else if(requestCode == RECORD_AUDIO_AMOUNT_RESULT_CODE){
+                etAmount.setText(recognizedText);
+            }else if(requestCode == RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE){
+                etEducationalBenefit.setText(recognizedText);
+            }
+
+        }
+    }
+
     private void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.RECORD_AUDIO},RECORD_AUDIO_RESULT_CODE);
         }
     }
 

@@ -15,6 +15,8 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1890625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1824074074074074" />
         <entry key="app/src/main/res/layout/activity_review_purchases.xml" value="0.34270833333333334" />
+        <entry key="app/src/main/res/layout/circular_image_view.xml" value="0.34270833333333334" />
+        <entry key="app/src/main/res/layout/dialog_circle_view.xml" value="0.34270833333333334" />
         <entry key="app/src/main/res/layout/dialog_full_screen_image.xml" value="0.34270833333333334" />
         <entry key="app/src/main/res/layout/drop_down_item.xml" value="0.34270833333333334" />
         <entry key="app/src/main/res/layout/fragment_step_three.xml" value="0.29583333333333334" />
