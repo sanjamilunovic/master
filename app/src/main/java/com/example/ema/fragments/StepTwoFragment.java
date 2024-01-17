@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.camera.core.ImageCapture;
 import androidx.fragment.app.Fragment;
 import com.example.ema.R;
 import com.github.mmin18.widget.RealtimeBlurView;
@@ -125,8 +126,8 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     public void onClick(View view) {
           switch(view.getId()){
               case R.id.imageViewCamera:
-                  Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                  startActivityForResult(takePictureIntent, TAKE_PICTURE_EVENT_REQUEST_CODE);
+                  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                  startActivityForResult(cameraIntent, 1);
                   break;
 
               case R.id.imageViewGallery:
