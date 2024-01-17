@@ -26,10 +26,13 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ema.AddReimbursementActivity;
 import com.example.ema.MainActivity;
 import com.example.ema.R;
+import com.example.ema.adapters.ListItemReimbursementAdapter;
 import com.example.ema.viewmodels.ItemViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -95,6 +98,8 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
     Button buttonRequestAnotherReimbursement;
     @BindView(R.id.buttonCheckTheStatus)
     Button buttonCheckTheStatus;
+    @BindView(R.id.itemRecyclerView)
+    RecyclerView itemRecyclerView;
 
     private ArrayList<ItemViewModel>items;
     private int itemPosition=1;
@@ -473,6 +478,11 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 
             callback.getStepperLayout().setCompleteButtonColor(getResources().getColor(R.color.white));
             callback.getStepperLayout().setCompleteButtonEnabled(false);
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            itemRecyclerView.setLayoutManager(layoutManager);
+            ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items,getContext());
+            itemRecyclerView.setAdapter(adapter);
 
         }
 

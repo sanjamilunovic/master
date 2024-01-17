@@ -270,72 +270,42 @@ android:orientation="vertical">
             android:textColor="@color/primaryBlue"
             android:text="Review your purchases"/>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewItem"
+        <RelativeLayout
+            android:id="@+id/itemsLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
-                <!-- TextView za ime itema -->
-                <TextView
-                    android:id="@+id/txtItemName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Desktop Computer"
-                    android:textColor="@color/primaryBlue"
-                    android:gravity="start"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/itemRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-                <!-- TextView za iznos stavke -->
-                <TextView
-                    android:id="@+id/txtAmount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:text="Amount: $100.00"
-                    android:textColor="@color/primaryBlue"
-                    android:gravity="start"/>
+            </com.google.android.material.card.MaterialCardView>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/primaryRed"/>
-                <TextView
-                    android:id="@+id/txtTotalAmount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Total:$500"
-                    android:textColor="@color/primaryBlue"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:gravity="start"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            <Button
+                android:id="@+id/buttonSubmitForApproval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/primaryRed"
+                android:text="Submit for approval"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
 
-        <Button
-            android:id="@+id/buttonSubmitForApproval"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/primaryRed"
-            android:text="Submit for approval"
-            android:textColor="@color/white" />
+
 
     </LinearLayout>
 
