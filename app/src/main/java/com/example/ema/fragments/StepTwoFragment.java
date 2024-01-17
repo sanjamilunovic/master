@@ -24,6 +24,7 @@ import androidx.camera.core.ImageCapture;
 import androidx.fragment.app.Fragment;
 import com.example.ema.R;
 import com.github.mmin18.widget.RealtimeBlurView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
@@ -37,12 +38,10 @@ import butterknife.ButterKnife;
 public class StepTwoFragment extends Fragment implements BlockingStep,View.OnClickListener {
     public static final int TAKE_PICTURE_EVENT_REQUEST_CODE = 1;
     public static final int PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE = 2;
-    @BindView(R.id.imageViewCamera)
-    ImageView imageViewCamera;
-    @BindView(R.id.imageViewGallery)
-    ImageView imageViewGallery;
     @BindView(R.id.imageView)
     ImageView imageView;
+    @BindView(R.id.fabCamera)
+    FloatingActionButton fabCamera;
     Dialog dialog;
     Bitmap bitmap;
     private Vibrator vibrator;
@@ -54,9 +53,8 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
         View v = inflater.inflate(R.layout.step_two_fragment, container, false);
         ButterKnife.bind(this,v);
 
-        imageViewCamera.setOnClickListener(this);
-        imageViewGallery.setOnClickListener(this);
         vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        fabCamera.setOnClickListener(this);
 
         GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -125,15 +123,15 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     @Override
     public void onClick(View view) {
           switch(view.getId()){
-              case R.id.imageViewCamera:
+              case R.id.fabCamera:
                   Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                   startActivityForResult(cameraIntent, 1);
                   break;
 
-              case R.id.imageViewGallery:
-                  Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                  startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
-                  break;
+//              case R.id.imageViewGallery:
+//                  Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                  startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
+//                  break;
           }
     }
 
