@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class AddReimbursementActivity extends AppCompatActivity implements Stepp
     public void onCompleted(View completeButton) {
 //      Intent intent = new Intent(this, MainActivity.class);
 //      startActivity(intent);
+        stepperLayout.setVisibility(View.GONE);
     }
 
     @Override

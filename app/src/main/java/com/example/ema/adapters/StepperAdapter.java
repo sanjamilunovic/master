@@ -48,6 +48,7 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
         return 3;
     }
 
+
     @NonNull
     @Override
     public StepViewModel getViewModel(@IntRange(from = 0) int position) {
