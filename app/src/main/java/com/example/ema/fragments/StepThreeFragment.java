@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -100,6 +101,8 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
     Button buttonCheckTheStatus;
     @BindView(R.id.itemRecyclerView)
     RecyclerView itemRecyclerView;
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
 
     private ArrayList<ItemViewModel>items;
     private int itemPosition=1;
@@ -397,7 +400,8 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 
     private void clearInputs(){
         etPurchaseDate.setText(null);
-        tilPurchaseDate.clearFocus();
+        tilPurchaseDate.requestFocus();
+        scrollView.fullScroll(ScrollView.FOCUS_UP);
         tilPurchaseDate.setError(null);
         etAmount.setText(null);
         tilAmount.clearFocus();
