@@ -236,88 +236,72 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
                 tilType.setVisibility(View.VISIBLE);
                 tilDescription.setVisibility(View.VISIBLE);
                 tilPayment.setVisibility(View.VISIBLE);
+                tilCategory.setError(null);
 
             }
         });
 
-        etPurchaseDate.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        etPurchaseDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     if(isFieldValid(etPurchaseDate)) {
-                        etPurchaseDate.clearFocus();
-                        tilPurchaseDate.setError(null);
-                        return true;
+                        etPurchaseDate.setError(null);
                     }else{
                         tilPurchaseDate.setError("Purchase date required.");
                     }
-
                 }
-                return false;
             }
         });
-        etInvoice.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+
+        etInvoice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     if(isFieldValid(etInvoice)) {
-                        etInvoice.clearFocus();
-                        tilInvoice.setError(null);
-                        return true;
+                        etInvoice.setError(null);
                     }else{
                         tilInvoice.setError("Invoice # required.");
-
                     }
                 }
-                return false;
             }
         });
-        spinnerCategory.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        spinnerCategory.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     if(isDropDownFieldValid(spinnerCategory)) {
-                        spinnerCategory.clearFocus();
-                        tilCategory.setError(null);
-                        return true;
+                        spinnerCategory.setError(null);
                     }else{
                         tilCategory.setError("Category required.");
-
                     }
                 }
-                return false;
             }
         });
 
-        etAmount.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        etAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE ) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     if(isFieldValid(etAmount)) {
-                        etAmount.clearFocus();
-                        tilAmount.setError(null);
-                        return true;
+                        etAmount.setError(null);
                     }else{
                         tilAmount.setError("Amount required.");
                     }
                 }
-                return false;
             }
         });
-
-        etEducationalBenefit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        etEducationalBenefit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
                     if(isFieldValid(etEducationalBenefit)) {
-                        etEducationalBenefit.clearFocus();
-                        tilEducationalBenefit.setError(null);
-                        return true;
+                        etEducationalBenefit.setError(null);
                     }else{
                         tilEducationalBenefit.setError("Educational benefit required.");
                     }
                 }
-                return false;
             }
         });
 
@@ -331,10 +315,13 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
             String recognizedText = results.get(0);
             if(requestCode == RECORD_AUDIO_INVOICE_RESULT_CODE) {
                 etInvoice.setText(recognizedText);
+                tilInvoice.setError(null);
             }else if(requestCode == RECORD_AUDIO_AMOUNT_RESULT_CODE){
                 etAmount.setText(recognizedText);
+                tilAmount.setError(null);
             }else if(requestCode == RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE){
                 etEducationalBenefit.setText(recognizedText);
+                tilEducationalBenefit.setError(null);
             }
 
         }
@@ -354,6 +341,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
 
             datePicker.addOnPositiveButtonClickListener(selection -> {
                 etPurchaseDate.setText(formatSelectedDate(selection));
+                tilPurchaseDate.setError(null);
 
         });
 
@@ -424,12 +412,14 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
         } else {
             if (!isFieldValid(etPurchaseDate)) {
                 tilPurchaseDate.setError("Purchase date required.");
+                tilPurchaseDate.setErrorIconDrawable(null);
             } else {
                 tilPurchaseDate.setError(null);
             }
 
             if (!isFieldValid(etInvoice)) {
                 tilInvoice.setError("Invoice # required.");
+                tilInvoice.setErrorIconDrawable(null);
             } else {
                 tilInvoice.setError(null);
             }
@@ -442,11 +432,13 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
 
             if (!isFieldValid(etAmount)) {
                 tilAmount.setError("Amount required.");
+                tilAmount.setErrorIconDrawable(null);
             } else {
                 tilAmount.setError(null);
             }
             if (!isFieldValid(etEducationalBenefit)) {
                 tilEducationalBenefit.setError("Educational benefit required.");
+                tilEducationalBenefit.setErrorIconDrawable(null);
             } else {
                 tilEducationalBenefit.setError(null);
             }
