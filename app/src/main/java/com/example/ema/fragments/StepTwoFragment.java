@@ -1,8 +1,10 @@
 package com.example.ema.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -124,8 +126,27 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     public void onClick(View view) {
           switch(view.getId()){
               case R.id.fabCamera:
-                  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                  startActivityForResult(cameraIntent, 1);
+//                  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                  startActivityForResult(cameraIntent, 1);
+
+                  AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                  builder.setTitle("Choose Image Source");
+                  builder.setItems(new CharSequence[]{"Camera", "Gallery"}, new DialogInterface.OnClickListener() {
+                      @Override
+                      public void onClick(DialogInterface dialogInterface, int i) {
+                          switch (i) {
+                              case 0:
+                                  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                  startActivityForResult(cameraIntent, 1);
+                                  break;
+                              case 1:
+                                  Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                  startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
+                                  break;
+                          }
+                      }
+                  });
+                  builder.show();
                   break;
 
 //              case R.id.imageViewGallery:
