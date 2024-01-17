@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.camera.core.ImageCapture;
 import androidx.fragment.app.Fragment;
 import com.example.ema.R;
 import com.github.mmin18.widget.RealtimeBlurView;

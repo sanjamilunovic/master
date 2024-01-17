@@ -470,15 +470,22 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             items.add(itemViewModel);
             mainCont.setVisibility(View.GONE);
             subLayou1.setVisibility(View.VISIBLE);
+
+            callback.getStepperLayout().setCompleteButtonColor(getResources().getColor(R.color.white));
+            callback.getStepperLayout().setCompleteButtonEnabled(false);
+
         }
 
     }
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
-//        mainCont.setVisibility(View.VISIBLE);
-//        subCont.setVisibility(View.GONE);
-        callback.goToPrevStep();
+        mainCont.setVisibility(View.VISIBLE);
+        subLayou1.setVisibility(View.GONE);
+        subLayout2.setVisibility(View.GONE);
+        callback.getStepperLayout().setCompleteButtonColor(getResources().getColor(R.color.primaryRed));
+        callback.getStepperLayout().setCompleteButtonEnabled(true);
+
     }
 
     private boolean validateForm() {

@@ -243,8 +243,12 @@ android:orientation="vertical">
     android:layout_marginBottom="16dp"
     android:backgroundTint="@color/primaryBlue"
     android:text="Add item"
-    android:textColor="@color/white" />
+    android:textColor="@color/white"
+       android:layout_alignParentBottom="true"/>
+
     </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/subLayou1"
@@ -363,36 +367,42 @@ android:orientation="vertical">
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:textSize="18dp"
-            android:textStyle="bold"
+            android:textSize="16dp"
             android:textColor="@color/primaryBlue"
             android:text="One of our team members will review your reimbursement soon. You will receive a notification via email once your reimbursement has been processed, or you can check back here for status updates."/>
 
 
 
-        <Button
-            android:id="@+id/buttonRequestAnotherReimbursement"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/primaryRed"
-            android:text="Request another reimbursement"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/buttonCheckTheStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/primaryBlue"
-            android:text="Check the status"
-            android:textColor="@color/white" />
+            <Button
+                android:id="@+id/buttonRequestAnotherReimbursement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/primaryRed"
+                android:text="Request another reimbursement"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true" />
+
+            <Button
+                android:id="@+id/buttonCheckTheStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/primaryBlue"
+                android:text="Check the status"
+                android:textColor="@color/white"
+                android:layout_above="@id/buttonRequestAnotherReimbursement" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
