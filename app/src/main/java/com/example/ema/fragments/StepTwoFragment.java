@@ -1,7 +1,6 @@
 package com.example.ema.fragments;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,16 +12,20 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.example.ema.R;
 import com.github.mmin18.widget.RealtimeBlurView;
@@ -51,6 +54,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     private ScaleGestureDetector scaleGestureDetector;
     private float scaleFactor = 1.0f;
     private boolean imageAdded = false;
+    AlertDialog cameraAlertDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.step_two_fragment, container, false);
@@ -128,33 +132,43 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
           switch(view.getId()){
               case R.id.fabCamera:
 
-                  MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext(), R.style.CustomMaterialAlertDialog);
-                  builder.setTitle("Choose an option")
-                          .setItems(new CharSequence[]{"Take a picture", "Open from gallery"}, (dialog, which) -> {
-                              // Handle the selection
-                              switch (which) {
-                                  case 0:
-                                       Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                                       startActivityForResult(cameraIntent, 1);
-                                      break;
-                                  case 1:
-                                      Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                      startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
-                                      break;
-                              }
-                          })
-                          .setNegativeButton("Cancel", (dialog, which) -> {
-                              // Handle cancel button click
-                          });
+                  MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
+                  builder.setTitle("");
 
-                   builder.create();
-                   builder.show();
+                  LayoutInflater inflater = this.getLayoutInflater();
+
+                  View viewLayout = inflater.inflate(R.layout.bottom_dialog, null);
+                  builder.setView(viewLayout);
+
+                  viewLayout.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                          Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                          startActivityForResult(cameraIntent, 1);
+                          cameraAlertDialog.dismiss();
+                      }
+                  });
+
+                  viewLayout.findViewById(R.id.gallery).setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                          Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                          startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
+                          cameraAlertDialog.dismiss();
+
+                      }
+                  });
+
+                  viewLayout.findViewById(R.id.txtCancel).setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                          cameraAlertDialog.dismiss();
+                      }
+                  });
+                  cameraAlertDialog = builder.show();
+
                   break;
 
-//              case R.id.imageViewGallery:
-//                  Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                  startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
-//                  break;
           }
     }
 

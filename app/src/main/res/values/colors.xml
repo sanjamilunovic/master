@@ -3,6 +3,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primaryRed">#E31837</color>
     <color name="primaryBlue">#273043</color>
+    <color name="transparentPrimaryBlue">#80273043</color>
     <color name="colorTitleTransparent">#A6ffffff</color>
     <color name="grey">#f7f7f7</color>
     <color name="purple_200">#FFBB86FC</color>
