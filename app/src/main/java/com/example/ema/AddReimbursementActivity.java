@@ -19,11 +19,21 @@ import butterknife.ButterKnife;
 public class AddReimbursementActivity extends AppCompatActivity implements StepperLayout.StepperListener{
     @BindView(R.id.stepperLayout)
     StepperLayout stepperLayout;
+    @BindView(R.id.materialToolbar)
+    MaterialToolbar materialToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reimbursment);
         ButterKnife.bind(this);
+
+        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         stepperLayout.setAdapter(new StepperAdapter(getSupportFragmentManager(), this));
         stepperLayout.setListener(this);

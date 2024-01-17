@@ -19,7 +19,9 @@
             app:titleTextColor="@color/white"
             android:background="@color/primaryBlue"
             android:theme="?attr/actionBarTheme"
-            app:popupTheme="?attr/actionBarPopupTheme" />
+            app:popupTheme="?attr/actionBarPopupTheme"
+            app:navigationIcon="@drawable/icon_close"
+            app:navigationIconTint="@color/white"/>
 
 
     </com.google.android.material.appbar.AppBarLayout>
