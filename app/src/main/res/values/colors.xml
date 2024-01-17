@@ -5,4 +5,5 @@
     <color name="primaryBlue">#273043</color>
     <color name="colorTitleTransparent">#A6ffffff</color>
     <color name="grey">#f7f7f7</color>
+    <color name="purple_200">#FFBB86FC</color>
 </resources>

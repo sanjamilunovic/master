@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -26,6 +27,7 @@ import androidx.camera.core.ImageCapture;
 import androidx.fragment.app.Fragment;
 import com.example.ema.R;
 import com.github.mmin18.widget.RealtimeBlurView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
@@ -126,27 +128,28 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     public void onClick(View view) {
           switch(view.getId()){
               case R.id.fabCamera:
-//                  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//                  startActivityForResult(cameraIntent, 1);
 
-                  AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                  builder.setTitle("Choose Image Source");
-                  builder.setItems(new CharSequence[]{"Camera", "Gallery"}, new DialogInterface.OnClickListener() {
-                      @Override
-                      public void onClick(DialogInterface dialogInterface, int i) {
-                          switch (i) {
-                              case 0:
-                                  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                                  startActivityForResult(cameraIntent, 1);
-                                  break;
-                              case 1:
-                                  Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                  startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
-                                  break;
-                          }
-                      }
-                  });
-                  builder.show();
+                  MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext(), R.style.CustomMaterialAlertDialog);
+                  builder.setTitle("Choose an option")
+                          .setItems(new CharSequence[]{"Take a picture", "Open from gallery"}, (dialog, which) -> {
+                              // Handle the selection
+                              switch (which) {
+                                  case 0:
+                                       Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                                       startActivityForResult(cameraIntent, 1);
+                                      break;
+                                  case 1:
+                                      Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                      startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
+                                      break;
+                              }
+                          })
+                          .setNegativeButton("Cancel", (dialog, which) -> {
+                              // Handle cancel button click
+                          });
+
+                   builder.create();
+                   builder.show();
                   break;
 
 //              case R.id.imageViewGallery:
