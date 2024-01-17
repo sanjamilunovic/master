@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +27,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.ema.AddReimbursementActivity;
+import com.example.ema.MainActivity;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ItemViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -44,7 +47,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StepThreeFragment extends Fragment implements BlockingStep, View.OnClickListener{
+public class StepThreeFragment extends Fragment implements BlockingStep{
     public static final Integer RECORD_AUDIO_RESULT_CODE = 1;
     public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 2;
     public static final Integer RECORD_AUDIO_AMOUNT_RESULT_CODE = 3;
@@ -78,10 +81,23 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
     TextInputEditText etEducationalBenefit;
     @BindView(R.id.mainCont)
     LinearLayout mainCont;
-    @BindView(R.id.subCont)
-    LinearLayout subCont;
+    @BindView(R.id.subLayou1)
+    LinearLayout subLayou1;
+    @BindView(R.id.subLayou2)
+    LinearLayout subLayout2;
+    @BindView(R.id.buttonAddItem)
+    Button buttonAddItem;
+    @BindView(R.id.txtItem)
+    TextView txtItem;
+    @BindView(R.id.buttonSubmitForApproval)
+    Button buttonSubmitForApproval;
+    @BindView(R.id.buttonRequestAnotherReimbursement)
+    Button buttonRequestAnotherReimbursement;
+    @BindView(R.id.buttonCheckTheStatus)
+    Button buttonCheckTheStatus;
 
     private ArrayList<ItemViewModel>items;
+    private int itemPosition=1;
 
 
 
@@ -97,6 +113,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
 
        // speechRecognizer =  SpeechRecognizer.createSpeechRecognizer(getContext());
         items = new ArrayList<>();
+        txtItem.setText("ITEM" + " " +  itemPosition);
 
 //        final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 //        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -154,6 +171,51 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
 //
 //            }
 //        });
+
+        buttonSubmitForApproval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainCont.setVisibility(View.GONE);
+                subLayou1.setVisibility(View.GONE);
+                subLayout2.setVisibility(View.VISIBLE);
+            }
+        });
+        buttonRequestAnotherReimbursement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+           Intent intent = new Intent(getContext(), AddReimbursementActivity.class);
+           startActivity(intent);
+            }
+        });
+
+        buttonCheckTheStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        buttonAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(validateForm()){
+                    ItemViewModel itemViewModel = new ItemViewModel();
+                    itemViewModel.setPurchaseDate(new Date(etPurchaseDate.getText().toString().trim()));
+                    itemViewModel.setInvoice(etInvoice.getText().toString().trim());
+                    itemViewModel.setCategory(spinnerCategory.getText().toString().trim());
+                    itemViewModel.setAmount(Integer.valueOf(etAmount.getText().toString().trim()));
+                    itemViewModel.setEducationalBenefit(etEducationalBenefit.getText().toString().trim());
+
+                    items.add(itemViewModel);
+                    itemPosition++;
+                    txtItem.setText("ITEM" + " " + itemPosition);
+                    clearInputs();
+                }
+
+            }
+        });
 
         tilInvoice.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -308,6 +370,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
         return v;
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if ( resultCode == Activity.RESULT_OK) {
@@ -325,6 +388,24 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
             }
 
         }
+    }
+
+    private void clearInputs(){
+        etPurchaseDate.setText(null);
+        tilPurchaseDate.clearFocus();
+        tilPurchaseDate.setError(null);
+        etAmount.setText(null);
+        tilAmount.clearFocus();
+        tilAmount.setError(null);
+        etInvoice.setText(null);
+        tilInvoice.clearFocus();
+        tilInvoice.setError(null);
+        spinnerCategory.setText(null);
+        tilCategory.clearFocus();
+        tilCategory.setError(null);
+        etEducationalBenefit.setText(null);
+        tilEducationalBenefit.clearFocus();
+        tilEducationalBenefit.setError(null);
     }
 
     private void checkPermission() {
@@ -353,10 +434,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
         return sdf.format(date);
     }
-    @Override
-    public void onClick(View v) {
 
-    }
 
     @Nullable
     @Override
@@ -391,10 +469,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep, View.On
 
             items.add(itemViewModel);
             mainCont.setVisibility(View.GONE);
-            subCont.setVisibility(View.VISIBLE);
-
-
-
+            subLayou1.setVisibility(View.VISIBLE);
         }
 
     }
