@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.example.ema.R;
+import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.stepstone.stepper.BlockingStep;
@@ -50,12 +51,15 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     Animation fabOpen,fabClose,fabRClockwise,fabAntiRClockwise;
     LinearInterpolator interpolator=new LinearInterpolator();
     private Boolean isMenuOpen=false;
+    private ReimbursementViewModel reimbursement;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.step_two_fragment, container, false);
         ButterKnife.bind(this,v);
 
         initFabMain();
+        reimbursement = ReimbursementViewModel.getInstance();
 
         GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -181,6 +185,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
                 imageView.setImageBitmap(bitmap);
                 imageAdded = true;
+                reimbursement.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -189,6 +194,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
             bitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(bitmap);
             imageAdded = true;
+            reimbursement.setImageBitmap(bitmap);
 
         }
     }

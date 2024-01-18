@@ -37,6 +37,7 @@ import com.example.ema.MainActivity;
 import com.example.ema.R;
 import com.example.ema.adapters.ListItemReimbursementAdapter;
 import com.example.ema.viewmodels.ItemViewModel;
+import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -111,7 +112,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
     RecyclerView itemRecyclerView;
     @BindView(R.id.scrollView)
     ScrollView scrollView;
-
+    private ReimbursementViewModel reimbursementViewModel;
     private ArrayList<ItemViewModel>items;
     private int itemPosition=1;
 
@@ -130,6 +131,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
        // speechRecognizer =  SpeechRecognizer.createSpeechRecognizer(getContext());
         items = new ArrayList<>();
         txtItem.setText("ITEM" + " " +  itemPosition);
+        reimbursementViewModel = ReimbursementViewModel.getInstance();
 
 
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(getContext(), R.array.categories, android.R.layout.simple_spinner_dropdown_item);
@@ -212,15 +214,18 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         buttonRequestAnotherReimbursement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-           Intent intent = new Intent(getContext(), AddReimbursementActivity.class);
-           startActivity(intent);
+                reimbursementViewModel.setItems(items);
+                Intent intent = new Intent(getContext(), AddReimbursementActivity.class);
+                startActivity(intent);
             }
         });
 
         buttonCheckTheStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                reimbursementViewModel.setItems(items);
                 Intent intent = new Intent(getContext(), MainActivity.class);
+                MainActivity.DataHolder.setData(reimbursementViewModel);
                 startActivity(intent);
             }
         });
@@ -330,7 +335,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if(isFieldValid(etPurchaseDate)) {
-                        etPurchaseDate.setError(null);
+                        tilPurchaseDate.setError(null);
                     }else{
                         tilPurchaseDate.setError("Purchase date required.");
                     }
@@ -344,7 +349,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if(isFieldValid(etInvoice)) {
-                        etInvoice.setError(null);
+                        tilInvoice.setError(null);
                     }else{
                         tilInvoice.setError("Invoice # required.");
                     }
@@ -356,9 +361,41 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if(isDropDownFieldValid(spinnerCategory)) {
-                        spinnerCategory.setError(null);
+                        tilCategory.setError(null);
                     }else{
                         tilCategory.setError("Category required.");
+                    }
+                }else{
+                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        });
+
+        spinnerType.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if(isDropDownFieldValid(spinnerType)) {
+                        tilType.setError(null);
+                    }else{
+                        tilType.setError("Type required.");
+                    }
+                }else{
+                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        });
+
+        spinnerVendor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if(isDropDownFieldValid(spinnerVendor)) {
+                        tilVendor.setError(null);
+                    }else{
+                        tilVendor.setError("Vendor required.");
                     }
                 }else{
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -372,9 +409,21 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if(isFieldValid(etAmount)) {
-                        etAmount.setError(null);
+                        tilAmount.setError(null);
                     }else{
                         tilAmount.setError("Amount required.");
+                    }
+                }
+            }
+        });
+        etDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if(isFieldValid(etDescription)) {
+                        tilDescription.setError(null);
+                    }else{
+                        tilDescription.setError("Description required.");
                     }
                 }
             }
@@ -384,7 +433,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     if(isFieldValid(etEducationalBenefit)) {
-                        etEducationalBenefit.setError(null);
+                        tilEducationalBenefit.setError(null);
                     }else{
                         tilEducationalBenefit.setError("Educational benefit required.");
                     }
@@ -511,7 +560,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             itemRecyclerView.setLayoutManager(layoutManager);
-            ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items,getContext());
+            ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items,getContext(),reimbursementViewModel);
             itemRecyclerView.setAdapter(adapter);
 
         }

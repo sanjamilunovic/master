@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ItemViewModel;
+import com.example.ema.viewmodels.ReimbursementViewModel;
+
 import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,10 +19,12 @@ public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemR
     private ArrayList<ItemViewModel>lstItems;
     private Context context;
     private int totalAmount;
+    private ReimbursementViewModel reimbursementViewModel;
 
-    public ListItemReimbursementAdapter(ArrayList<ItemViewModel>lstItems, Context context){
+    public ListItemReimbursementAdapter(ArrayList<ItemViewModel>lstItems, Context context, ReimbursementViewModel reimbursementViewModel){
         this.lstItems = lstItems;
         this.context = context;
+        this.reimbursementViewModel = reimbursementViewModel;
 
     }
 
@@ -49,6 +53,7 @@ public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemR
             holder.totalLayout.setVisibility(View.VISIBLE);
             holder.txtTotalAmount.setText("$" + " " + totalAmount);
             holder.view.setVisibility(View.VISIBLE);
+            reimbursementViewModel.setAmount(totalAmount);
         }
 
 
