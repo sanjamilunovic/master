@@ -13,6 +13,48 @@
         <item>Instructional Material</item>
         <item>Private Full-Time Tutoring Services</item>
         <item>Standardized Testing Fees</item>
+        <item>Annual Home Education Evaulation Fees</item>
+        <item>Curriculum/Course</item>
+        <item>Part-Time Tutoring Services</item>
+        <item>Contracted Public School Services</item>
+        <item>Florida Virtual School (FLVS)</item>
+        <item>FLDOE Approved Online Course Providers</item>
+        <item>Eligible Postsecondary Institution or Program</item>
+        <item>FLDOE Approved Virtual Instruction Program (VIP) Providers</item>
+        <item>Eligible Private School</item>
+        <item>Choice Navigator</item>
+        <item>Preapprenticeship Programs</item>
+        <item>Pre-Authorization</item>
+    </string-array>
+
+
+    <string-array name="types">
+        <item>Digital Materials</item>
+        <item>Stand-Alone Online Class</item>
+        <item>Internet Resources</item>
+        <item>Physical Education Equipment/Supplies</item>
+        <item>Physical Education Instruction/Membership/Fees</item>
+        <item>Books</item>
+        <item>Music Supplies</item>
+        <item>Elective Courses</item>
+        <item>Field Trips</item>
+        <item>At-Home Classroom Furnishings</item>
+        <item>School Supplies</item>
+        <item>Learning Manipulatives/Creative Play Supplies</item>
+        <item>Educational Subscription Kits</item>
+        <item>Educational Software/Subscriptions</item>
 
     </string-array>
+
+    <string-array name="vendors">
+        <item>Select a Vendor</item>
+        <item>Apple Store</item>
+        <item>Books a Milion</item>
+        <item>Costco</item>
+        <item>Dell</item>
+        <item>Dollar General</item>
+        <item>Learning Express</item>
+
+    </string-array>
+
 </resources>

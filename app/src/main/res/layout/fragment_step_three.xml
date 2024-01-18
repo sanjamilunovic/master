@@ -148,7 +148,7 @@ android:orientation="vertical">
                 style="@style/AutoCompleteTextInputLayoutStyle">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/etType"
+                    android:id="@+id/spinnerType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none">
@@ -195,7 +195,7 @@ android:orientation="vertical">
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilPayment"
+                android:id="@+id/tilVendor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Who did you pay?"
@@ -204,7 +204,7 @@ android:orientation="vertical">
                 style="@style/AutoCompleteTextInputLayoutStyle">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/spinnerPayment"
+                    android:id="@+id/spinnerVendor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none">

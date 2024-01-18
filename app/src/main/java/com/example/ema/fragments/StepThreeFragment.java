@@ -67,14 +67,20 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
     TextInputLayout tilInvoice;
     @BindView(R.id.etInvoice)
     TextInputEditText etInvoice;
-    @BindView(R.id.spinnerCategory)
-    MaterialAutoCompleteTextView spinnerCategory;
-    @BindView(R.id.tilType)
-    TextInputLayout tilType;
+    @BindView(R.id.etDescription)
+    TextInputEditText etDescription;
     @BindView(R.id.tilDescription)
     TextInputLayout tilDescription;
-    @BindView(R.id.tilPayment)
-    TextInputLayout tilPayment;
+    @BindView(R.id.spinnerCategory)
+    MaterialAutoCompleteTextView spinnerCategory;
+    @BindView(R.id.spinnerType)
+    MaterialAutoCompleteTextView spinnerType;
+    @BindView(R.id.spinnerVendor)
+    MaterialAutoCompleteTextView spinnerVendor;
+    @BindView(R.id.tilType)
+    TextInputLayout tilType;
+    @BindView(R.id.tilVendor)
+    TextInputLayout tilVendor;
     @BindView(R.id.tilCategory)
     TextInputLayout tilCategory;
     @BindView(R.id.tilAmount)
@@ -124,6 +130,19 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
        // speechRecognizer =  SpeechRecognizer.createSpeechRecognizer(getContext());
         items = new ArrayList<>();
         txtItem.setText("ITEM" + " " +  itemPosition);
+
+
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(getContext(), R.array.categories, android.R.layout.simple_spinner_dropdown_item);
+        categoryAdapter.setDropDownViewResource(R.layout.drop_down_item);
+        spinnerCategory.setAdapter(categoryAdapter);
+
+        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(getContext(), R.array.types, android.R.layout.simple_spinner_dropdown_item);
+        typeAdapter.setDropDownViewResource(R.layout.drop_down_item);
+        spinnerType.setAdapter(typeAdapter);
+
+        ArrayAdapter<CharSequence> vendorAdapter = ArrayAdapter.createFromResource(getContext(), R.array.vendors, android.R.layout.simple_spinner_dropdown_item);
+        vendorAdapter.setDropDownViewResource(R.layout.drop_down_item);
+        spinnerVendor.setAdapter(vendorAdapter);
 
 //        final Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 //        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -295,19 +314,12 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             }
         });
 
-
-
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.categories, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.drop_down_item);
-
-        spinnerCategory.setAdapter(adapter);
         spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 tilType.setVisibility(View.VISIBLE);
                 tilDescription.setVisibility(View.VISIBLE);
-                tilPayment.setVisibility(View.VISIBLE);
+                tilVendor.setVisibility(View.VISIBLE);
                 tilCategory.setError(null);
 
             }
@@ -420,6 +432,15 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         etEducationalBenefit.setText(null);
         tilEducationalBenefit.clearFocus();
         tilEducationalBenefit.setError(null);
+        tilType.setError(null);
+        spinnerType.setText(null);
+        tilType.setVisibility(View.GONE);
+        tilVendor.setError(null);
+        spinnerVendor.setText(null);
+        tilVendor.setVisibility(View.GONE);
+        etDescription.setText(null);
+        tilDescription.clearFocus();
+        tilDescription.setError(null);
     }
 
     private void checkPermission() {
@@ -549,12 +570,33 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
                 tilEducationalBenefit.setError(null);
             }
 
+            if (!isDropDownFieldValid(spinnerType)) {
+                tilType.setError("Type required.");
+                tilType.requestFocus();
+            } else {
+                tilType.setError(null);
+            }
+            if (!isFieldValid(etDescription)) {
+                tilDescription.setError("Description required.");
+                tilDescription.setErrorIconDrawable(null);
+                tilDescription.requestFocus();
+            } else {
+                tilDescription.setError(null);
+            }
+            if (!isDropDownFieldValid(spinnerVendor)) {
+                tilVendor.setError("Type required.");
+                tilVendor.requestFocus();
+            } else {
+                tilVendor.setError(null);
+            }
+
         }
         return false;
     }
 
     private boolean isFormValid() {
-        return isFieldValid(etPurchaseDate) && isFieldValid(etInvoice) && isDropDownFieldValid(spinnerCategory) && isFieldValid(etAmount) && isFieldValid(etEducationalBenefit) ;
+        return isFieldValid(etPurchaseDate) && isFieldValid(etInvoice) && isDropDownFieldValid(spinnerCategory) && isFieldValid(etAmount) && isFieldValid(etEducationalBenefit)
+        && isDropDownFieldValid(spinnerType)  && isDropDownFieldValid(spinnerVendor) && isFieldValid(etDescription);
     }
 
     private boolean isFieldValid(TextInputEditText editText) {
