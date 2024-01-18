@@ -59,10 +59,6 @@
 
 </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/layout">
 
         <ImageView
             android:id="@+id/imageView"
@@ -71,24 +67,63 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
-            android:layout_above="@id/fabCamera"/>
+            android:layout_below="@+id/layout"/>
+
+        <LinearLayout
+            android:id="@+id/pictureLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:backgroundTint="@color/primaryBlue"
+                app:elevation="6dp"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/ic_gallery"
+                app:tint="@color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|end"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:backgroundTint="@color/primaryBlue"
-            app:tint="@color/white"
             app:elevation="6dp"
-            app:srcCompat="@drawable/icon_cam" />
+            app:fabSize="mini"
+            app:srcCompat="@drawable/icon_cam"
+            app:tint="@color/white" />
 
-    </RelativeLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:backgroundTint="@color/primaryRed"
+                app:elevation="6dp"
+                app:srcCompat="@drawable/upload"
+                app:tint="@color/white" />
+
+        </LinearLayout>
 
 
 </RelativeLayout>

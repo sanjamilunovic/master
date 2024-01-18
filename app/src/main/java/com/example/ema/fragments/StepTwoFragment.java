@@ -2,41 +2,32 @@ package com.example.ema.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.example.ema.R;
 import com.github.mmin18.widget.RealtimeBlurView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
-import java.io.File;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,27 +37,29 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     public static final int PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE = 2;
     @BindView(R.id.imageView)
     ImageView imageView;
+    @BindView(R.id.fabMain)
+    FloatingActionButton fabMain;
     @BindView(R.id.fabCamera)
     FloatingActionButton fabCamera;
+    @BindView(R.id.fabGallery)
+    FloatingActionButton fabGallery;
     Dialog dialog;
     Bitmap bitmap;
-    private Vibrator vibrator;
-    private ScaleGestureDetector scaleGestureDetector;
-    private float scaleFactor = 1.0f;
     private boolean imageAdded = false;
-    AlertDialog cameraAlertDialog;
+    private Float translationY=100f;
+    Animation fabOpen,fabClose,fabRClockwise,fabAntiRClockwise;
+    LinearInterpolator interpolator=new LinearInterpolator();
+    private Boolean isMenuOpen=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.step_two_fragment, container, false);
         ButterKnife.bind(this,v);
 
-        vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        fabCamera.setOnClickListener(this);
+        initFabMain();
 
         GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             @Override
             public void onLongPress(MotionEvent e) {
-                vibrate();
                 showFullScreenImage();
             }
         });
@@ -83,15 +76,20 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
         return v;
     }
 
-
-
-
-    private void vibrate() {
-        // Vibrirajte 500 milisekundi
-        if (vibrator.hasVibrator()) {
-            vibrator.vibrate(100);
-        }
+    public void initFabMain(){
+        fabMain.setOnClickListener(this);
+        fabCamera.setOnClickListener(this);
+        fabGallery.setOnClickListener(this);
+        fabCamera.setVisibility(View.GONE);
+        fabGallery.setVisibility(View.GONE);
+        fabGallery.setTranslationY(100f);
+        fabCamera.setTranslationY(100f);
+        fabOpen= AnimationUtils.loadAnimation(getContext(),R.anim.fab_open);
+        fabClose= AnimationUtils.loadAnimation(getContext(),R.anim.fab_close);
+        fabRClockwise=AnimationUtils.loadAnimation(getContext(),R.anim.rotate_clockwise);
+        fabAntiRClockwise=AnimationUtils.loadAnimation(getContext(),R.anim.rotate_anticlockwise);
     }
+
 
     private void showFullScreenImage() {
         dialog = new Dialog(getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);
@@ -130,46 +128,49 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     @Override
     public void onClick(View view) {
           switch(view.getId()){
+              case R.id.fabMain:
+                  if(isMenuOpen){
+                      closeMenu();
+                  }else {
+                      openMenu();
+                  }
+                  break;
+
               case R.id.fabCamera:
+                  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                  startActivityForResult(cameraIntent, 1);
+                  closeMenu();
+                  break;
 
-                  MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getContext());
-                  builder.setTitle("");
-
-                  LayoutInflater inflater = this.getLayoutInflater();
-
-                  View viewLayout = inflater.inflate(R.layout.bottom_dialog, null);
-                  builder.setView(viewLayout);
-
-                  viewLayout.findViewById(R.id.camera).setOnClickListener(new View.OnClickListener() {
-                      @Override
-                      public void onClick(View v) {
-                          Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                          startActivityForResult(cameraIntent, 1);
-                          cameraAlertDialog.dismiss();
-                      }
-                  });
-
-                  viewLayout.findViewById(R.id.gallery).setOnClickListener(new View.OnClickListener() {
-                      @Override
-                      public void onClick(View v) {
-                          Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+              case R.id.fabGallery:
+                  Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                           startActivityForResult(galleryIntent, PICK_PICTURE_FROM_GALLERY_EVENT_REQUEST_CODE);
-                          cameraAlertDialog.dismiss();
-
-                      }
-                  });
-
-                  viewLayout.findViewById(R.id.txtCancel).setOnClickListener(new View.OnClickListener() {
-                      @Override
-                      public void onClick(View v) {
-                          cameraAlertDialog.dismiss();
-                      }
-                  });
-                  cameraAlertDialog = builder.show();
+                          closeMenu();
 
                   break;
 
+
           }
+    }
+
+    private void openMenu(){
+        isMenuOpen=!isMenuOpen;
+        fabCamera.setVisibility(View.VISIBLE);
+        fabGallery.setVisibility(View.VISIBLE);
+        fabMain.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(500).start();
+        fabCamera.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(500).start();
+        fabGallery.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(500).start();
+
+    }
+
+    private void closeMenu(){
+        isMenuOpen=!isMenuOpen;
+        fabMain.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(500).start();
+        fabCamera.animate().translationY(50f).alpha(0f).setInterpolator(interpolator).setDuration(500).start();
+        fabGallery.animate().translationY(50f).alpha(0f).setInterpolator(interpolator).setDuration(500).start();
+        fabCamera.setVisibility(View.GONE);
+        fabGallery.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -184,7 +185,6 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 e.printStackTrace();
             }
         }else if (data.getExtras() != null) {
-            // Slika je snimljena kamerom
             Bundle extras = data.getExtras();
             bitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(bitmap);

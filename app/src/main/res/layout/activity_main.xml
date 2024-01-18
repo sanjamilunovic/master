@@ -44,10 +44,9 @@
                 <!-- Media -->
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="194dp"
+                    android:layout_height="50dp"
                     android:background="@color/transparentPrimaryBlue"
-                    android:scaleType="centerCrop"
-                    />
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
