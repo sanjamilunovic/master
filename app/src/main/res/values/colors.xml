@@ -8,4 +8,5 @@
     <color name="grey">#f7f7f7</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="defaultColor">#808080</color>
+    <color name="grey_transparent">#7Ff7f7f7</color>
 </resources>
