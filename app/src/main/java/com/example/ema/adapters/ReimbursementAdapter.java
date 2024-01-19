@@ -5,23 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ReimbursementViewModel;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdapter.ReimbursementViewHolder>{
     private ArrayList<ReimbursementViewModel> lstReimbursement;
     private Context context;
-    private ReimbursementViewModel reimbursementViewModel;
+
 
     public ReimbursementAdapter(ArrayList<ReimbursementViewModel>lstReimbursement, Context context){
         this.lstReimbursement = lstReimbursement;
@@ -53,11 +51,14 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
         holder.txtDate.setText(sdf.format(date));
-        holder.txtTotalAmount.setText(String.valueOf(reimbursementViewModel.getAmount()));
+        holder.txtTotalAmount.setText("$" + reimbursementViewModel.getAmount());
 
-
-
-
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.recyclerViewItems.setLayoutManager(layoutManager);
+        holder.recyclerViewItems.setHasFixedSize(true);
+        ItemAdapter itemAdapter = new ItemAdapter(reimbursementViewModel.getItems());
+        holder.recyclerViewItems.setAdapter(itemAdapter);
 
 
     }
@@ -73,6 +74,8 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         TextView txtTotalAmount;
         @BindView(R.id.txtStatus)
         TextView txtStatus;
+        @BindView(R.id.recyclerViewItems)
+        RecyclerView recyclerViewItems;
 
         public ReimbursementViewHolder(View itemView) {
             super(itemView);
