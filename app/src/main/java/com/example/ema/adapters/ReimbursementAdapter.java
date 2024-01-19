@@ -4,10 +4,18 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ReimbursementViewModel;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdapter.ReimbursementViewHolder>{
@@ -28,7 +36,7 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
 
     @Override
     public ReimbursementAdapter.ReimbursementViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_reimbursement, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_reimbursement, parent, false);
         ReimbursementAdapter.ReimbursementViewHolder viewHolder = new ReimbursementAdapter.ReimbursementViewHolder(v);
 
 
@@ -38,13 +46,33 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
     @Override
     public void onBindViewHolder(ReimbursementAdapter.ReimbursementViewHolder holder, int position) {
         ReimbursementViewModel reimbursementViewModel = lstReimbursement.get(position);
+        String[] stringArray = reimbursementViewModel.getStudent().split("[:]");
+        holder.txtStudent.setText(stringArray[0]);
+        holder.txtProgram.setText(stringArray[1]);
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+        holder.txtDate.setText(sdf.format(date));
+        holder.txtTotalAmount.setText(String.valueOf(reimbursementViewModel.getAmount()));
+
+
+
 
 
 
     }
 
     static class ReimbursementViewHolder extends RecyclerView.ViewHolder {
-
+        @BindView(R.id.txtStudent)
+        TextView txtStudent;
+        @BindView(R.id.txtProgram)
+        TextView txtProgram;
+        @BindView(R.id.txtDate)
+        TextView txtDate;
+        @BindView(R.id.txtTotalAmount)
+        TextView txtTotalAmount;
+        @BindView(R.id.txtStatus)
+        TextView txtStatus;
 
         public ReimbursementViewHolder(View itemView) {
             super(itemView);
