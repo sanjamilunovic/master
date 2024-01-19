@@ -239,8 +239,11 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
                     itemViewModel.setPurchaseDate(new Date(etPurchaseDate.getText().toString().trim()));
                     itemViewModel.setInvoice(etInvoice.getText().toString().trim());
                     itemViewModel.setCategory(spinnerCategory.getText().toString().trim());
+                    itemViewModel.setDescription(etDescription.getText().toString().trim());
+                    itemViewModel.setType(spinnerType.getText().toString().trim());
                     itemViewModel.setAmount(Integer.valueOf(etAmount.getText().toString().trim()));
                     itemViewModel.setEducationalBenefit(etEducationalBenefit.getText().toString().trim());
+                    itemViewModel.setVendor(spinnerVendor.getText().toString().trim());
 
                     items.add(itemViewModel);
                     itemPosition++;
@@ -549,8 +552,10 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             itemViewModel.setInvoice(etInvoice.getText().toString().trim());
             itemViewModel.setCategory(spinnerCategory.getText().toString().trim());
             itemViewModel.setAmount(Integer.valueOf(etAmount.getText().toString().trim()));
+            itemViewModel.setDescription(etDescription.getText().toString().trim());
+            itemViewModel.setType(spinnerType.getText().toString().trim());
+            itemViewModel.setVendor(spinnerVendor.getText().toString().trim());
             itemViewModel.setEducationalBenefit(etEducationalBenefit.getText().toString().trim());
-
             items.add(itemViewModel);
             mainCont.setVisibility(View.GONE);
             subLayou1.setVisibility(View.VISIBLE);

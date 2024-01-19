@@ -1,9 +1,14 @@
 package com.example.ema.adapters;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ema.ItemDetailActivity;
+import com.example.ema.MainActivity;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ItemViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -16,10 +21,12 @@ import butterknife.ButterKnife;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
     private ArrayList<ItemViewModel> lstItems;
     private int lastPositon;
+    private Context context;
 
 
-    public ItemAdapter(ArrayList<ItemViewModel>lstItems){
+    public ItemAdapter(ArrayList<ItemViewModel>lstItems, Context context){
         this.lstItems = lstItems;
+        this.context = context;
 
     }
 
@@ -61,6 +68,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     public void onClick(ItemViewModel item) {
+        Intent intent = new Intent(context, ItemDetailActivity.class);
+        ItemDetailActivity.DataHolder.setData(item);
+        context.startActivity(intent);
+
 
     }
 }

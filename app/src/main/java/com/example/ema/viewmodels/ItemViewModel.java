@@ -8,6 +8,9 @@ public class ItemViewModel {
     private String category;
     private int amount;
     private String educationalBenefit;
+    private String description;
+    private String type;
+    private String vendor;
 
     public Date getPurchaseDate() {
         return purchaseDate;
@@ -47,5 +50,29 @@ public class ItemViewModel {
 
     public void setEducationalBenefit(String educationalBenefit) {
         this.educationalBenefit = educationalBenefit;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 }
