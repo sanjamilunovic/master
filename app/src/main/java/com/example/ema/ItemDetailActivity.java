@@ -56,8 +56,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     TextView txtVendor;
     @BindView(R.id.txtEducationalBenefit)
     TextView txtEducationalBenefit;
-    @BindView(R.id.materialToolbar)
-    MaterialToolbar toolbar;
+
 
 
 
@@ -70,7 +69,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_detail);
         ButterKnife.bind(this);
 
-       setUpToolbar();
+
 
         if (ItemDetailActivity.DataHolder.hasData()) {
             itemViewModel = ItemDetailActivity.DataHolder.getData();
@@ -93,14 +92,14 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     }
 
-    private void setUpToolbar() {
-        setSupportActionBar(toolbar);
-        final ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowHomeEnabled(true);
-            ab.setDisplayShowTitleEnabled(false);
-        }
-        toolbar.setTitle("Item");
-    }
+//    private void setUpToolbar() {
+//        setSupportActionBar(toolbar);
+//        final ActionBar ab = getSupportActionBar();
+//        if (ab != null) {
+//            ab.setDisplayHomeAsUpEnabled(true);
+//            ab.setDisplayShowHomeEnabled(true);
+//            ab.setDisplayShowTitleEnabled(false);
+//        }
+//        toolbar.setTitle("Item");
+//    }
 }
