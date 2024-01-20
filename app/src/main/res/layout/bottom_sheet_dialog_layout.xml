@@ -9,22 +9,22 @@
 
     <ImageView
         android:id="@+id/iconImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/close_small"/>
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/close_ic"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="?attr/materialCardViewElevatedStyle"
-        app:cardBackgroundColor="#dadada"
+        app:cardBackgroundColor="@color/light_grey"
         android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#dadada"
+            android:background="@color/light_grey"
             android:orientation="vertical">
 
         <LinearLayout
@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:text="Purchase date"
                 android:gravity="start"
-                android:textStyle="bold"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?android:attr/textColorSecondary" />
 
@@ -49,6 +48,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
+                android:textStyle="bold"
                 android:textColor="?android:attr/textColorSecondary"
                 />
         </LinearLayout>
@@ -72,7 +72,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Invoice #"
-                android:textStyle="bold"
                 android:gravity="start"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?android:attr/textColorSecondary" />
@@ -83,6 +82,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
+                android:textStyle="bold"
                 android:textColor="?android:attr/textColorSecondary"
                 />
         </LinearLayout>
@@ -105,7 +105,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Category"
-                    android:textStyle="bold"
                     android:gravity="start"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
@@ -116,6 +115,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:textStyle="bold"
                     android:textColor="?android:attr/textColorSecondary"
                     />
             </LinearLayout>
@@ -138,7 +138,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Type"
-                    android:textStyle="bold"
                     android:gravity="start"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
@@ -149,6 +148,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:textStyle="bold"
                     android:textColor="?android:attr/textColorSecondary"
                     />
             </LinearLayout>
@@ -172,7 +172,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Amount"
-                    android:textStyle="bold"
                     android:gravity="start"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
@@ -183,6 +182,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:textStyle="bold"
                     android:textColor="?android:attr/textColorSecondary"
                     />
             </LinearLayout>
@@ -205,9 +205,8 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Description"
-                    android:textStyle="bold"
                     android:gravity="start"
+                    android:text="Description"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
 
@@ -217,6 +216,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:textStyle="bold"
                     android:textColor="?android:attr/textColorSecondary"
                     />
             </LinearLayout>
@@ -241,7 +241,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Who did you pay?"
-                    android:textStyle="bold"
                     android:gravity="start"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
@@ -252,6 +251,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:textStyle="bold"
                     android:textColor="?android:attr/textColorSecondary"
                     />
             </LinearLayout>
@@ -276,7 +276,6 @@
                     android:layout_height="wrap_content"
                     android:text="Educational Benefits"
                     android:gravity="start"
-                    android:textStyle="bold"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
 
@@ -286,6 +285,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:textStyle="bold"
                     android:textColor="?android:attr/textColorSecondary"
                     />
             </LinearLayout>

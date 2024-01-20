@@ -80,8 +80,6 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         TextView txtDate;
         @BindView(R.id.txtTotalAmount)
         TextView txtTotalAmount;
-        @BindView(R.id.txtStatus)
-        TextView txtStatus;
         @BindView(R.id.recyclerViewItems)
         RecyclerView recyclerViewItems;
         @BindView(R.id.imageViewExpandCollapse)
