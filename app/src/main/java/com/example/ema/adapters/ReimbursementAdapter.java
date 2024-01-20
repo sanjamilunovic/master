@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import butterknife.ButterKnife;
 public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdapter.ReimbursementViewHolder>{
     private ArrayList<ReimbursementViewModel> lstReimbursement;
     private Context context;
+    private boolean isExpanded = false;
 
 
     public ReimbursementAdapter(ArrayList<ReimbursementViewModel>lstReimbursement, Context context){
@@ -53,13 +55,19 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         holder.txtDate.setText(sdf.format(date));
         holder.txtTotalAmount.setText("$" + reimbursementViewModel.getAmount());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        holder.recyclerViewItems.setLayoutManager(layoutManager);
-        holder.recyclerViewItems.setHasFixedSize(true);
-        ItemAdapter itemAdapter = new ItemAdapter(reimbursementViewModel.getItems(),context);
-        holder.recyclerViewItems.setAdapter(itemAdapter);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+//        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        holder.recyclerViewItems.setLayoutManager(layoutManager);
+//        holder.recyclerViewItems.setHasFixedSize(true);
+//        ItemAdapter itemAdapter = new ItemAdapter(reimbursementViewModel.getItems(),context);
+//        holder.recyclerViewItems.setAdapter(itemAdapter);
 
+        holder.imageViewExpandCollapse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleExpandCollapse(holder,reimbursementViewModel);
+            }
+        });
 
     }
 
@@ -76,10 +84,30 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         TextView txtStatus;
         @BindView(R.id.recyclerViewItems)
         RecyclerView recyclerViewItems;
+        @BindView(R.id.imageViewExpandCollapse)
+        ImageView imageViewExpandCollapse;
 
         public ReimbursementViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    private void toggleExpandCollapse(ReimbursementAdapter.ReimbursementViewHolder holder,ReimbursementViewModel reimbursementViewModel) {
+        isExpanded = !isExpanded;
+        if (isExpanded) {
+            holder.recyclerViewItems.setVisibility(View.VISIBLE);
+            holder.imageViewExpandCollapse.setImageResource(R.drawable.expand_less);
+        } else {
+            holder.recyclerViewItems.setVisibility(View.GONE);
+            holder.imageViewExpandCollapse.setImageResource(R.drawable.expand_more);
+        }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        holder.recyclerViewItems.setLayoutManager(layoutManager);
+        holder.recyclerViewItems.setHasFixedSize(true);
+        ItemAdapter itemAdapter = new ItemAdapter(reimbursementViewModel.getItems(),context);
+        holder.recyclerViewItems.setAdapter(itemAdapter);
     }
 }

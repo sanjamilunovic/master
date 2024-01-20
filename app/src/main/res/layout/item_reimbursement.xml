@@ -187,21 +187,37 @@
                 android:background="@color/defaultColor"
                 />
 
-            <TextView
-                android:id="@+id/txtLabelItems"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Items"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:padding="8dp"
-                android:textAppearance="?attr/textAppearanceTitleMedium"
-                />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtLabelItems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Items"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+
+                <ImageView
+                    android:id="@+id/imageViewExpandCollapse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_marginTop="4dp"
+                    android:src="@drawable/expand_more"
+                    android:clickable="true"/>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewItems"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
             </androidx.recyclerview.widget.RecyclerView>
             <LinearLayout
                 android:layout_width="match_parent"

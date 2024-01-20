@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +21,6 @@ import butterknife.ButterKnife;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
     private ArrayList<ItemViewModel> lstItems;
-    private int lastPositon;
     private Context context;
 
 
@@ -47,18 +47,21 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(ItemAdapter.ItemViewHolder holder, int position) {
         ItemViewModel item = lstItems.get(position);
-        lastPositon = position+1;
-        holder.btnItem.setText("Item " + lastPositon);
-
-        holder.btnItem.setOnClickListener(v -> onClick(item));
+        holder.textViewDescription.setText(item.getDescription());
+        holder.textViewAmount.setText("$" + item.getAmount());
+        holder.contMain.setOnClickListener(v -> onClick(item));
 
 
 
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.btnItem)
-        MaterialButton btnItem;
+        @BindView(R.id.textViewDescription)
+        TextView textViewDescription;
+        @BindView(R.id.textViewAmount)
+        TextView textViewAmount;
+        @BindView(R.id.contMain)
+        LinearLayout contMain;
 
 
         public ItemViewHolder(View itemView) {
