@@ -55,10 +55,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void onBindViewHolder(ItemAdapter.ItemViewHolder holder, int position) {
         ItemViewModel item = lstItems.get(position);
         holder.textViewDescription.setText(item.getDescription());
-        holder.textViewAmount.setText("$" + item.getAmount());
+        holder.textViewAmount.setText("$" + String.valueOf(item.getAmount()));
+
         holder.contMain.setOnClickListener(v -> onClick(item));
-
-
 
     }
 
@@ -78,10 +77,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     public void onClick(ItemViewModel item) {
-//        Intent intent = new Intent(context, ItemDetailActivity.class);
-//        ItemDetailActivity.DataHolder.setData(item);
-//        context.startActivity(intent);
-
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.bottom_sheet_dialog_layout);

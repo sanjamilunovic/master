@@ -102,7 +102,7 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         holder.recyclerViewItems.setLayoutManager(layoutManager);
         holder.recyclerViewItems.setHasFixedSize(true);
         ItemAdapter itemAdapter = new ItemAdapter(reimbursementViewModel.getItems(),context);
