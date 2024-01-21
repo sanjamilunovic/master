@@ -36,7 +36,7 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     private Context context;
     AddItemAdapter.AddItemViewHolder currentViewHolder;
     private StepThreeFragment fragment;
-    private int lastPosition;
+    private int lastSelectedPosition=0;
     public static final Integer RECORD_AUDIO_RESULT_CODE = 1;
     public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 2;
     public static final Integer RECORD_AUDIO_AMOUNT_RESULT_CODE = 3;
@@ -233,9 +233,8 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     @Override
     public void onBindViewHolder(AddItemAdapter.AddItemViewHolder holder, int position) {
             ItemViewModel item = lstItems.get(position);
-            lastPosition = position+1;
-            holder.txtItem.setText("Item" + " " + lastPosition);
-            holder.mainCont.setOnClickListener(v -> onClick(holder));
+//            holder.txtItem.setText("Item" + " " + (position+1));
+            holder.mainCont.setOnClickListener(v -> onClick(holder,position));
 
 
     }
@@ -284,7 +283,8 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         }
     }
 
-    private void onClick(AddItemAdapter.AddItemViewHolder holder){
+    private void onClick(AddItemAdapter.AddItemViewHolder holder,int position){
+        this.lastSelectedPosition = position;
         currentViewHolder = holder;
     }
 
@@ -404,7 +404,7 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     }
 
     public void saveData(){
-        ItemViewModel itemViewModel = new ItemViewModel();
+        ItemViewModel itemViewModel = lstItems.get(lastSelectedPosition);
         itemViewModel.setPurchaseDate(new Date(currentViewHolder.etPurchaseDate.getText().toString().trim()));
         itemViewModel.setInvoice(currentViewHolder.etInvoice.getText().toString().trim());
         itemViewModel.setCategory(currentViewHolder.spinnerCategory.getText().toString().trim());
@@ -413,11 +413,12 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         itemViewModel.setType(currentViewHolder.spinnerType.getText().toString().trim());
         itemViewModel.setVendor(currentViewHolder.spinnerVendor.getText().toString().trim());
         itemViewModel.setEducationalBenefit(currentViewHolder.etEducationalBenefit.getText().toString().trim());
-        fragment.addToTheList(itemViewModel);
+        lstItems.set(lastSelectedPosition,itemViewModel);
     }
 
-    public void showNewItem(){
+    public void showNewItem(ArrayList<ItemViewModel>items){
         lstItems.add(new ItemViewModel());
+        notifyItemInserted(lstItems.size()-1);
         notifyDataSetChanged();
     }
 

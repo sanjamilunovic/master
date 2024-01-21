@@ -1,59 +1,83 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="top"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/mainCont"
+    <ScrollView
+        android:id="@+id/scrollViewRecipe"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="top"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layStartLoading">
 
-        <TextView
-            android:id="@+id/txtlabel"
+        <LinearLayout
+            android:id="@+id/mainCont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtlabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="Please enter the requested information below"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtlabel1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="Providing accurate details now, ensures no delays occur while processing reimbursements."
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/txtlabel2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="Please use 'Add item' for each line item of your receipt/invoice."
+                android:textSize="14dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/addItemRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/layStartLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/buttonSaveItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:text="Please enter the requested information below"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtlabel1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:text="Providing accurate details now, ensures no delays occur while processing reimbursements."
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/txtlabel2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center"
-            android:text="Please use 'Add item' for each line item of your receipt/invoice."
-            android:textSize="14dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/addItemRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/primaryBlue"
+            android:text="Save item"
+            android:textColor="@color/white" />
 
     <Button
         android:id="@+id/buttonAddItem"
@@ -64,6 +88,9 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/primaryBlue"
         android:text="Add item"
+        android:visibility="gone"
         android:textColor="@color/white" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

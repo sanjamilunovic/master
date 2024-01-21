@@ -67,6 +67,8 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 //    LinearLayout subLayout2;
     @BindView(R.id.buttonAddItem)
     Button buttonAddItem;
+    @BindView(R.id.buttonSaveItem)
+    Button buttonSaveItem;
 //    @BindView(R.id.buttonSubmitForApproval)
 //    Button buttonSubmitForApproval;
 //    @BindView(R.id.buttonRequestAnotherReimbursement)
@@ -125,18 +127,32 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 //        });
 
 
-        buttonAddItem.setOnClickListener(new View.OnClickListener() {
+        buttonSaveItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(addItemAdapter.validateForm()){
-                    addItemAdapter.saveData();
-                    addItemAdapter.showNewItem();
+                        addItemAdapter.saveData();
+                        buttonSaveItem.setVisibility(View.GONE);
+                        buttonAddItem.setVisibility(View.VISIBLE);
+
                 }
 
             }
         });
+        buttonAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    buttonSaveItem.setVisibility(View.VISIBLE);
+                    buttonAddItem.setVisibility(View.GONE);
+                    addItemAdapter.showNewItem(items);
+
+
+
+            }
+        });
+        //items.add(new ItemViewModel());
         items.add(new ItemViewModel());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         addItemRecyclerView.setLayoutManager(layoutManager);
         addItemAdapter = new AddItemAdapter(items,getContext(),this);
         addItemRecyclerView.setAdapter(addItemAdapter);
@@ -208,10 +224,6 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 
         }
 
-    }
-
-    public void addToTheList(ItemViewModel item){
-        items.add(item);
     }
 
     @Override
