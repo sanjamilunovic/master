@@ -73,19 +73,10 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
         initFabMain();
         reimbursement = ReimbursementViewModel.getInstance();
 
-        GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onLongPress(MotionEvent e) {
+            public void onClick(View view) {
                 showFullScreenImage();
-            }
-        });
-
-        imageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                gestureDetector.onTouchEvent(event);
-
-                return true;
             }
         });
 
@@ -238,27 +229,13 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 InputStream inputStream = getContext().getContentResolver().openInputStream(photoURI);
                 ExifInterface exif = new ExifInterface(inputStream);
                 int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-                Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoURI);
+                bitmap = android.provider.MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoURI);
                 bitmap = rotateBitmap(bitmap, orientation);
                 imageView.setImageBitmap(bitmap);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-    }
-
-    public String getRealPathFromUri(Uri uri) {
-        String realPath = null;
-        String[] projection = {MediaStore.Images.Media.DATA};
-
-        try (Cursor cursor = getContext().getContentResolver().query(uri, projection, null, null, null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                realPath = cursor.getString(columnIndex);
-            }
-        }
-
-        return realPath;
     }
 
     private Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
