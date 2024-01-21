@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +42,7 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     private Context context;
     AddItemAdapter.AddItemViewHolder currentViewHolder;
     private StepThreeFragment fragment;
-    private int lastSelectedPosition=0;
+    private int lastSelectedPosition = 0;
     public static final Integer RECORD_AUDIO_RESULT_CODE = 1;
     public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 2;
     public static final Integer RECORD_AUDIO_AMOUNT_RESULT_CODE = 3;
@@ -240,7 +241,7 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     @Override
     public void onBindViewHolder(AddItemAdapter.AddItemViewHolder holder, int position) {
             ItemViewModel item = lstItems.get(position);
-            holder.txtItem.setText("Item" + " " + position);
+            holder.txtItem.setText("Item" + " " + (position+1));
             holder.mainCont.setOnClickListener(v -> onClick(holder,position));
             holder.cardViewCont.setOnClickListener(v -> onCardViewClick(holder));
 
@@ -304,7 +305,7 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         if(holder!=currentViewHolder) {
             currentViewHolder.detailsLayout.setVisibility(View.GONE);
             int cardViewVisibility = (holder.detailsLayout.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-            TransitionManager.beginDelayedTransition(holder.detailsLayout, new AutoTransition());
+            //TransitionManager.beginDelayedTransition(holder.detailsLayout, new AutoTransition());
             holder.detailsLayout.setVisibility(cardViewVisibility);
             currentViewHolder = holder;
         }
@@ -436,12 +437,14 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         itemViewModel.setVendor(currentViewHolder.spinnerVendor.getText().toString().trim());
         itemViewModel.setEducationalBenefit(currentViewHolder.etEducationalBenefit.getText().toString().trim());
         lstItems.set(lastSelectedPosition,itemViewModel);
+        currentViewHolder.detailsLayout.setVisibility(View.GONE);
+        Toast.makeText(context,"Item saved.",Toast.LENGTH_SHORT).show();
     }
 
     public void showNewItem(ArrayList<ItemViewModel>items){
         lstItems.add(new ItemViewModel());
         notifyItemInserted(lstItems.size()-1);
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
 
