@@ -61,20 +61,20 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
     public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 2;
     public static final Integer RECORD_AUDIO_AMOUNT_RESULT_CODE = 3;
     public static final Integer RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE = 4;
-    @BindView(R.id.subLayou1)
-    LinearLayout subLayou1;
-    @BindView(R.id.subLayou2)
-    LinearLayout subLayout2;
+//    @BindView(R.id.subLayou1)
+//    LinearLayout subLayou1;
+//    @BindView(R.id.subLayou2)
+//    LinearLayout subLayout2;
     @BindView(R.id.buttonAddItem)
     Button buttonAddItem;
-    @BindView(R.id.buttonSubmitForApproval)
-    Button buttonSubmitForApproval;
-    @BindView(R.id.buttonRequestAnotherReimbursement)
-    Button buttonRequestAnotherReimbursement;
-    @BindView(R.id.buttonCheckTheStatus)
-    Button buttonCheckTheStatus;
-    @BindView(R.id.itemRecyclerView)
-    RecyclerView itemRecyclerView;
+//    @BindView(R.id.buttonSubmitForApproval)
+//    Button buttonSubmitForApproval;
+//    @BindView(R.id.buttonRequestAnotherReimbursement)
+//    Button buttonRequestAnotherReimbursement;
+//    @BindView(R.id.buttonCheckTheStatus)
+//    Button buttonCheckTheStatus;
+//    @BindView(R.id.itemRecyclerView)
+//    RecyclerView itemRecyclerView;
     @BindView(R.id.addItemRecyclerView)
     RecyclerView addItemRecyclerView;
 
@@ -97,32 +97,32 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         items = new ArrayList<>();
         reimbursementViewModel = ReimbursementViewModel.getInstance();
 
-        buttonSubmitForApproval.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // mainCont.setVisibility(View.GONE);
-                subLayou1.setVisibility(View.GONE);
-                subLayout2.setVisibility(View.VISIBLE);
-            }
-        });
-        buttonRequestAnotherReimbursement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reimbursementViewModel.setItems(items);
-                Intent intent = new Intent(getContext(), AddReimbursementActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        buttonCheckTheStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reimbursementViewModel.setItems(items);
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                MainActivity.DataHolder.setData(reimbursementViewModel);
-                startActivity(intent);
-            }
-        });
+//        buttonSubmitForApproval.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               // mainCont.setVisibility(View.GONE);
+//                subLayou1.setVisibility(View.GONE);
+//                subLayout2.setVisibility(View.VISIBLE);
+//            }
+//        });
+//        buttonRequestAnotherReimbursement.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                reimbursementViewModel.setItems(items);
+//                Intent intent = new Intent(getContext(), AddReimbursementActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        buttonCheckTheStatus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                reimbursementViewModel.setItems(items);
+//                Intent intent = new Intent(getContext(), MainActivity.class);
+//                MainActivity.DataHolder.setData(reimbursementViewModel);
+//                startActivity(intent);
+//            }
+//        });
 
 
         buttonAddItem.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +130,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             public void onClick(View v) {
                 if(addItemAdapter.validateForm()){
                     addItemAdapter.saveData();
+                    addItemAdapter.showNewItem();
                 }
 
             }
@@ -195,15 +196,15 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             addItemAdapter.saveData();
 
            // mainCont.setVisibility(View.GONE);
-            subLayou1.setVisibility(View.VISIBLE);
+          //  subLayou1.setVisibility(View.VISIBLE);
 
             callback.getStepperLayout().setCompleteButtonColor(getResources().getColor(R.color.white));
             callback.getStepperLayout().setCompleteButtonEnabled(false);
 
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-            itemRecyclerView.setLayoutManager(layoutManager);
-            ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items,getContext(),reimbursementViewModel);
-            itemRecyclerView.setAdapter(adapter);
+//            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//            itemRecyclerView.setLayoutManager(layoutManager);
+//            ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items,getContext(),reimbursementViewModel);
+//            itemRecyclerView.setAdapter(adapter);
 
         }
 
@@ -216,8 +217,8 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
       //  mainCont.setVisibility(View.VISIBLE);
-        subLayou1.setVisibility(View.GONE);
-        subLayout2.setVisibility(View.GONE);
+//        subLayou1.setVisibility(View.GONE);
+//        subLayout2.setVisibility(View.GONE);
         callback.getStepperLayout().setCompleteButtonColor(getResources().getColor(R.color.primaryRed));
         callback.getStepperLayout().setCompleteButtonEnabled(true);
 

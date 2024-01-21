@@ -416,5 +416,10 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         fragment.addToTheList(itemViewModel);
     }
 
+    public void showNewItem(){
+        lstItems.add(new ItemViewModel());
+        notifyDataSetChanged();
+    }
+
 
 }
