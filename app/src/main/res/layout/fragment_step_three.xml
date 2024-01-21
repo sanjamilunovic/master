@@ -1,10 +1,9 @@
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="top"
-android:orientation="vertical">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/mainCont"
@@ -13,370 +12,189 @@ android:orientation="vertical">
         android:layout_gravity="top"
         android:orientation="vertical">
 
-<TextView
-    android:id="@+id/txtlabel"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:gravity="center"
-    android:textSize="18dp"
-    android:textStyle="bold"
-    android:text="Please enter the requested information below"/>
-
-<TextView
-    android:id="@+id/txtlabel1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginTop="16dp"
-    android:gravity="center"
-    android:textSize="14dp"
-    android:text="Providing accurate details now, ensures no delays occur while processing reimbursements."/>
-
-<TextView
-    android:id="@+id/txtlabel2"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginTop="16dp"
-    android:gravity="center"
-    android:textSize="14dp"
-    android:text="Please use 'Add item' for each line item of your receipt/invoice."/>
-
-<com.google.android.material.card.MaterialCardView
-    android:id="@+id/cardView"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp">
-
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:fadeScrollbars="false">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/txtItem"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilPurchaseDate"
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Purchase Date"
-                app:helperText="mm/dd/yyyy"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/date_icon"
-                style="@style/TextInputLayoutStyle">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPurchaseDate"
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:endIconTint="@color/primaryBlue"
-                    android:inputType="text"/>
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilInvoice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                style="@style/TextInputLayoutStyle"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/ic_mic"
-                android:hint="Invoice #">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etInvoice"
-                    style="@style/TextInputLayoutStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Category"
-                android:layout_marginTop="16dp"
-                style="@style/AutoCompleteTextInputLayoutStyle">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/spinnerCategory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none">
-                </com.google.android.material.textfield.MaterialAutoCompleteTextView>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Type"
-                android:visibility="gone"
-                android:layout_marginTop="16dp"
-                style="@style/AutoCompleteTextInputLayoutStyle">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/spinnerType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none">
-                </com.google.android.material.textfield.MaterialAutoCompleteTextView>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                style="@style/TextInputLayoutStyle"
-                android:visibility="gone"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/ic_mic"
-                android:hint="Description">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etDescription"
-                    style="@style/TextInputLayoutStyle"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                style="@style/TextInputLayoutStyle"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/ic_mic"
-                android:hint="Amount">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etAmount"
-                    style="@style/TextInputLayoutStyle"
-                    android:inputType="number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilVendor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Who did you pay?"
-                android:visibility="gone"
-                android:layout_marginTop="16dp"
-                style="@style/AutoCompleteTextInputLayoutStyle">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:id="@+id/spinnerVendor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none">
-                </com.google.android.material.textfield.MaterialAutoCompleteTextView>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilEducationalBenefit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                style="@style/TextInputLayoutStyle"
-                app:endIconMode="custom"
-                app:endIconDrawable="@drawable/ic_mic"
-                android:hint="Educational Benefit">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etEducationalBenefit"
-                    style="@style/TextInputLayoutStyle"
-                    android:inputType="text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-    </ScrollView>
-</com.google.android.material.card.MaterialCardView>
-
-   <Button
-    android:id="@+id/buttonAddItem"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="0"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="16dp"
-    android:backgroundTint="@color/primaryBlue"
-    android:text="Add item"
-    android:textColor="@color/white"
-       android:layout_alignParentBottom="true"/>
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:id="@+id/subLayou1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:orientation="vertical">
-
         <TextView
-            android:id="@+id/txtReview"
+            android:id="@+id/txtlabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
+            android:text="Please enter the requested information below"
             android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/primaryBlue"
-            android:text="Review your purchases"/>
-
-        <RelativeLayout
-            android:id="@+id/itemsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/itemRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <Button
-                android:id="@+id/buttonSubmitForApproval"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/primaryRed"
-                android:text="Submit for approval"
-                android:textColor="@color/white"
-                android:layout_alignParentBottom="true" />
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/subLayou2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:orientation="vertical">
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtTitle"
+            android:id="@+id/txtlabel1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/primaryBlue"
-            android:text="Thank you! We received your reimbursement request."/>
+            android:text="Providing accurate details now, ensures no delays occur while processing reimbursements."
+            android:textSize="14dp" />
 
         <TextView
-            android:id="@+id/txtMessage"
+            android:id="@+id/txtlabel2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:textSize="16dp"
-            android:textColor="@color/primaryBlue"
-            android:text="One of our team members will review your reimbursement soon. You will receive a notification via email once your reimbursement has been processed, or you can check back here for status updates."/>
+            android:text="Please use 'Add item' for each line item of your receipt/invoice."
+            android:textSize="14dp" />
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/addItemRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/buttonRequestAnotherReimbursement"
+                android:id="@+id/buttonAddItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/primaryRed"
-                android:text="Request another reimbursement"
-                android:textColor="@color/white"
-                android:layout_alignParentBottom="true" />
-
-            <Button
-                android:id="@+id/buttonCheckTheStatus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_alignParentBottom="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/primaryBlue"
-                android:text="Check the status"
-                android:textColor="@color/white"
-                android:layout_above="@id/buttonRequestAnotherReimbursement" />
-
+                android:text="Add item"
+                android:textColor="@color/white" />
         </RelativeLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/subLayou1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txtReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="Review your purchases"
+                android:textColor="@color/primaryBlue"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/itemsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/itemRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <Button
+                    android:id="@+id/buttonSubmitForApproval"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/primaryRed"
+                    android:text="Submit for approval"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/subLayou2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="Thank you! We received your reimbursement request."
+                android:textColor="@color/primaryBlue"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                android:text="One of our team members will review your reimbursement soon. You will receive a notification via email once your reimbursement has been processed, or you can check back here for status updates."
+                android:textColor="@color/primaryBlue"
+                android:textSize="16dp" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/buttonRequestAnotherReimbursement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/primaryRed"
+                    android:text="Request another reimbursement"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/buttonCheckTheStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@id/buttonRequestAnotherReimbursement"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/primaryBlue"
+                    android:text="Check the status"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 
