@@ -338,6 +338,9 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     }
 
     private boolean isFormValid() {
+        if(currentViewHolder==null && lstItems.size()>0){
+            return true;
+        }
         return isFieldValid(currentViewHolder.etPurchaseDate) && isFieldValid(currentViewHolder.etInvoice) && isDropDownFieldValid(currentViewHolder.spinnerCategory) && isFieldValid(currentViewHolder.etAmount) && isFieldValid(currentViewHolder.etEducationalBenefit)
                 && isDropDownFieldValid(currentViewHolder.spinnerType)  && isDropDownFieldValid(currentViewHolder.spinnerVendor) && isFieldValid(currentViewHolder.etDescription);
     }
@@ -432,18 +435,20 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     }
 
     public void saveData(){
-        ItemViewModel itemViewModel = lstItems.get(lastSelectedPosition);
-        itemViewModel.setPurchaseDate(new Date(currentViewHolder.etPurchaseDate.getText().toString().trim()));
-        itemViewModel.setInvoice(currentViewHolder.etInvoice.getText().toString().trim());
-        itemViewModel.setCategory(currentViewHolder.spinnerCategory.getText().toString().trim());
-        itemViewModel.setAmount(Integer.valueOf(currentViewHolder.etAmount.getText().toString().trim()));
-        itemViewModel.setDescription(currentViewHolder.etDescription.getText().toString().trim());
-        itemViewModel.setType(currentViewHolder.spinnerType.getText().toString().trim());
-        itemViewModel.setVendor(currentViewHolder.spinnerVendor.getText().toString().trim());
-        itemViewModel.setEducationalBenefit(currentViewHolder.etEducationalBenefit.getText().toString().trim());
-        lstItems.set(lastSelectedPosition,itemViewModel);
-        currentViewHolder.detailsLayout.setVisibility(View.GONE);
-        Toast.makeText(context,"Item saved.",Toast.LENGTH_SHORT).show();
+        if(currentViewHolder!=null) {
+            ItemViewModel itemViewModel = lstItems.get(lastSelectedPosition);
+            itemViewModel.setPurchaseDate(new Date(currentViewHolder.etPurchaseDate.getText().toString().trim()));
+            itemViewModel.setInvoice(currentViewHolder.etInvoice.getText().toString().trim());
+            itemViewModel.setCategory(currentViewHolder.spinnerCategory.getText().toString().trim());
+            itemViewModel.setAmount(Integer.valueOf(currentViewHolder.etAmount.getText().toString().trim()));
+            itemViewModel.setDescription(currentViewHolder.etDescription.getText().toString().trim());
+            itemViewModel.setType(currentViewHolder.spinnerType.getText().toString().trim());
+            itemViewModel.setVendor(currentViewHolder.spinnerVendor.getText().toString().trim());
+            itemViewModel.setEducationalBenefit(currentViewHolder.etEducationalBenefit.getText().toString().trim());
+            lstItems.set(lastSelectedPosition, itemViewModel);
+            currentViewHolder.detailsLayout.setVisibility(View.GONE);
+            Toast.makeText(context, "Item saved.", Toast.LENGTH_SHORT).show();
+        }
 
 
     }
@@ -462,6 +467,8 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
             lstItems.add(new ItemViewModel());
         }
         notifyItemInserted(lstItems.size()-1);
+        fragment.changeButtons();
+        currentViewHolder = null;
 
     }
 

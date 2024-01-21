@@ -259,4 +259,10 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"en-US");
         startActivityForResult(intent, requestCode);
     }
+
+    public void changeButtons(){
+        buttonAddItem.setVisibility(View.VISIBLE);
+        buttonSaveItem.setVisibility(View.GONE);
+
+    }
 }
