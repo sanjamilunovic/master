@@ -21,13 +21,29 @@
                 app:cardBackgroundColor="@color/light_grey"
                 android:padding="8dp">
 
-                <TextView
-                    android:id="@+id/txtItem"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtItem"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
                     android:textSize="18dp"
                     android:textStyle="bold"/>
+
+                    <ImageView
+                        android:id="@+id/iconDelete"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:gravity="end"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/primaryBlue"/>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/detailsLayout"

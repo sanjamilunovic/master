@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -245,6 +246,7 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
             holder.txtItem.setText("Item" + " " + (position+1));
             holder.mainCont.setOnClickListener(v -> onClick(holder,position));
             holder.cardViewCont.setOnClickListener(v -> onCardViewClick(holder));
+            holder.iconDelete.setOnClickListener(v -> deleteItem(position));
 
 
     }
@@ -290,6 +292,8 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         CardView cardViewCont;
         @BindView(R.id.detailsLayout)
         LinearLayout detailsLayout;
+        @BindView(R.id.iconDelete)
+        ImageView iconDelete;
 
         public AddItemViewHolder(View itemView) {
             super(itemView);
@@ -448,6 +452,17 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         lstItems.add(new ItemViewModel());
         notifyItemInserted(lstItems.size()-1);
         currentViewHolder.detailsLayout.setVisibility(View.GONE);
+    }
+
+    private void deleteItem(int position){
+        lstItems.remove(position);
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
+        if(lstItems.size()==0){
+            lstItems.add(new ItemViewModel());
+        }
+        notifyItemInserted(lstItems.size()-1);
+
     }
 
 
