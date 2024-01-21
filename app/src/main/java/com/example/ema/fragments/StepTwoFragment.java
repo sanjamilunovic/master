@@ -3,9 +3,14 @@ package com.example.ema.fragments;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -20,8 +25,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import com.example.ema.R;
+import com.example.ema.helpers.CameraHelper;
+import com.example.ema.helpers.PermissionHelper;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,6 +37,8 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +62,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     LinearInterpolator interpolator=new LinearInterpolator();
     private Boolean isMenuOpen=false;
     private ReimbursementViewModel reimbursement;
+    public String cameraOutput;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +87,8 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 return true;
             }
         });
+
+        PermissionHelper.checkAndSetPermissions(getActivity(), PermissionHelper.getPicturePermissions(), 2);
 
         return v;
     }
@@ -141,8 +154,31 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                   break;
 
               case R.id.fabCamera:
-                  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                  startActivityForResult(cameraIntent, 1);
+                  cameraOutput = CameraHelper.getOutputMediaFile(getActivity());
+                  Uri photoURI;
+
+                  if (!PermissionHelper.checkPermissions(getContext(), PermissionHelper.getPicturePermissions())) {
+                      Toast.makeText(getContext(), "No permission to take a picture", Toast.LENGTH_SHORT).show();
+                      return;
+                  }
+                  StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                  StrictMode.setVmPolicy(builder.build());
+
+                  final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                  if (Build.VERSION.SDK_INT < 26)
+                      photoURI = Uri.fromFile(new File(cameraOutput));
+                  else
+                      photoURI = FileProvider.getUriForFile(getContext(),  ".fileprovider", new File(cameraOutput));
+                  intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                  intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                  intent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, 90);
+                  try {
+                     startActivityForResult(intent, 1);
+
+                  } catch (Exception ex) {
+                      ex.printStackTrace();
+
+                  }
                   closeMenu();
                   break;
 
@@ -180,7 +216,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-           Uri  imageUri = data.getData();
+            Uri imageUri = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
                 imageView.setImageBitmap(bitmap);
@@ -189,14 +225,56 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else if (data.getExtras() != null) {
-            Bundle extras = data.getExtras();
-            bitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(bitmap);
-            imageAdded = true;
-            reimbursement.setImageBitmap(bitmap);
+        } else {
+            try {
+                File output = new File(cameraOutput);
+                Uri photoURI;
+                if (Build.VERSION.SDK_INT < 26)
+                    photoURI = Uri.fromFile(output);
+                else
+                    photoURI = FileProvider.getUriForFile(getContext(), ".fileprovider", output);
 
+                ExifInterface exif = new ExifInterface(photoURI);
+                int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+                Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoURI);
+                bitmap = rotateBitmap(bitmap, orientation);
+                imageView.setImageBitmap(bitmap);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
+    }
+
+    public String getRealPathFromUri(Uri uri) {
+        String realPath = null;
+        String[] projection = {MediaStore.Images.Media.DATA};
+
+        try (Cursor cursor = getContext().getContentResolver().query(uri, projection, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                realPath = cursor.getString(columnIndex);
+            }
+        }
+
+        return realPath;
+    }
+
+    private Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.postRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.postRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.postRotate(270);
+                break;
+            default:
+                return bitmap;
+        }
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
 
