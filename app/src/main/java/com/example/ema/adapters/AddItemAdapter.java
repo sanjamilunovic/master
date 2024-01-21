@@ -1,5 +1,6 @@
 package com.example.ema.adapters;
 
+import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
@@ -14,7 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
+
 import com.example.ema.R;
 import com.example.ema.fragments.StepThreeFragment;
 import com.example.ema.viewmodels.ItemViewModel;
@@ -225,6 +230,8 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
             }
         });
 
+        holder.detailsLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+
         currentViewHolder = holder;
 
         return holder;
@@ -233,8 +240,9 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     @Override
     public void onBindViewHolder(AddItemAdapter.AddItemViewHolder holder, int position) {
             ItemViewModel item = lstItems.get(position);
-//            holder.txtItem.setText("Item" + " " + (position+1));
+            holder.txtItem.setText("Item" + " " + position);
             holder.mainCont.setOnClickListener(v -> onClick(holder,position));
+            holder.cardViewCont.setOnClickListener(v -> onCardViewClick(holder));
 
 
     }
@@ -276,6 +284,10 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         LinearLayout mainCont;
         @BindView(R.id.txtItem)
         TextView txtItem;
+        @BindView(R.id.cardView)
+        CardView cardViewCont;
+        @BindView(R.id.detailsLayout)
+        LinearLayout detailsLayout;
 
         public AddItemViewHolder(View itemView) {
             super(itemView);
@@ -286,6 +298,16 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     private void onClick(AddItemAdapter.AddItemViewHolder holder,int position){
         this.lastSelectedPosition = position;
         currentViewHolder = holder;
+    }
+
+    private void onCardViewClick(AddItemAdapter.AddItemViewHolder holder){
+        if(holder!=currentViewHolder) {
+            currentViewHolder.detailsLayout.setVisibility(View.GONE);
+            int cardViewVisibility = (holder.detailsLayout.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
+            TransitionManager.beginDelayedTransition(holder.detailsLayout, new AutoTransition());
+            holder.detailsLayout.setVisibility(cardViewVisibility);
+            currentViewHolder = holder;
+        }
     }
 
     private void showDatePicker(AddItemAdapter.AddItemViewHolder holder) {
