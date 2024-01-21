@@ -39,6 +39,7 @@ import com.stepstone.stepper.VerificationError;
 
 
 import java.io.File;
+import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -234,7 +235,8 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 else
                     photoURI = FileProvider.getUriForFile(getContext(), ".fileprovider", output);
 
-                ExifInterface exif = new ExifInterface(photoURI);
+                InputStream inputStream = getContext().getContentResolver().openInputStream(photoURI);
+                ExifInterface exif = new ExifInterface(inputStream);
                 int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
                 Bitmap bitmap = android.provider.MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoURI);
                 bitmap = rotateBitmap(bitmap, orientation);
