@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ReimbursementViewModel;
+import com.google.android.material.button.MaterialButton;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,6 +86,8 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         RecyclerView recyclerViewItems;
         @BindView(R.id.imageViewExpandCollapse)
         ImageView imageViewExpandCollapse;
+        @BindView(R.id.buttonViewReceipt)
+        MaterialButton buttonViewReceipt;
 
         public ReimbursementViewHolder(View itemView) {
             super(itemView);

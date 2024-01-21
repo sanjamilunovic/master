@@ -234,6 +234,7 @@
                     android:text="Details"
                     android:textColor="@color/primaryRed"
                     style="?attr/borderlessButtonStyle"
+                    android:id="@+id/buttonDetails"
                     />
                 <com.google.android.material.button.MaterialButton
                     android:layout_weight="1"
@@ -242,6 +243,7 @@
                     android:text="View Receipt"
                     style="?attr/borderlessButtonStyle"
                     android:textColor="@color/primaryRed"
+                    android:id="@+id/buttonViewReceipt"
                     />
             </LinearLayout>
 

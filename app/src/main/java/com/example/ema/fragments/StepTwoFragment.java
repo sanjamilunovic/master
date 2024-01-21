@@ -232,6 +232,8 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 bitmap = android.provider.MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoURI);
                 bitmap = rotateBitmap(bitmap, orientation);
                 imageView.setImageBitmap(bitmap);
+                imageAdded = true;
+                reimbursement.setImageBitmap(bitmap);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
