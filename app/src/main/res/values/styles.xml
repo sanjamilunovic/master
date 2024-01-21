@@ -23,6 +23,7 @@
         <item name="boxStrokeColor">@color/primaryBlue</item>
         <item name="hintTextColor">@color/primaryBlue</item>
         <item name="endIconTint">@color/primaryBlue</item>
+
     </style>
 
     <style name="AutoCompleteTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
@@ -35,6 +36,7 @@
     </style>
 
     <style name="ThemeOverlay.App.MaterialCalendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorSurface">@color/white</item>
         <item name="colorPrimary">@color/primaryBlue</item>
     </style>
 

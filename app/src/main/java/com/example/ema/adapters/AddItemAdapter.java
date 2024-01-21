@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -439,12 +440,14 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         lstItems.set(lastSelectedPosition,itemViewModel);
         currentViewHolder.detailsLayout.setVisibility(View.GONE);
         Toast.makeText(context,"Item saved.",Toast.LENGTH_SHORT).show();
+
+
     }
 
     public void showNewItem(ArrayList<ItemViewModel>items){
         lstItems.add(new ItemViewModel());
         notifyItemInserted(lstItems.size()-1);
-        //notifyDataSetChanged();
+        currentViewHolder.detailsLayout.setVisibility(View.GONE);
     }
 
 
