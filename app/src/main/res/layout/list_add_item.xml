@@ -26,6 +26,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <ImageView
+                        android:id="@+id/imageViewExpandCollapse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_expand_more"
+                        app:tint="@color/primaryBlue"
+                        android:layout_marginTop = "2dp"
+                        android:visibility="gone"
+                        android:clickable="true"/>
+
                 <TextView
                     android:id="@+id/txtItem"
                     android:layout_weight="1"
@@ -37,10 +47,11 @@
 
                     <ImageView
                         android:id="@+id/iconDelete"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:gravity="end"
-                        android:src="@drawable/ic_delete"
+                        android:layout_marginTop = "2dp"
+                        android:src="@drawable/ic_close"
                         app:tint="@color/primaryBlue"/>
 
                 </LinearLayout>

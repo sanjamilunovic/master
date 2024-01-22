@@ -99,10 +99,10 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         isExpanded = !isExpanded;
         if (isExpanded) {
             holder.recyclerViewItems.setVisibility(View.VISIBLE);
-            holder.imageViewExpandCollapse.setImageResource(R.drawable.expand_less);
+            holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_less);
         } else {
             holder.recyclerViewItems.setVisibility(View.GONE);
-            holder.imageViewExpandCollapse.setImageResource(R.drawable.expand_more);
+            holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_more);
         }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);

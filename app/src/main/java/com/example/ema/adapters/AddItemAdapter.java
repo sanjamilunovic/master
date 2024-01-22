@@ -49,6 +49,7 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
     public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 2;
     public static final Integer RECORD_AUDIO_AMOUNT_RESULT_CODE = 3;
     public static final Integer RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE = 4;
+    private boolean isExpanded = false;
 
 
     public AddItemAdapter(ArrayList<ItemViewModel>lstItems, Context context, StepThreeFragment fragment){
@@ -247,6 +248,7 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
             holder.mainCont.setOnClickListener(v -> onClick(holder,position));
             holder.cardViewCont.setOnClickListener(v -> onCardViewClick(holder));
             holder.iconDelete.setOnClickListener(v -> deleteItem(position));
+            holder.imageViewExpandCollapse.setOnClickListener(v -> expandCollapseItem(holder));
 
 
     }
@@ -294,6 +296,8 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         LinearLayout detailsLayout;
         @BindView(R.id.iconDelete)
         ImageView iconDelete;
+        @BindView(R.id.imageViewExpandCollapse)
+        ImageView imageViewExpandCollapse;
 
         public AddItemViewHolder(View itemView) {
             super(itemView);
@@ -306,12 +310,22 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
         currentViewHolder = holder;
     }
 
+    private void expandCollapseItem(AddItemAdapter.AddItemViewHolder holder){
+        isExpanded = !isExpanded;
+        if (isExpanded) {
+            holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_less);
+        } else {
+            holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_more);
+        }
+    }
+
     private void onCardViewClick(AddItemAdapter.AddItemViewHolder holder){
         if(holder!=currentViewHolder) {
             currentViewHolder.detailsLayout.setVisibility(View.GONE);
             int cardViewVisibility = (holder.detailsLayout.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
             //TransitionManager.beginDelayedTransition(holder.detailsLayout, new AutoTransition());
             holder.detailsLayout.setVisibility(cardViewVisibility);
+            holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_less);
             currentViewHolder = holder;
         }
     }
@@ -446,7 +460,9 @@ public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItem
             itemViewModel.setVendor(currentViewHolder.spinnerVendor.getText().toString().trim());
             itemViewModel.setEducationalBenefit(currentViewHolder.etEducationalBenefit.getText().toString().trim());
             lstItems.set(lastSelectedPosition, itemViewModel);
+            currentViewHolder.txtItem.setText(itemViewModel.getDescription());
             currentViewHolder.detailsLayout.setVisibility(View.GONE);
+            currentViewHolder.imageViewExpandCollapse.setVisibility(View.VISIBLE);
             Toast.makeText(context, "Item saved.", Toast.LENGTH_SHORT).show();
         }
 
