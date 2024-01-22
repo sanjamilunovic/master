@@ -39,7 +39,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddItemAdapter  extends RecyclerView.Adapter<AddItemAdapter.AddItemViewHolder>{
+public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemViewHolder>{
     private ArrayList<ItemViewModel> lstItems;
     private Context context;
     AddItemAdapter.AddItemViewHolder currentViewHolder;

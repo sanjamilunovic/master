@@ -2,6 +2,7 @@ package com.example.ema.adapters;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ema.DetailsActivity;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -64,6 +67,7 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
 
 
         holder.buttonViewReceipt.setOnClickListener(v -> openFullScreenImage(position));
+        holder.buttonDetails.setOnClickListener(v -> openReimbursementDetails(position));
         holder.imageViewExpandCollapse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +92,8 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         ImageView imageViewExpandCollapse;
         @BindView(R.id.buttonViewReceipt)
         MaterialButton buttonViewReceipt;
+        @BindView(R.id.buttonDetails)
+        MaterialButton buttonDetails;
 
         public ReimbursementViewHolder(View itemView) {
             super(itemView);
@@ -125,5 +131,11 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    private void openReimbursementDetails(int position){
+        Intent intent = new Intent(context, DetailsActivity.class);
+        DetailsActivity.DataHolder.setData(lstReimbursement.get(position));
+        context.startActivity(intent);
     }
 }
