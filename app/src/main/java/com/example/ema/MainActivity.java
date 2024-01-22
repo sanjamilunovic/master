@@ -3,6 +3,9 @@ package com.example.ema;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fabAddButton;
     @BindView(R.id.reimbursementRecyclerView)
     RecyclerView reimbursementRecyclerView;
+    @BindView(R.id.mainCont)
+    RelativeLayout mainCont;
+    @BindView(R.id.tvReimbursementsEmpty)
+    TextView tvReimbursementsEmpty;
     private ArrayList<ReimbursementViewModel>lstReimbursements;
     private ReimbursementViewModel lastReimbursement;
 
@@ -65,11 +72,19 @@ public class MainActivity extends AppCompatActivity {
             lstReimbursements.add(lastReimbursement);
         }
 
+        if(lstReimbursements.size()==0){
+            tvReimbursementsEmpty.setVisibility(View.VISIBLE);
+            tvReimbursementsEmpty.setText("No recent reimbursements");
+            mainCont.setBackgroundColor(getResources().getColor(R.color.defaultColor));
+        }else{
+            tvReimbursementsEmpty.setVisibility(View.GONE);
+            mainCont.setBackgroundColor(getResources().getColor(R.color.white));
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            reimbursementRecyclerView.setLayoutManager(layoutManager);
+            ReimbursementAdapter adapter = new ReimbursementAdapter(lstReimbursements,this);
+            reimbursementRecyclerView.setAdapter(adapter);
+        }
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        reimbursementRecyclerView.setLayoutManager(layoutManager);
-        ReimbursementAdapter adapter = new ReimbursementAdapter(lstReimbursements,this);
-        reimbursementRecyclerView.setAdapter(adapter);
 
         fabAddButton.setOnClickListener(new View.OnClickListener() {
             @Override

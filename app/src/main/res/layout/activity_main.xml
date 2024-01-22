@@ -7,7 +7,7 @@
 
     <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -28,14 +28,28 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:id="@+id/mainCont"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBar">
+
+        <TextView
+            android:id="@+id/tvReimbursementsEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone" />
+
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reimbursementRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/appBar">
-
+            android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
 
 </RelativeLayout>
 
