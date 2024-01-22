@@ -7,6 +7,7 @@
 
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -22,9 +23,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewRecipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/mainCont"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/appBar"
         android:padding="8dp"
         android:orientation="vertical">
 
@@ -138,7 +146,20 @@
         android:layout_height="wrap_content">
     </androidx.recyclerview.widget.RecyclerView>
 
+        <Button
+            android:id="@+id/buttonCancelRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/primaryRed"
+            android:text="Cancel request"
+            android:textColor="@color/white"/>
     </LinearLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
 
 
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,6 +64,7 @@ public class DetailItemAdapter extends RecyclerView.Adapter<DetailItemAdapter.De
         holder. tvDescription.setText(String.valueOf(item.getDescription()));
         holder.tvVendor.setText(String.valueOf(item.getVendor()));
         holder.tvEducationalBenefits.setText(String.valueOf(item.getEducationalBenefit()));
+
 
 
     }

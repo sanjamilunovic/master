@@ -472,6 +472,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
     public void showNewItem(ArrayList<ItemViewModel>items){
         lstItems.add(new ItemViewModel());
         notifyItemInserted(lstItems.size()-1);
+        lastSelectedPosition = lstItems.size()-1;
         currentViewHolder.detailsLayout.setVisibility(View.GONE);
     }
 
