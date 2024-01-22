@@ -27,6 +27,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+
+import com.example.ema.AddReimbursementActivity;
 import com.example.ema.R;
 import com.example.ema.helpers.CameraHelper;
 import com.example.ema.helpers.PermissionHelper;
@@ -62,8 +64,9 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     Animation fabOpen,fabClose,fabRClockwise,fabAntiRClockwise;
     LinearInterpolator interpolator=new LinearInterpolator();
     private Boolean isMenuOpen=false;
-    private ReimbursementViewModel reimbursement;
+    private ReimbursementViewModel reimbursementViewModel;
     public String cameraOutput;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
         ButterKnife.bind(this,v);
 
         initFabMain();
-        reimbursement = ReimbursementViewModel.getInstance();
+        reimbursementViewModel = ((AddReimbursementActivity)getActivity()).reimbursementViewModel;
 
         imageView.setVisibility(View.GONE);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +218,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 imageView.setVisibility(View.VISIBLE);
                 imageView.setImageBitmap(bitmap);
                 imageAdded = true;
-                reimbursement.setImageBitmap(bitmap);
+                reimbursementViewModel.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -236,7 +239,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 imageView.setVisibility(View.VISIBLE);
                 imageView.setImageBitmap(bitmap);
                 imageAdded = true;
-                reimbursement.setImageBitmap(bitmap);
+                reimbursementViewModel.setImageBitmap(bitmap);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

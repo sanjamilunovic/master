@@ -15,16 +15,7 @@ public class ReimbursementViewModel {
     private Bitmap imageBitmap;
     private ArrayList<ItemViewModel>items;
 
-    private ReimbursementViewModel(){}
-
-    public static ReimbursementViewModel getInstance()
-    {
-        if (reimbursment == null)
-        {
-            reimbursment = new ReimbursementViewModel();
-        }
-        return reimbursment;
-    }
+    public ReimbursementViewModel(){}
 
     public Long getId() {
         return id;

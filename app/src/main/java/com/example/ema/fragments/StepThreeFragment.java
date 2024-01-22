@@ -82,6 +82,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
     @BindView(R.id.addItemRecyclerView)
     RecyclerView addItemRecyclerView;
 
+    private ArrayList<ReimbursementViewModel>lstReimbursement;
     private ReimbursementViewModel reimbursementViewModel;
     private ArrayList<ItemViewModel>items;
     private AddItemAdapter addItemAdapter;
@@ -99,7 +100,8 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         }
 
         items = new ArrayList<>();
-        reimbursementViewModel = ReimbursementViewModel.getInstance();
+        lstReimbursement = ((AddReimbursementActivity)getActivity()).lstReimbursements;
+        reimbursementViewModel = ((AddReimbursementActivity)getActivity()).reimbursementViewModel;
 
         buttonSubmitForApproval.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +116,8 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             @Override
             public void onClick(View v) {
                 reimbursementViewModel.setItems(items);
+                lstReimbursement.add(reimbursementViewModel);
+                AddReimbursementActivity.DataHolder.setData(lstReimbursement);
                 Intent intent = new Intent(getContext(), AddReimbursementActivity.class);
                 startActivity(intent);
             }
@@ -123,8 +127,9 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             @Override
             public void onClick(View v) {
                 reimbursementViewModel.setItems(items);
+                lstReimbursement.add(reimbursementViewModel);
                 Intent intent = new Intent(getContext(), MainActivity.class);
-                MainActivity.DataHolder.setData(reimbursementViewModel);
+                MainActivity.DataHolder.setData(lstReimbursement);
                 startActivity(intent);
             }
         });

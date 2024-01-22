@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ema.AddReimbursementActivity;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -30,7 +31,7 @@ public class StepOneFragment extends Fragment implements BlockingStep {
     @BindView(R.id.spinner)
     MaterialAutoCompleteTextView spinner;
     private boolean isStepValid = false;
-    private ReimbursementViewModel reimbursement;
+    private ReimbursementViewModel reimbursementViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,14 +41,14 @@ public class StepOneFragment extends Fragment implements BlockingStep {
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.students, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.drop_down_item);
-        reimbursement = ReimbursementViewModel.getInstance();
-        reimbursement.setDate(new Date());
+        reimbursementViewModel = ((AddReimbursementActivity)getActivity()).reimbursementViewModel;
+        reimbursementViewModel.setDate(new Date());
 
         spinner.setAdapter(adapter);
         spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                 reimbursement.setStudent(parent.getItemAtPosition(position).toString());
+                reimbursementViewModel.setStudent(parent.getItemAtPosition(position).toString());
                  isStepValid = true;
 
             }

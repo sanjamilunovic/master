@@ -10,24 +10,58 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ema.adapters.StepperAdapter;
+import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AddReimbursementActivity extends AppCompatActivity implements StepperLayout.StepperListener{
+    public enum DataHolder {
+        INSTANCE;
+
+        private ArrayList<ReimbursementViewModel> lstReimbursements;
+
+        public static boolean hasData() {
+
+            return INSTANCE.lstReimbursements != null;
+        }
+
+        public static void setData(final ArrayList<ReimbursementViewModel> objectList) {
+            INSTANCE.lstReimbursements = objectList;
+        }
+
+        public static ArrayList<ReimbursementViewModel> getData() {
+            final ArrayList<ReimbursementViewModel> retList = INSTANCE.lstReimbursements;
+            INSTANCE.lstReimbursements = null;
+            return retList;
+        }
+    }
     @BindView(R.id.stepperLayout)
     StepperLayout stepperLayout;
     @BindView(R.id.materialToolbar)
     MaterialToolbar materialToolbar;
+
+    public ArrayList<ReimbursementViewModel>lstReimbursements = new ArrayList<ReimbursementViewModel>();
+    public ReimbursementViewModel reimbursementViewModel;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reimbursment);
         ButterKnife.bind(this);
+
+        if (AddReimbursementActivity.DataHolder.hasData()) {
+            lstReimbursements = AddReimbursementActivity.DataHolder.getData();
+        }
+
+        reimbursementViewModel = new ReimbursementViewModel();
 
         materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
