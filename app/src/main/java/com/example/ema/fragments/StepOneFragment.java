@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.ema.AddReimbursementActivity;
 import com.example.ema.R;
+import com.example.ema.helpers.PermissionHelper;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -75,6 +76,7 @@ public class StepOneFragment extends Fragment implements BlockingStep {
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
              if(isStepValid){
+                 PermissionHelper.checkAndSetPermissions(getActivity(), PermissionHelper.getPicturePermissions(), 2);
                  callback.goToNextStep();
              }else{
                  Toast.makeText(getContext(), "Please select a student to continue", Toast.LENGTH_SHORT).show();

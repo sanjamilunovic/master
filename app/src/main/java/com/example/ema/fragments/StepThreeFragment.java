@@ -96,9 +96,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         View v = inflater.inflate(R.layout.fragment_step_three, container, false);
         ButterKnife.bind(this,v);
 
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
-            checkPermission();
-        }
+
 
         items = new ArrayList<>();
         lstReimbursement = ((AddReimbursementActivity)getActivity()).lstReimbursements;
@@ -191,11 +189,6 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         }
     }
 
-    private void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.RECORD_AUDIO},0);
-        }
-    }
 
     @Nullable
     @Override

@@ -1,8 +1,10 @@
 package com.example.ema.fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -25,6 +27,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -83,8 +87,6 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 showFullScreenImage();
             }
         });
-
-        PermissionHelper.checkAndSetPermissions(getActivity(), PermissionHelper.getPicturePermissions(), 2);
 
         return v;
     }
@@ -268,6 +270,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
         if(imageAdded) {
+            PermissionHelper.checkAndSetPermissions(getActivity(), PermissionHelper.getRecordAudioPermissions(), 0);
             callback.goToNextStep();
         }else{
             Toast.makeText(getContext(), "Please upload a picture to continue", Toast.LENGTH_SHORT).show();
@@ -283,4 +286,6 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
           callback.goToPrevStep();
     }
+
+
 }

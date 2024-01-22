@@ -50,4 +50,9 @@ public class PermissionHelper {
 
     }
 
+    public static String[] getRecordAudioPermissions() {
+            return new String[]{Manifest.permission.RECORD_AUDIO};
+
+    }
+
 }

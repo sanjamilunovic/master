@@ -25,6 +25,7 @@ import androidx.transition.TransitionManager;
 
 import com.example.ema.R;
 import com.example.ema.fragments.StepThreeFragment;
+import com.example.ema.helpers.PermissionHelper;
 import com.example.ema.viewmodels.ItemViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -84,6 +85,10 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         holder.tilInvoice.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
+                    Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 holder.tilInvoice.requestFocus();
                 fragment.setVoiceRecognizer(RECORD_AUDIO_INVOICE_RESULT_CODE);
             }
@@ -92,6 +97,10 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         holder.tilAmount.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
+                    Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 holder.tilAmount.requestFocus();
                 fragment.setVoiceRecognizer(RECORD_AUDIO_AMOUNT_RESULT_CODE);
             }
@@ -100,6 +109,10 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         holder.tilEducationalBenefit.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
+                    Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 holder.tilEducationalBenefit.requestFocus();
                 fragment.setVoiceRecognizer(RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE);
             }
@@ -108,6 +121,10 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         holder.tilDescription.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
+                    Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 holder.tilDescription.requestFocus();
                 fragment.setVoiceRecognizer(RECORD_AUDIO_DESCRIPTION_RESULT_CODE);
             }
