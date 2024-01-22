@@ -272,9 +272,9 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
 
         holder.txtItem.setText("Item" + " " + (position + 1));
         holder.mainCont.setOnClickListener(v -> onClick(holder, position));
-        holder.cardViewCont.setOnClickListener(v -> onCardViewClick(holder));
         holder.iconDelete.setOnClickListener(v -> deleteItem(holder, position));
-        holder.imageViewExpandCollapse.setOnClickListener(v -> expandCollapseItem(holder));
+        holder.imageViewExpandMore.setOnClickListener(v -> expandItem(holder));
+        holder.imageViewCollapse.setOnClickListener(v -> collapseItem(holder));
 
         if(item.getPurchaseDate()!=null) {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
@@ -310,7 +310,10 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         if(lstItems.size()-1==position) {
             currentViewHolder = holder;
             currentViewHolder.detailsLayout.setVisibility(View.VISIBLE);
+            currentViewHolder.imageViewExpandMore.setVisibility(View.GONE);
+            currentViewHolder.imageViewCollapse.setVisibility(View.VISIBLE);
         }
+
 
 
     }
@@ -358,8 +361,10 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         LinearLayout detailsLayout;
         @BindView(R.id.iconDelete)
         ImageView iconDelete;
-        @BindView(R.id.imageViewExpandCollapse)
-        ImageView imageViewExpandCollapse;
+        @BindView(R.id.imageViewExpandMore)
+        ImageView imageViewExpandMore;
+        @BindView(R.id.imageViewCollapse)
+        ImageView imageViewCollapse;
 
         public AddItemViewHolder(View itemView) {
             super(itemView);
@@ -372,44 +377,26 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         currentViewHolder = holder;
     }
 
-    private void expandCollapseItem(AddItemAdapter.AddItemViewHolder holder) {
+    private void expandItem(AddItemAdapter.AddItemViewHolder holder) {
         currentViewHolder.detailsLayout.setVisibility(View.GONE);
-        currentViewHolder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_more);
-        isExpanded = !isExpanded;
-        if (isExpanded) {
-            holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_less);
-            holder.detailsLayout.setVisibility(View.VISIBLE);
-            currentViewHolder = holder;
-        } else {
-            holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_more);
-            holder.detailsLayout.setVisibility(View.GONE);
+        currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+        currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
+        holder.detailsLayout.setVisibility(View.VISIBLE);
+        holder.imageViewExpandMore.setVisibility(View.GONE);
+        holder.imageViewCollapse.setVisibility(View.VISIBLE);
+        currentViewHolder = holder;
         }
 
-//        if (holder != currentViewHolder && currentViewHolder != null) {
-//            currentViewHolder.detailsLayout.setVisibility(View.GONE);
-//            currentViewHolder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_more);
-//            int cardViewVisibility = (holder.detailsLayout.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-//            holder.detailsLayout.setVisibility(cardViewVisibility);
-//            if(holder.detailsLayout.getVisibility()==View.VISIBLE){
-//                holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_less);
-//            }else{
-//                holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_more);
-//            }
-//            currentViewHolder = holder;
-//        }
-
-
+    private void collapseItem(AddItemAdapter.AddItemViewHolder holder) {
+        currentViewHolder.detailsLayout.setVisibility(View.GONE);
+        currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+        currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
+        holder.detailsLayout.setVisibility(View.GONE);
+        holder.imageViewExpandMore.setVisibility(View.VISIBLE);
+        holder.imageViewCollapse.setVisibility(View.GONE);
+        currentViewHolder = holder;
     }
 
-    private void onCardViewClick(AddItemAdapter.AddItemViewHolder holder) {
-        if (holder != currentViewHolder && currentViewHolder != null) {
-            currentViewHolder.detailsLayout.setVisibility(View.GONE);
-            int cardViewVisibility = (holder.detailsLayout.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
-            holder.detailsLayout.setVisibility(cardViewVisibility);
-            holder.imageViewExpandCollapse.setImageResource(R.drawable.ic_expand_less);
-            currentViewHolder = holder;
-        }
-    }
 
     private void showDatePicker(AddItemAdapter.AddItemViewHolder holder) {
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
@@ -550,7 +537,8 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             lstItems.set(lastSelectedPosition, itemViewModel);
             currentViewHolder.txtItem.setText(itemViewModel.getDescription());
             currentViewHolder.detailsLayout.setVisibility(View.GONE);
-            currentViewHolder.imageViewExpandCollapse.setVisibility(View.VISIBLE);
+            currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+            currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
             Toast.makeText(context, "Item saved.", Toast.LENGTH_SHORT).show();
         }
 
@@ -562,8 +550,9 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         lastSelectedPosition = lstItems.size() - 1;
         if (currentViewHolder != null) {
             currentViewHolder.detailsLayout.setVisibility(View.GONE);
+            currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
+            currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
         }
-
         notifyItemInserted(lstItems.size() - 1);
         notifyDataSetChanged();
 
