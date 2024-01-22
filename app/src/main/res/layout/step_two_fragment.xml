@@ -89,7 +89,7 @@
                 app:backgroundTint="@color/primaryBlue"
                 app:elevation="6dp"
                 app:fabSize="mini"
-                app:srcCompat="@drawable/ic_gallery"
+                app:srcCompat="@drawable/ic_library"
                 app:tint="@color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -103,7 +103,7 @@
             app:backgroundTint="@color/primaryBlue"
             app:elevation="6dp"
             app:fabSize="mini"
-            app:srcCompat="@drawable/icon_cam"
+            app:srcCompat="@drawable/ic_camera"
             app:tint="@color/white" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -117,7 +117,7 @@
                 android:layout_marginBottom="16dp"
                 app:backgroundTint="@color/primaryRed"
                 app:elevation="6dp"
-                app:srcCompat="@drawable/upload"
+                app:srcCompat="@drawable/ic_upload"
                 app:tint="@color/white" />
 
         </LinearLayout>
