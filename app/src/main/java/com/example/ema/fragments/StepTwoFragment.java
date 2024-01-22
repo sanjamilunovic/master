@@ -73,6 +73,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
         initFabMain();
         reimbursement = ReimbursementViewModel.getInstance();
 
+        imageView.setVisibility(View.GONE);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -211,6 +212,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
             Uri imageUri = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+                imageView.setVisibility(View.VISIBLE);
                 imageView.setImageBitmap(bitmap);
                 imageAdded = true;
                 reimbursement.setImageBitmap(bitmap);
@@ -231,6 +233,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep,View.OnCli
                 int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
                 bitmap = android.provider.MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoURI);
                 bitmap = rotateBitmap(bitmap, orientation);
+                imageView.setVisibility(View.VISIBLE);
                 imageView.setImageBitmap(bitmap);
                 imageAdded = true;
                 reimbursement.setImageBitmap(bitmap);

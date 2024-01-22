@@ -15,37 +15,13 @@
             android:id="@+id/materialToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:title="@string/add_reimbursement"
+            app:titleTextColor="@color/white"
             android:background="@color/primaryBlue"
             android:theme="?attr/actionBarTheme"
-            app:popupTheme="?attr/actionBarPopupTheme">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:id="@+id/custom_toolbar_layout"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    app:tint="@color/white"
-                    android:id="@+id/imageView"
-                    android:gravity="center_vertical"
-                    android:src="@drawable/ic_close" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/add_reimbursement"
-                    android:gravity="center_vertical"
-                    android:textSize="20sp"
-                    android:layout_marginStart="8dp"
-                    android:textColor="@android:color/white"
-                    android:layout_gravity="center_horizontal" />
-            </LinearLayout>
-
-
-        </com.google.android.material.appbar.MaterialToolbar>
+            app:popupTheme="?attr/actionBarPopupTheme"
+            app:navigationIcon="@drawable/ic_close"
+            app:navigationIconTint="@color/white"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

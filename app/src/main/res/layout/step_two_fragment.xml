@@ -89,7 +89,7 @@
                 app:backgroundTint="@color/primaryBlue"
                 app:elevation="6dp"
                 app:fabSize="mini"
-                app:srcCompat="@drawable/ic_library"
+                app:srcCompat="@drawable/ic_gallery"
                 app:tint="@color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
