@@ -45,8 +45,8 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
     AddItemAdapter.AddItemViewHolder currentViewHolder;
     private StepThreeFragment fragment;
     private int lastSelectedPosition = 0;
-    public static final Integer RECORD_AUDIO_RESULT_CODE = 1;
-    public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 2;
+    public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 1;
+    public static final Integer RECORD_AUDIO_DESCRIPTION_RESULT_CODE = 2;
     public static final Integer RECORD_AUDIO_AMOUNT_RESULT_CODE = 3;
     public static final Integer RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE = 4;
     private boolean isExpanded = false;
@@ -85,7 +85,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             @Override
             public void onClick(View v) {
                 holder.tilInvoice.requestFocus();
-                fragment.setVoiceRecognizer(RECORD_AUDIO_RESULT_CODE);
+                fragment.setVoiceRecognizer(RECORD_AUDIO_INVOICE_RESULT_CODE);
             }
         });
 
@@ -102,6 +102,14 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             public void onClick(View v) {
                 holder.tilEducationalBenefit.requestFocus();
                 fragment.setVoiceRecognizer(RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE);
+            }
+        });
+
+        holder.tilDescription.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.tilDescription.requestFocus();
+                fragment.setVoiceRecognizer(RECORD_AUDIO_DESCRIPTION_RESULT_CODE);
             }
         });
 
@@ -435,7 +443,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
     }
 
     public void fillForm(int requestCode, String recognizedText){
-        if(requestCode == RECORD_AUDIO_RESULT_CODE) {
+        if(requestCode == RECORD_AUDIO_INVOICE_RESULT_CODE) {
             currentViewHolder.etInvoice.setText(recognizedText);
             currentViewHolder.tilInvoice.setError(null);
         }else if(requestCode == RECORD_AUDIO_AMOUNT_RESULT_CODE) {
@@ -445,6 +453,10 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         else if(requestCode == RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE) {
             currentViewHolder.etEducationalBenefit.setText(recognizedText);
             currentViewHolder.tilEducationalBenefit.setError(null);
+        }
+        else if(requestCode == RECORD_AUDIO_DESCRIPTION_RESULT_CODE) {
+            currentViewHolder.etDescription.setText(recognizedText);
+            currentViewHolder.tilDescription.setError(null);
         }
     }
 

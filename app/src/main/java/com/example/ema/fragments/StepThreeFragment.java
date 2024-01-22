@@ -57,8 +57,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StepThreeFragment extends Fragment implements BlockingStep{
-    public static final Integer RECORD_AUDIO_RESULT_CODE = 1;
-    public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 2;
+    public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 1;
+    public static final Integer RECORD_AUDIO_DESCRIPTION_RESULT_CODE = 2;
     public static final Integer RECORD_AUDIO_AMOUNT_RESULT_CODE = 3;
     public static final Integer RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE = 4;
     @BindView(R.id.mainCont)
@@ -183,13 +183,16 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
             }else if(requestCode == RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE){
                 addItemAdapter.fillForm(RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE,recognizedText);
             }
+            else if(requestCode == RECORD_AUDIO_DESCRIPTION_RESULT_CODE){
+                addItemAdapter.fillForm(RECORD_AUDIO_DESCRIPTION_RESULT_CODE,recognizedText);
+            }
 
         }
     }
 
     private void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.RECORD_AUDIO},RECORD_AUDIO_RESULT_CODE);
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.RECORD_AUDIO},0);
         }
     }
 
