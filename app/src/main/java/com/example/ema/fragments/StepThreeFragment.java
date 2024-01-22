@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -219,6 +220,10 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+        if(addItemAdapter.getItemCount()==0){
+            Toast.makeText(getContext(),"To continue, you must add at least one item.",Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(addItemAdapter.validateForm()){
             addItemAdapter.saveData();
 

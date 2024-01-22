@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:clickable="false"
         style="?attr/materialCardViewOutlinedStyle"
         app:cardBackgroundColor="@color/light_grey">
 
@@ -52,6 +53,7 @@
                         android:gravity="end"
                         android:layout_marginTop = "2dp"
                         android:src="@drawable/ic_close"
+                        android:clickable="true"
                         app:tint="@color/primaryBlue"/>
 
                 </LinearLayout>
