@@ -45,7 +45,7 @@ public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemR
     @Override
     public void onBindViewHolder(ListItemReimbursementViewHolder holder, int position) {
         ItemViewModel item = lstItems.get(position);
-        holder.txtItem.setText(item.getCategory());
+        holder.txtItem.setText(item.getDescription());
         holder.txtAmount.setText("$" + " " + item.getAmount());
         totalAmount+=item.getAmount();
 

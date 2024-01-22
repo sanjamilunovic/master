@@ -127,6 +127,14 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         ImageView fullScreenImage = dialog.findViewById(R.id.fullScreenImageView);
         fullScreenImage.setImageBitmap(lstReimbursement.get(position).getImageBitmap());
 
+        ImageView closeIcon = dialog.findViewById(R.id.iconClose);
+        closeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

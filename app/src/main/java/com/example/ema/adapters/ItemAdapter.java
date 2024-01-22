@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,6 +90,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         TextView tvDescription = dialog.findViewById(R.id.tvDescription);
         TextView tvVendor = dialog.findViewById(R.id.tvVendor);
         TextView tvEducationalBenefit= dialog.findViewById(R.id.tvEducationalBenefits);
+        ImageView closeIcon= dialog.findViewById(R.id.iconClose);
+
+        closeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
         tvPurchaseDate.setText(sdf.format(item.getPurchaseDate()));
