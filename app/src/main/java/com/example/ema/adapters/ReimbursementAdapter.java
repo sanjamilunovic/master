@@ -1,9 +1,14 @@
 package com.example.ema.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -57,13 +62,8 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         holder.txtDate.setText(sdf.format(date));
         holder.txtTotalAmount.setText("$" + reimbursementViewModel.getAmount());
 
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-//        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        holder.recyclerViewItems.setLayoutManager(layoutManager);
-//        holder.recyclerViewItems.setHasFixedSize(true);
-//        ItemAdapter itemAdapter = new ItemAdapter(reimbursementViewModel.getItems(),context);
-//        holder.recyclerViewItems.setAdapter(itemAdapter);
 
+        holder.buttonViewReceipt.setOnClickListener(v -> openFullScreenImage(position));
         holder.imageViewExpandCollapse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,5 +111,19 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         holder.recyclerViewItems.setHasFixedSize(true);
         ItemAdapter itemAdapter = new ItemAdapter(reimbursementViewModel.getItems(),context);
         holder.recyclerViewItems.setAdapter(itemAdapter);
+    }
+
+    private void openFullScreenImage(int position){
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_view_receipt);
+
+        ImageView fullScreenImage = dialog.findViewById(R.id.fullScreenImageView);
+        fullScreenImage.setImageBitmap(lstReimbursement.get(position).getImageBitmap());
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 }
