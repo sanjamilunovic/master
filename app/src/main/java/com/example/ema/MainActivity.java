@@ -1,9 +1,17 @@
 package com.example.ema;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -64,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     RelativeLayout mainCont;
     @BindView(R.id.tvReimbursementsEmpty)
     TextView tvReimbursementsEmpty;
+    @BindView(R.id.accountIcon)
+    ImageView accountIcon;
     private ArrayList<ReimbursementViewModel> lstReimbursements;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -104,6 +114,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+
+        accountIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_logout);
+
+                TextView txtAccount = dialog.findViewById(R.id.txtAccount);
+                Button buttonLogout = dialog.findViewById(R.id.logoutButton);
+
+                buttonLogout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setGravity(Gravity.TOP | Gravity.CENTER_VERTICAL);
+            }
+        });
+
 
 
     }

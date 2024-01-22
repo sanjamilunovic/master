@@ -27,7 +27,19 @@
                 app:titleTextColor="@color/white"
                 android:background="@color/primaryBlue"
                 android:theme="?attr/actionBarTheme"
-                app:popupTheme="?attr/actionBarPopupTheme" />
+                app:popupTheme="?attr/actionBarPopupTheme" >
+
+                <ImageView
+                    android:id="@+id/accountIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/ic_account_circle"
+                    android:layout_gravity="end"/>
+
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
 
 
     </com.google.android.material.appbar.AppBarLayout>
