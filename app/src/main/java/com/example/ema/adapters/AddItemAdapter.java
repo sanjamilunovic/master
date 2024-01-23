@@ -140,15 +140,6 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                 showDatePicker(holder);
             }
         });
-        holder.etPurchaseDate.setClickable(true);
-        holder.etPurchaseDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                showDatePicker(holder);
-            }
-        });
 
 
         holder.etPurchaseDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -451,6 +442,16 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                         }
                     }
 
+                }
+            });
+
+            holder.etPurchaseDate.setClickable(true);
+            holder.etPurchaseDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    showDatePicker(holder);
                 }
             });
         } catch (Exception ex) {
