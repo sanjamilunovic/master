@@ -27,17 +27,6 @@ public class PermissionHelper {
         return allPermissionsAvailable;
     }
 
-    public static boolean shouldRequestPermissionRationale(Activity activity, String permission) {
-        int hasPermission = ContextCompat.checkSelfPermission(activity, permission);
-        if (hasPermission != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                return !activity.shouldShowRequestPermissionRationale(permission);
-            }
-            return false;
-        }
-        return false;
-    }
-
     public static void requestPermissions(Activity activity, String[] permissions, int requestCode) {
         ActivityCompat.requestPermissions(activity, permissions, requestCode);
     }

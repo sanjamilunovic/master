@@ -1,4 +1,5 @@
 package com.example.ema.adapters;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ema.ItemDetailActivity;
@@ -27,12 +29,12 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
     private ArrayList<ItemViewModel> lstItems;
     private Context context;
 
 
-    public ItemAdapter(ArrayList<ItemViewModel>lstItems, Context context){
+    public ItemAdapter(ArrayList<ItemViewModel> lstItems, Context context) {
         this.lstItems = lstItems;
         this.context = context;
 
@@ -78,42 +80,45 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
     public void onClick(ItemViewModel item) {
-        Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.bottom_sheet_dialog_layout);
+        try {
+            Dialog dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.bottom_sheet_dialog_layout);
 
-        TextView tvPurchaseDate = dialog.findViewById(R.id.tvPurchaseDate);
-        TextView tvInvoice = dialog.findViewById(R.id.tvInvoice);
-        TextView tvCategory = dialog.findViewById(R.id.tvCategory);
-        TextView tvType = dialog.findViewById(R.id.tvType);
-        TextView tvAmount = dialog.findViewById(R.id.tvAmount);
-        TextView tvDescription = dialog.findViewById(R.id.tvDescription);
-        TextView tvVendor = dialog.findViewById(R.id.tvVendor);
-        TextView tvEducationalBenefit= dialog.findViewById(R.id.tvEducationalBenefits);
-        ImageView closeIcon= dialog.findViewById(R.id.iconClose);
+            TextView tvPurchaseDate = dialog.findViewById(R.id.tvPurchaseDate);
+            TextView tvInvoice = dialog.findViewById(R.id.tvInvoice);
+            TextView tvCategory = dialog.findViewById(R.id.tvCategory);
+            TextView tvType = dialog.findViewById(R.id.tvType);
+            TextView tvAmount = dialog.findViewById(R.id.tvAmount);
+            TextView tvDescription = dialog.findViewById(R.id.tvDescription);
+            TextView tvVendor = dialog.findViewById(R.id.tvVendor);
+            TextView tvEducationalBenefit = dialog.findViewById(R.id.tvEducationalBenefits);
+            ImageView closeIcon = dialog.findViewById(R.id.iconClose);
 
-        closeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+            closeIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-        tvPurchaseDate.setText(sdf.format(item.getPurchaseDate()));
-        tvInvoice.setText(String.valueOf(item.getInvoice()));
-        tvCategory.setText(String.valueOf(item.getCategory()));
-        tvType.setText(String.valueOf(item.getType()));
-        tvAmount.setText("$" + item.getAmount());
-        tvDescription.setText(String.valueOf(item.getDescription()));
-        tvVendor.setText(String.valueOf(item.getVendor()));
-        tvEducationalBenefit.setText(String.valueOf(item.getEducationalBenefit()));
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+            tvPurchaseDate.setText(sdf.format(item.getPurchaseDate()));
+            tvInvoice.setText(String.valueOf(item.getInvoice()));
+            tvCategory.setText(String.valueOf(item.getCategory()));
+            tvType.setText(String.valueOf(item.getType()));
+            tvAmount.setText("$" + item.getAmount());
+            tvDescription.setText(String.valueOf(item.getDescription()));
+            tvVendor.setText(String.valueOf(item.getVendor()));
+            tvEducationalBenefit.setText(String.valueOf(item.getEducationalBenefit()));
 
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-
+            dialog.show();
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setGravity(Gravity.BOTTOM);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 }

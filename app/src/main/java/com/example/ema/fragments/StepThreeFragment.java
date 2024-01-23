@@ -57,7 +57,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StepThreeFragment extends Fragment implements BlockingStep{
+public class StepThreeFragment extends Fragment implements BlockingStep {
     public static final Integer RECORD_AUDIO_INVOICE_RESULT_CODE = 1;
     public static final Integer RECORD_AUDIO_DESCRIPTION_RESULT_CODE = 2;
     public static final Integer RECORD_AUDIO_AMOUNT_RESULT_CODE = 3;
@@ -83,24 +83,21 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
     @BindView(R.id.addItemRecyclerView)
     RecyclerView addItemRecyclerView;
 
-    private ArrayList<ReimbursementViewModel>lstReimbursement;
+    private ArrayList<ReimbursementViewModel> lstReimbursement;
     private ReimbursementViewModel reimbursementViewModel;
-    private ArrayList<ItemViewModel>items;
+    private ArrayList<ItemViewModel> items;
     private AddItemAdapter addItemAdapter;
-
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_step_three, container, false);
-        ButterKnife.bind(this,v);
-
+        ButterKnife.bind(this, v);
 
 
         items = new ArrayList<>();
-        lstReimbursement = ((AddReimbursementActivity)getActivity()).lstReimbursements;
-        reimbursementViewModel = ((AddReimbursementActivity)getActivity()).reimbursementViewModel;
+        lstReimbursement = ((AddReimbursementActivity) getActivity()).lstReimbursements;
+        reimbursementViewModel = ((AddReimbursementActivity) getActivity()).reimbursementViewModel;
 
         buttonSubmitForApproval.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,10 +134,10 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         buttonSaveItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(addItemAdapter.validateForm()){
-                        addItemAdapter.saveData();
-                        buttonSaveItem.setVisibility(View.GONE);
-                        buttonAddItem.setVisibility(View.VISIBLE);
+                if (addItemAdapter.validateForm()) {
+                    addItemAdapter.saveData();
+                    buttonSaveItem.setVisibility(View.GONE);
+                    buttonAddItem.setVisibility(View.VISIBLE);
 
                 }
 
@@ -149,21 +146,19 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         buttonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    buttonSaveItem.setVisibility(View.VISIBLE);
-                    buttonAddItem.setVisibility(View.GONE);
-                    addItemAdapter.showNewItem(items);
-
+                buttonSaveItem.setVisibility(View.VISIBLE);
+                buttonAddItem.setVisibility(View.GONE);
+                addItemAdapter.showNewItem(items);
 
 
             }
         });
 
         items.add(new ItemViewModel());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         addItemRecyclerView.setLayoutManager(layoutManager);
-        addItemAdapter = new AddItemAdapter(items,getContext(),this);
+        addItemAdapter = new AddItemAdapter(items, getContext(), this);
         addItemRecyclerView.setAdapter(addItemAdapter);
-
 
 
         return v;
@@ -172,18 +167,21 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ( resultCode == Activity.RESULT_OK) {
-            ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            String recognizedText = results.get(0);
-            if(requestCode == RECORD_AUDIO_INVOICE_RESULT_CODE) {
-                addItemAdapter.fillForm(RECORD_AUDIO_INVOICE_RESULT_CODE,recognizedText);
-            }else if(requestCode == RECORD_AUDIO_AMOUNT_RESULT_CODE){
-                addItemAdapter.fillForm(RECORD_AUDIO_AMOUNT_RESULT_CODE,recognizedText);
-            }else if(requestCode == RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE){
-                addItemAdapter.fillForm(RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE,recognizedText);
-            }
-            else if(requestCode == RECORD_AUDIO_DESCRIPTION_RESULT_CODE){
-                addItemAdapter.fillForm(RECORD_AUDIO_DESCRIPTION_RESULT_CODE,recognizedText);
+        if (resultCode == Activity.RESULT_OK) {
+            try {
+                ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String recognizedText = results.get(0);
+                if (requestCode == RECORD_AUDIO_INVOICE_RESULT_CODE) {
+                    addItemAdapter.fillForm(RECORD_AUDIO_INVOICE_RESULT_CODE, recognizedText);
+                } else if (requestCode == RECORD_AUDIO_AMOUNT_RESULT_CODE) {
+                    addItemAdapter.fillForm(RECORD_AUDIO_AMOUNT_RESULT_CODE, recognizedText);
+                } else if (requestCode == RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE) {
+                    addItemAdapter.fillForm(RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE, recognizedText);
+                } else if (requestCode == RECORD_AUDIO_DESCRIPTION_RESULT_CODE) {
+                    addItemAdapter.fillForm(RECORD_AUDIO_DESCRIPTION_RESULT_CODE, recognizedText);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
 
         }
@@ -213,11 +211,11 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
-        if(addItemAdapter.getItemCount()==0){
-            Toast.makeText(getContext(),"To continue, you must add at least one item.",Toast.LENGTH_SHORT).show();
+        if (addItemAdapter.getItemCount() == 0) {
+            Toast.makeText(getContext(), "To continue, you must add at least one item.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(addItemAdapter.validateForm()){
+        if (addItemAdapter.validateForm()) {
             addItemAdapter.saveData();
 
             mainCont.setVisibility(View.GONE);
@@ -229,7 +227,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
 
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             itemRecyclerView.setLayoutManager(layoutManager);
-            ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items,getContext(),reimbursementViewModel);
+            ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items, getContext(), reimbursementViewModel);
             itemRecyclerView.setAdapter(adapter);
 
         }
@@ -248,9 +246,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
     }
 
 
-
-
-    public void setVoiceRecognizer(int requestCode){
+    public void setVoiceRecognizer(int requestCode) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         // identifying application to the Google service
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
@@ -262,11 +258,11 @@ public class StepThreeFragment extends Fragment implements BlockingStep{
         // number of results
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
         // recognition language
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,"en-US");
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
         startActivityForResult(intent, requestCode);
     }
 
-    public void changeButtons(){
+    public void changeButtons() {
         buttonAddItem.setVisibility(View.VISIBLE);
         buttonSaveItem.setVisibility(View.GONE);
 

@@ -78,8 +78,6 @@ public class AddReimbursementActivity extends AppCompatActivity implements Stepp
 
     @Override
     public void onCompleted(View completeButton) {
-//      Intent intent = new Intent(this, MainActivity.class);
-//      startActivity(intent);
         stepperLayout.setVisibility(View.GONE);
     }
 

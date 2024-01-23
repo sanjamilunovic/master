@@ -59,27 +59,35 @@ public class DetailsActivity extends AppCompatActivity {
         if (DetailsActivity.DataHolder.hasData()) {
             reimbursementViewModel = DetailsActivity.DataHolder.getData();
         }
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         itemRecyclerView.setLayoutManager(layoutManager);
-        DetailItemAdapter adapter = new DetailItemAdapter(reimbursementViewModel.getItems(),this);
+        DetailItemAdapter adapter = new DetailItemAdapter(reimbursementViewModel.getItems(), this);
         itemRecyclerView.setAdapter(adapter);
     }
 
     private void setUpToolbar() {
-        setSupportActionBar(materialToolbar);
-        final ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowHomeEnabled(true);
-            ab.setDisplayShowTitleEnabled(false);
-        }
+        try {
+            setSupportActionBar(materialToolbar);
+            final ActionBar ab = getSupportActionBar();
+            if (ab != null) {
+                ab.setDisplayHomeAsUpEnabled(true);
+                ab.setDisplayShowHomeEnabled(true);
+                ab.setDisplayShowTitleEnabled(false);
+            }
 
-        Drawable drawable = materialToolbar.getNavigationIcon();
-        drawable.setColorFilter(getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+            Drawable drawable = materialToolbar.getNavigationIcon();
+            drawable.setColorFilter(getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
-    private void setTitle(){
-        materialToolbar.setTitle("Reimbursement Details");
+    private void setTitle() {
+        try {
+            materialToolbar.setTitle("Reimbursement Details");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override

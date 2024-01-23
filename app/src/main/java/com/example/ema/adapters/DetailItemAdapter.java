@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.ema.R;
 import com.example.ema.viewmodels.ItemViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -20,12 +21,12 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailItemAdapter extends RecyclerView.Adapter<DetailItemAdapter.DetailItemAViewHolder>{
+public class DetailItemAdapter extends RecyclerView.Adapter<DetailItemAdapter.DetailItemAViewHolder> {
     private ArrayList<ItemViewModel> lstItems;
     private Context context;
 
 
-    public DetailItemAdapter(ArrayList<ItemViewModel>lstItems, Context context){
+    public DetailItemAdapter(ArrayList<ItemViewModel> lstItems, Context context) {
         this.lstItems = lstItems;
         this.context = context;
 
@@ -48,23 +49,27 @@ public class DetailItemAdapter extends RecyclerView.Adapter<DetailItemAdapter.De
     @Override
     public void onBindViewHolder(DetailItemAdapter.DetailItemAViewHolder holder, int position) {
         ItemViewModel item = lstItems.get(position);
-        holder.txtPurchaseLabel.setText("Purchase" + " " + (position+1));
-        if(position==0)
-        holder.txtDescription.setText("Desktop Computer");
-        else
-            holder.txtDescription.setText("MacBook Pro");
+        try {
+            holder.txtPurchaseLabel.setText("Purchase" + " " + (position + 1));
+            if (position == 0)
+                holder.txtDescription.setText("Desktop Computer");
+            else
+                holder.txtDescription.setText("MacBook Pro");
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-        holder.tvPurchaseDate.setText(sdf.format(new Date()));
-        holder.tvInvoice.setText(String.valueOf(item.getInvoice()));
-        holder. tvCategory.setText(String.valueOf(item.getCategory()));
-        holder.tvType.setText(String.valueOf(item.getType()));
-        holder.tvAmount.setText("$" + item.getAmount());
-        holder. tvDescription.setText(String.valueOf(item.getDescription()));
-        holder.tvVendor.setText(String.valueOf(item.getVendor()));
-        holder.tvEducationalBenefits.setText(String.valueOf(item.getEducationalBenefit()));
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+            holder.tvPurchaseDate.setText(sdf.format(new Date()));
+            holder.tvInvoice.setText(String.valueOf(item.getInvoice()));
+            holder.tvCategory.setText(String.valueOf(item.getCategory()));
+            holder.tvType.setText(String.valueOf(item.getType()));
+            holder.tvAmount.setText("$" + item.getAmount());
+            holder.tvDescription.setText(String.valueOf(item.getDescription()));
+            holder.tvVendor.setText(String.valueOf(item.getVendor()));
+            holder.tvEducationalBenefits.setText(String.valueOf(item.getEducationalBenefit()));
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
 
     }

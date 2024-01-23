@@ -37,12 +37,12 @@ public class StepOneFragment extends Fragment implements BlockingStep {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.step_one_fragment, container, false);
-        ButterKnife.bind(this,v);
+        ButterKnife.bind(this, v);
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.students, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.drop_down_item);
-        reimbursementViewModel = ((AddReimbursementActivity)getActivity()).reimbursementViewModel;
+        reimbursementViewModel = ((AddReimbursementActivity) getActivity()).reimbursementViewModel;
         reimbursementViewModel.setDate(new Date());
 
         spinner.setAdapter(adapter);
@@ -50,13 +50,14 @@ public class StepOneFragment extends Fragment implements BlockingStep {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 reimbursementViewModel.setStudent(parent.getItemAtPosition(position).toString());
-                 isStepValid = true;
+                isStepValid = true;
 
             }
         });
 
         return v;
     }
+
     @Nullable
     @Override
     public VerificationError verifyStep() {
@@ -75,12 +76,16 @@ public class StepOneFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
-             if(isStepValid){
-                 PermissionHelper.checkAndSetPermissions(getActivity(), PermissionHelper.getPicturePermissions(), 2);
-                 callback.goToNextStep();
-             }else{
-                 Toast.makeText(getContext(), "Please select a student to continue", Toast.LENGTH_SHORT).show();
-             }
+        try {
+            if (isStepValid) {
+                PermissionHelper.checkAndSetPermissions(getActivity(), PermissionHelper.getPicturePermissions(), 2);
+                callback.goToNextStep();
+            } else {
+                Toast.makeText(getContext(), "Please select a student to continue", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override

@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             lstReimbursements = MainActivity.DataHolder.getData();
         }
 
-        if (lstReimbursements.size() == 0) {
+        if (lstReimbursements == null || lstReimbursements.size() == 0) {
             tvReimbursementsEmpty.setVisibility(View.VISIBLE);
             tvReimbursementsEmpty.setText("No recent reimbursements");
             mainCont.setBackgroundColor(getResources().getColor(R.color.defaultColor));
@@ -128,18 +128,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonLogout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     }
                 });
                 dialog.show();
-                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.getWindow().setGravity(Gravity.TOP | Gravity.CENTER_VERTICAL);
             }
         });
-
 
 
     }

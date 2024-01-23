@@ -6,22 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.ema.R;
 import com.example.ema.viewmodels.ItemViewModel;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 
 import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemReimbursementAdapter.ListItemReimbursementViewHolder>{
-    private ArrayList<ItemViewModel>lstItems;
+public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemReimbursementAdapter.ListItemReimbursementViewHolder> {
+    private ArrayList<ItemViewModel> lstItems;
     private Context context;
     private int totalAmount;
     private ReimbursementViewModel reimbursementViewModel;
 
-    public ListItemReimbursementAdapter(ArrayList<ItemViewModel>lstItems, Context context, ReimbursementViewModel reimbursementViewModel){
+    public ListItemReimbursementAdapter(ArrayList<ItemViewModel> lstItems, Context context, ReimbursementViewModel reimbursementViewModel) {
         this.lstItems = lstItems;
         this.context = context;
         this.reimbursementViewModel = reimbursementViewModel;
@@ -45,15 +48,19 @@ public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemR
     @Override
     public void onBindViewHolder(ListItemReimbursementViewHolder holder, int position) {
         ItemViewModel item = lstItems.get(position);
-        holder.txtItem.setText(item.getDescription());
-        holder.txtAmount.setText("$" + " " + item.getAmount());
-        totalAmount+=item.getAmount();
+        try {
+            holder.txtItem.setText(item.getDescription());
+            holder.txtAmount.setText("$" + " " + item.getAmount());
+            totalAmount += item.getAmount();
 
-        if(position==lstItems.size()-1){
-            holder.totalLayout.setVisibility(View.VISIBLE);
-            holder.txtTotalAmount.setText("$" + " " + totalAmount);
-            holder.view.setVisibility(View.VISIBLE);
-            reimbursementViewModel.setAmount(totalAmount);
+            if (position == lstItems.size() - 1) {
+                holder.totalLayout.setVisibility(View.VISIBLE);
+                holder.txtTotalAmount.setText("$" + " " + totalAmount);
+                holder.view.setVisibility(View.VISIBLE);
+                reimbursementViewModel.setAmount(totalAmount);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
 

@@ -1,14 +1,15 @@
 package com.example.ema;
 
 
-
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
 import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -27,7 +28,7 @@ import java.util.concurrent.Executor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.loginButton)
     Button loginButton;
     @BindView(R.id.emailInputLayout)
@@ -50,14 +51,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         ButterKnife.bind(this);
         loginButton.setOnClickListener(this);
 
-        if(biometricLoginAvailable()){
+        if (biometricLoginAvailable()) {
             showBiometricDialog();
         }
 
     }
 
-    public boolean biometricLoginAvailable(){
-        try{
+    public boolean biometricLoginAvailable() {
+        try {
             BiometricManager biometricManager = BiometricManager.from(this);
             switch (biometricManager.canAuthenticate(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)) {
                 case BiometricManager.BIOMETRIC_SUCCESS:
@@ -75,19 +76,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     break;
             }
 
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return false;
     }
 
-    private void showBiometricDialog(){
-        try{
+    private void showBiometricDialog() {
+        try {
             executor = ContextCompat.getMainExecutor(this);
 
             biometricPrompt = new BiometricPrompt(LoginActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
                 @Override
-                public void onAuthenticationError(int errorCode,@NonNull CharSequence errString) {
+                public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                     super.onAuthenticationError(errorCode, errString);
                 }
 
@@ -95,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                     super.onAuthenticationSucceeded(result);
                     Toast.makeText(getApplicationContext(), "Authentication succeeded!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -117,38 +118,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     .build();
 
             biometricPrompt.authenticate(promptInfo);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
+
     private boolean isFormValid() {
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+        try {
+            String email = emailEditText.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
 
-        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailInputLayout.setError("Invalid email address");
-            return false;
-        } else {
-            emailInputLayout.setError(null);
-        }
+            if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                emailInputLayout.setError("Invalid email address");
+                return false;
+            } else {
+                emailInputLayout.setError(null);
+            }
 
-        if (password.isEmpty()) {
-            passwordInputLayout.setError("Password cannot be empty");
-            return false;
-        } else {
-            passwordInputLayout.setError(null);
+            if (password.isEmpty()) {
+                passwordInputLayout.setError("Password cannot be empty");
+                return false;
+            } else {
+                passwordInputLayout.setError(null);
+            }
+            return true;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return true;
     }
 
     @Override
-    public void onClick(View view)
-    {
-        switch (view.getId())
-        {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.loginButton:
-                if(isFormValid()){
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                if (isFormValid()) {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 }

@@ -269,51 +269,53 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
     @Override
     public void onBindViewHolder(AddItemAdapter.AddItemViewHolder holder, int position) {
         ItemViewModel item = lstItems.get(position);
+        try {
+            holder.txtItem.setText("Item" + " " + (position + 1));
+            holder.mainCont.setOnClickListener(v -> onClick(holder, position));
+            holder.iconDelete.setOnClickListener(v -> deleteItem(holder, position));
+            holder.imageViewExpandMore.setOnClickListener(v -> expandItem(holder));
+            holder.imageViewCollapse.setOnClickListener(v -> collapseItem(holder));
 
-        holder.txtItem.setText("Item" + " " + (position + 1));
-        holder.mainCont.setOnClickListener(v -> onClick(holder, position));
-        holder.iconDelete.setOnClickListener(v -> deleteItem(holder, position));
-        holder.imageViewExpandMore.setOnClickListener(v -> expandItem(holder));
-        holder.imageViewCollapse.setOnClickListener(v -> collapseItem(holder));
+            if (item.getPurchaseDate() != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+                holder.etPurchaseDate.setText(sdf.format(item.getPurchaseDate()));
+            }
+            if (item.getInvoice() != null) {
+                holder.etInvoice.setText(String.valueOf(item.getInvoice()));
+            }
+            if (item.getCategory() != null) {
+                holder.spinnerCategory.setText(String.valueOf(item.getCategory()));
+            }
+            if (item.getType() != null) {
+                holder.spinnerType.setText(String.valueOf(item.getType()));
+            }
+            if (item.getAmount() != 0.0) {
+                holder.etAmount.setText("$" + item.getAmount());
+            }
+            if (item.getDescription() != null) {
+                holder.txtItem.setText(item.getDescription());
+                holder.etDescription.setText(item.getDescription());
+            }
+            if (item.getVendor() != null) {
+                holder.spinnerVendor.setText(String.valueOf(item.getVendor()));
+            }
+            if (item.getEducationalBenefit() != null) {
+                holder.etEducationalBenefit.setText(item.getEducationalBenefit());
+            }
 
-        if(item.getPurchaseDate()!=null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-            holder.etPurchaseDate.setText(sdf.format(item.getPurchaseDate()));
-        }
-        if(item.getInvoice()!=null) {
-            holder.etInvoice.setText(String.valueOf(item.getInvoice()));
-        }
-        if(item.getCategory()!=null) {
-            holder.spinnerCategory.setText(String.valueOf(item.getCategory()));
-        }
-        if(item.getType()!=null) {
-            holder.spinnerType.setText(String.valueOf(item.getType()));
-        }
-        if(item.getAmount()!=0.0) {
-            holder.etAmount.setText("$" + item.getAmount());
-        }
-        if(item.getDescription()!=null) {
-            holder.txtItem.setText(item.getDescription());
-            holder.etDescription.setText(item.getDescription());
-        }
-        if(item.getVendor()!=null) {
-            holder.spinnerVendor.setText(String.valueOf(item.getVendor()));
-        }
-        if(item.getEducationalBenefit()!=null) {
-            holder.etEducationalBenefit.setText(item.getEducationalBenefit());
-        }
+            if (lstItems.size() == 1) {
+                lastSelectedPosition = position;
+            }
 
-        if (lstItems.size() == 1) {
-            lastSelectedPosition = position;
+            if (lstItems.size() - 1 == position) {
+                currentViewHolder = holder;
+                currentViewHolder.detailsLayout.setVisibility(View.VISIBLE);
+                currentViewHolder.imageViewExpandMore.setVisibility(View.GONE);
+                currentViewHolder.imageViewCollapse.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
-        if(lstItems.size()-1==position) {
-            currentViewHolder = holder;
-            currentViewHolder.detailsLayout.setVisibility(View.VISIBLE);
-            currentViewHolder.imageViewExpandMore.setVisibility(View.GONE);
-            currentViewHolder.imageViewCollapse.setVisibility(View.VISIBLE);
-        }
-
 
 
     }
@@ -373,44 +375,60 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
     }
 
     private void onClick(AddItemAdapter.AddItemViewHolder holder, int position) {
-        this.lastSelectedPosition = position;
-        currentViewHolder = holder;
+        try {
+            this.lastSelectedPosition = position;
+            currentViewHolder = holder;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void expandItem(AddItemAdapter.AddItemViewHolder holder) {
-        currentViewHolder.detailsLayout.setVisibility(View.GONE);
-        currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
-        currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
-        holder.detailsLayout.setVisibility(View.VISIBLE);
-        holder.imageViewExpandMore.setVisibility(View.GONE);
-        holder.imageViewCollapse.setVisibility(View.VISIBLE);
-        currentViewHolder = holder;
+        try {
+            currentViewHolder.detailsLayout.setVisibility(View.GONE);
+            currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+            currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
+            holder.detailsLayout.setVisibility(View.VISIBLE);
+            holder.imageViewExpandMore.setVisibility(View.GONE);
+            holder.imageViewCollapse.setVisibility(View.VISIBLE);
+            currentViewHolder = holder;
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+    }
 
     private void collapseItem(AddItemAdapter.AddItemViewHolder holder) {
-        currentViewHolder.detailsLayout.setVisibility(View.GONE);
-        currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
-        currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
-        holder.detailsLayout.setVisibility(View.GONE);
-        holder.imageViewExpandMore.setVisibility(View.VISIBLE);
-        holder.imageViewCollapse.setVisibility(View.GONE);
-        currentViewHolder = holder;
+        try {
+            currentViewHolder.detailsLayout.setVisibility(View.GONE);
+            currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+            currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
+            holder.detailsLayout.setVisibility(View.GONE);
+            holder.imageViewExpandMore.setVisibility(View.VISIBLE);
+            holder.imageViewCollapse.setVisibility(View.GONE);
+            currentViewHolder = holder;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 
     private void showDatePicker(AddItemAdapter.AddItemViewHolder holder) {
-        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTheme(R.style.ThemeOverlay_App_MaterialCalendar)
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build();
+        try {
+            MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                    .setTheme(R.style.ThemeOverlay_App_MaterialCalendar)
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build();
 
-        datePicker.addOnPositiveButtonClickListener(selection -> {
-            holder.etPurchaseDate.setText(formatSelectedDate(selection));
-            holder.tilPurchaseDate.setError(null);
+            datePicker.addOnPositiveButtonClickListener(selection -> {
+                holder.etPurchaseDate.setText(formatSelectedDate(selection));
+                holder.tilPurchaseDate.setError(null);
 
-        });
+            });
 
-        datePicker.show(fragment.getParentFragmentManager(), "DATE_PICKER");
+            datePicker.show(fragment.getParentFragmentManager(), "DATE_PICKER");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private String formatSelectedDate(Long selectedDate) {
@@ -420,183 +438,224 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
     }
 
     private boolean isFormValid() {
-        if (currentViewHolder == null && lstItems.size() > 0) {
+        try {
+            if (currentViewHolder == null && lstItems.size() > 0) {
+                return true;
+            } else if (lstItems.size() == 0) {
+                return false;
+            } else if (currentViewHolder != null) {
+                return isFieldValid(currentViewHolder.etPurchaseDate) && isFieldValid(currentViewHolder.etInvoice) && isDropDownFieldValid(currentViewHolder.spinnerCategory) && isFieldValid(currentViewHolder.etAmount) && isFieldValid(currentViewHolder.etEducationalBenefit)
+                        && isDropDownFieldValid(currentViewHolder.spinnerType) && isDropDownFieldValid(currentViewHolder.spinnerVendor) && isFieldValid(currentViewHolder.etDescription);
+            }
             return true;
-        } else if (lstItems.size() == 0) {
-            return false;
-        } else if (currentViewHolder != null) {
-            return isFieldValid(currentViewHolder.etPurchaseDate) && isFieldValid(currentViewHolder.etInvoice) && isDropDownFieldValid(currentViewHolder.spinnerCategory) && isFieldValid(currentViewHolder.etAmount) && isFieldValid(currentViewHolder.etEducationalBenefit)
-                    && isDropDownFieldValid(currentViewHolder.spinnerType) && isDropDownFieldValid(currentViewHolder.spinnerVendor) && isFieldValid(currentViewHolder.etDescription);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return true;
     }
 
     private boolean isFieldValid(TextInputEditText editText) {
-        String text = editText.getText().toString().trim();
+        String text = "";
+        try {
+            text = editText.getText().toString().trim();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return !TextUtils.isEmpty(text);
+
     }
 
     private boolean isDropDownFieldValid(MaterialAutoCompleteTextView field) {
-        String text = field.getText().toString().trim();
+        String text = "";
+        try {
+            text = field.getText().toString().trim();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return !TextUtils.isEmpty(text);
     }
 
     public boolean validateForm() {
-        if (isFormValid()) {
-            return true;
-        } else {
-            if (!isFieldValid(currentViewHolder.etPurchaseDate)) {
-                currentViewHolder.tilPurchaseDate.setError("Purchase date required.");
-                currentViewHolder.tilPurchaseDate.setErrorIconDrawable(null);
-                currentViewHolder.tilPurchaseDate.requestFocus();
+        try {
+            if (isFormValid()) {
+                return true;
             } else {
-                currentViewHolder.tilPurchaseDate.setError(null);
-            }
+                if (!isFieldValid(currentViewHolder.etPurchaseDate)) {
+                    currentViewHolder.tilPurchaseDate.setError("Purchase date required.");
+                    currentViewHolder.tilPurchaseDate.setErrorIconDrawable(null);
+                    currentViewHolder.tilPurchaseDate.requestFocus();
+                } else {
+                    currentViewHolder.tilPurchaseDate.setError(null);
+                }
 
-            if (!isFieldValid(currentViewHolder.etInvoice)) {
-                currentViewHolder.tilInvoice.setError("Invoice # required.");
-                currentViewHolder.tilInvoice.setErrorIconDrawable(null);
-                currentViewHolder.tilInvoice.requestFocus();
-            } else {
-                currentViewHolder.tilInvoice.setError(null);
-            }
+                if (!isFieldValid(currentViewHolder.etInvoice)) {
+                    currentViewHolder.tilInvoice.setError("Invoice # required.");
+                    currentViewHolder.tilInvoice.setErrorIconDrawable(null);
+                    currentViewHolder.tilInvoice.requestFocus();
+                } else {
+                    currentViewHolder.tilInvoice.setError(null);
+                }
 
-            if (!isDropDownFieldValid(currentViewHolder.spinnerCategory)) {
-                currentViewHolder.tilCategory.setError("Category required.");
-                currentViewHolder.tilCategory.requestFocus();
-            } else {
-                currentViewHolder.tilCategory.setError(null);
-            }
+                if (!isDropDownFieldValid(currentViewHolder.spinnerCategory)) {
+                    currentViewHolder.tilCategory.setError("Category required.");
+                    currentViewHolder.tilCategory.requestFocus();
+                } else {
+                    currentViewHolder.tilCategory.setError(null);
+                }
 
-            if (!isFieldValid(currentViewHolder.etAmount)) {
-                currentViewHolder.tilAmount.setError("Amount required.");
-                currentViewHolder.tilAmount.setErrorIconDrawable(null);
-                currentViewHolder.tilAmount.requestFocus();
-            } else {
-                currentViewHolder.tilAmount.setError(null);
-            }
-            if (!isFieldValid(currentViewHolder.etEducationalBenefit)) {
-                currentViewHolder.tilEducationalBenefit.setError("Educational benefit required.");
-                currentViewHolder.tilEducationalBenefit.setErrorIconDrawable(null);
-                currentViewHolder.tilEducationalBenefit.requestFocus();
-            } else {
-                currentViewHolder.tilEducationalBenefit.setError(null);
-            }
+                if (!isFieldValid(currentViewHolder.etAmount)) {
+                    currentViewHolder.tilAmount.setError("Amount required.");
+                    currentViewHolder.tilAmount.setErrorIconDrawable(null);
+                    currentViewHolder.tilAmount.requestFocus();
+                } else {
+                    currentViewHolder.tilAmount.setError(null);
+                }
+                if (!isFieldValid(currentViewHolder.etEducationalBenefit)) {
+                    currentViewHolder.tilEducationalBenefit.setError("Educational benefit required.");
+                    currentViewHolder.tilEducationalBenefit.setErrorIconDrawable(null);
+                    currentViewHolder.tilEducationalBenefit.requestFocus();
+                } else {
+                    currentViewHolder.tilEducationalBenefit.setError(null);
+                }
 
-            if (!isDropDownFieldValid(currentViewHolder.spinnerType)) {
-                currentViewHolder.tilType.setError("Type required.");
-                currentViewHolder.tilType.requestFocus();
-            } else {
-                currentViewHolder.tilType.setError(null);
-            }
-            if (!isFieldValid(currentViewHolder.etDescription)) {
-                currentViewHolder.tilDescription.setError("Description required.");
-                currentViewHolder.tilDescription.setErrorIconDrawable(null);
-                currentViewHolder.tilDescription.requestFocus();
-            } else {
-                currentViewHolder.tilDescription.setError(null);
-            }
-            if (!isDropDownFieldValid(currentViewHolder.spinnerVendor)) {
-                currentViewHolder.tilVendor.setError("Type required.");
-                currentViewHolder.tilVendor.requestFocus();
-            } else {
-                currentViewHolder.tilVendor.setError(null);
-            }
+                if (!isDropDownFieldValid(currentViewHolder.spinnerType)) {
+                    currentViewHolder.tilType.setError("Type required.");
+                    currentViewHolder.tilType.requestFocus();
+                } else {
+                    currentViewHolder.tilType.setError(null);
+                }
+                if (!isFieldValid(currentViewHolder.etDescription)) {
+                    currentViewHolder.tilDescription.setError("Description required.");
+                    currentViewHolder.tilDescription.setErrorIconDrawable(null);
+                    currentViewHolder.tilDescription.requestFocus();
+                } else {
+                    currentViewHolder.tilDescription.setError(null);
+                }
+                if (!isDropDownFieldValid(currentViewHolder.spinnerVendor)) {
+                    currentViewHolder.tilVendor.setError("Type required.");
+                    currentViewHolder.tilVendor.requestFocus();
+                } else {
+                    currentViewHolder.tilVendor.setError(null);
+                }
 
+            }
+            return false;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return false;
     }
 
     public void fillForm(int requestCode, String recognizedText) {
-        if (requestCode == RECORD_AUDIO_INVOICE_RESULT_CODE) {
-            currentViewHolder.etInvoice.setText(recognizedText);
-            currentViewHolder.tilInvoice.setError(null);
-        } else if (requestCode == RECORD_AUDIO_AMOUNT_RESULT_CODE) {
-            currentViewHolder.etAmount.setText(recognizedText);
-            currentViewHolder.tilAmount.setError(null);
-        } else if (requestCode == RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE) {
-            currentViewHolder.etEducationalBenefit.setText(recognizedText);
-            currentViewHolder.tilEducationalBenefit.setError(null);
-        } else if (requestCode == RECORD_AUDIO_DESCRIPTION_RESULT_CODE) {
-            currentViewHolder.etDescription.setText(recognizedText);
-            currentViewHolder.tilDescription.setError(null);
+        try {
+            if (requestCode == RECORD_AUDIO_INVOICE_RESULT_CODE) {
+                currentViewHolder.etInvoice.setText(recognizedText);
+                currentViewHolder.tilInvoice.setError(null);
+            } else if (requestCode == RECORD_AUDIO_AMOUNT_RESULT_CODE) {
+                currentViewHolder.etAmount.setText(recognizedText);
+                currentViewHolder.tilAmount.setError(null);
+            } else if (requestCode == RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE) {
+                currentViewHolder.etEducationalBenefit.setText(recognizedText);
+                currentViewHolder.tilEducationalBenefit.setError(null);
+            } else if (requestCode == RECORD_AUDIO_DESCRIPTION_RESULT_CODE) {
+                currentViewHolder.etDescription.setText(recognizedText);
+                currentViewHolder.tilDescription.setError(null);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
     public void saveData() {
-        if (currentViewHolder != null) {
-            ItemViewModel itemViewModel = lstItems.get(lastSelectedPosition);
-            itemViewModel.setPurchaseDate(new Date(currentViewHolder.etPurchaseDate.getText().toString().trim()));
-            itemViewModel.setInvoice(currentViewHolder.etInvoice.getText().toString().trim());
-            itemViewModel.setCategory(currentViewHolder.spinnerCategory.getText().toString().trim());
-            itemViewModel.setAmount(Integer.valueOf(currentViewHolder.etAmount.getText().toString().trim()));
-            itemViewModel.setDescription(currentViewHolder.etDescription.getText().toString().trim());
-            itemViewModel.setType(currentViewHolder.spinnerType.getText().toString().trim());
-            itemViewModel.setVendor(currentViewHolder.spinnerVendor.getText().toString().trim());
-            itemViewModel.setEducationalBenefit(currentViewHolder.etEducationalBenefit.getText().toString().trim());
-            lstItems.set(lastSelectedPosition, itemViewModel);
-            currentViewHolder.txtItem.setText(itemViewModel.getDescription());
-            currentViewHolder.detailsLayout.setVisibility(View.GONE);
-            currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
-            currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
-            Toast.makeText(context, "Item saved.", Toast.LENGTH_SHORT).show();
+        try {
+            if (currentViewHolder != null) {
+                ItemViewModel itemViewModel = lstItems.get(lastSelectedPosition);
+                itemViewModel.setPurchaseDate(new Date(currentViewHolder.etPurchaseDate.getText().toString().trim()));
+                itemViewModel.setInvoice(currentViewHolder.etInvoice.getText().toString().trim());
+                itemViewModel.setCategory(currentViewHolder.spinnerCategory.getText().toString().trim());
+                itemViewModel.setAmount(Integer.valueOf(currentViewHolder.etAmount.getText().toString().trim()));
+                itemViewModel.setDescription(currentViewHolder.etDescription.getText().toString().trim());
+                itemViewModel.setType(currentViewHolder.spinnerType.getText().toString().trim());
+                itemViewModel.setVendor(currentViewHolder.spinnerVendor.getText().toString().trim());
+                itemViewModel.setEducationalBenefit(currentViewHolder.etEducationalBenefit.getText().toString().trim());
+                lstItems.set(lastSelectedPosition, itemViewModel);
+                currentViewHolder.txtItem.setText(itemViewModel.getDescription());
+                currentViewHolder.detailsLayout.setVisibility(View.GONE);
+                currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+                currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
+                Toast.makeText(context, "Item saved.", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
 
     }
 
     public void showNewItem(ArrayList<ItemViewModel> items) {
-        lstItems.add(new ItemViewModel());
-        lastSelectedPosition = lstItems.size() - 1;
-        if (currentViewHolder != null) {
-            currentViewHolder.detailsLayout.setVisibility(View.GONE);
-            currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
-            currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+        try {
+            lstItems.add(new ItemViewModel());
+            lastSelectedPosition = lstItems.size() - 1;
+            if (currentViewHolder != null) {
+                currentViewHolder.detailsLayout.setVisibility(View.GONE);
+                currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
+                currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+            }
+            notifyItemInserted(lstItems.size() - 1);
+            notifyDataSetChanged();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        notifyItemInserted(lstItems.size() - 1);
-        notifyDataSetChanged();
-
-
 
 
     }
 
     private void deleteItem(AddItemAdapter.AddItemViewHolder holder, int position) {
-        lstItems.remove(position);
-        fragment.changeButtons();
-        currentViewHolder = holder;
-        clearInputs();
-        currentViewHolder = null;
-        notifyItemRemoved(position);
-        notifyDataSetChanged();
+        try {
+            lstItems.remove(position);
+            fragment.changeButtons();
+            currentViewHolder = holder;
+            clearInputs();
+            currentViewHolder = null;
+            notifyItemRemoved(position);
+            notifyDataSetChanged();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 
     private void clearInputs() {
-        if (currentViewHolder != null) {
-            currentViewHolder.etPurchaseDate.setText(null);
-            currentViewHolder.tilPurchaseDate.clearFocus();
-            currentViewHolder.tilPurchaseDate.setError(null);
-            currentViewHolder.etAmount.setText(null);
-            currentViewHolder.tilAmount.clearFocus();
-            currentViewHolder.tilAmount.setError(null);
-            currentViewHolder.etInvoice.setText(null);
-            currentViewHolder.tilInvoice.clearFocus();
-            currentViewHolder.tilInvoice.setError(null);
-            currentViewHolder.spinnerCategory.setText(null);
-            currentViewHolder.spinnerType.setText(null);
-            currentViewHolder.tilType.setError(null);
-            currentViewHolder.tilCategory.clearFocus();
-            currentViewHolder.tilCategory.setError(null);
-            currentViewHolder.etEducationalBenefit.setText(null);
-            currentViewHolder.tilEducationalBenefit.clearFocus();
-            currentViewHolder.tilEducationalBenefit.setError(null);
-            currentViewHolder.etDescription.setText(null);
-            currentViewHolder.tilDescription.clearFocus();
-            currentViewHolder.tilDescription.setError(null);
-            currentViewHolder.tilVendor.clearFocus();
-            currentViewHolder.tilVendor.setError(null);
-            currentViewHolder.spinnerVendor.setText(null);
+        try {
+            if (currentViewHolder != null) {
+                currentViewHolder.etPurchaseDate.setText(null);
+                currentViewHolder.tilPurchaseDate.clearFocus();
+                currentViewHolder.tilPurchaseDate.setError(null);
+                currentViewHolder.etAmount.setText(null);
+                currentViewHolder.tilAmount.clearFocus();
+                currentViewHolder.tilAmount.setError(null);
+                currentViewHolder.etInvoice.setText(null);
+                currentViewHolder.tilInvoice.clearFocus();
+                currentViewHolder.tilInvoice.setError(null);
+                currentViewHolder.spinnerCategory.setText(null);
+                currentViewHolder.spinnerType.setText(null);
+                currentViewHolder.tilType.setError(null);
+                currentViewHolder.tilCategory.clearFocus();
+                currentViewHolder.tilCategory.setError(null);
+                currentViewHolder.etEducationalBenefit.setText(null);
+                currentViewHolder.tilEducationalBenefit.clearFocus();
+                currentViewHolder.tilEducationalBenefit.setError(null);
+                currentViewHolder.etDescription.setText(null);
+                currentViewHolder.tilDescription.clearFocus();
+                currentViewHolder.tilDescription.setError(null);
+                currentViewHolder.tilVendor.clearFocus();
+                currentViewHolder.tilVendor.setError(null);
+                currentViewHolder.spinnerVendor.setText(null);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }
