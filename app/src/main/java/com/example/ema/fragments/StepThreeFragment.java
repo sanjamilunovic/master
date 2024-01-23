@@ -119,6 +119,8 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
                 AddReimbursementActivity.DataHolder.setData(lstReimbursement);
                 Intent intent = new Intent(getContext(), AddReimbursementActivity.class);
                 startActivity(intent);
+                ((AddReimbursementActivity) getActivity()).finish();
+
             }
         });
 
@@ -130,6 +132,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 MainActivity.DataHolder.setData(lstReimbursement);
                 startActivity(intent);
+                ((AddReimbursementActivity) getActivity()).finish();
             }
         });
 

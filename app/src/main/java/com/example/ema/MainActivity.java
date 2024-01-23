@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Intent intent = new Intent(MainActivity.this, AddReimbursementActivity.class);
                     AddReimbursementActivity.DataHolder.setData(lstReimbursements);
                     startActivity(intent);
+                    finish();
                 }
             });
 
