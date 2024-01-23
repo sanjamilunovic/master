@@ -625,7 +625,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                 currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
                 currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
             }
-            //notifyItemInserted(lstItems.size() - 1);
+            notifyItemInserted(lstItems.size() - 1);
             notifyDataSetChanged();
         } catch (Exception ex) {
             ex.printStackTrace();
