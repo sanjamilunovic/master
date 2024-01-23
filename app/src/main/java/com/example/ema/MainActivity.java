@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_logout);
 
-                TextView txtAccount = dialog.findViewById(R.id.txtAccount);
                 Button buttonLogout = dialog.findViewById(R.id.logoutButton);
+                ImageView closeIcon = dialog.findViewById(R.id.iconClose);
 
                 buttonLogout.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -133,13 +133,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         finish();
                     }
                 });
+
+                closeIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.show();
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.getWindow().setGravity(Gravity.TOP | Gravity.CENTER_VERTICAL);
+                dialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
             }
         });
-
 
     }
 
