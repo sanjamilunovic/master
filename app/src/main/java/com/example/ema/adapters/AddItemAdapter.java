@@ -287,8 +287,8 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             holder.txtItem.setText("Item" + " " + (position + 1));
             holder.mainCont.setOnClickListener(v -> onClick(holder, position));
             holder.iconDelete.setOnClickListener(v -> deleteItem(holder, position));
-            holder.imageViewExpandMore.setOnClickListener(v -> expandItem(holder));
-            holder.imageViewCollapse.setOnClickListener(v -> collapseItem(holder));
+            holder.imageViewExpandMore.setOnClickListener(v -> expandItem(holder,position));
+            holder.imageViewCollapse.setOnClickListener(v -> collapseItem(holder,position));
 
             if (item.getPurchaseDate() != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
@@ -397,21 +397,27 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         }
     }
 
-    private void expandItem(AddItemAdapter.AddItemViewHolder holder) {
+    private void expandItem(AddItemAdapter.AddItemViewHolder holder,int position) {
         try {
-            currentViewHolder.detailsLayout.setVisibility(View.GONE);
-            currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
-            currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
+            if(currentViewHolder==null){
+                currentViewHolder = holder;
+            }else{
+                currentViewHolder.detailsLayout.setVisibility(View.GONE);
+                currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+                currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
+            }
+
             holder.detailsLayout.setVisibility(View.VISIBLE);
             holder.imageViewExpandMore.setVisibility(View.GONE);
             holder.imageViewCollapse.setVisibility(View.VISIBLE);
             currentViewHolder = holder;
+            lastSelectedPosition = position;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void collapseItem(AddItemAdapter.AddItemViewHolder holder) {
+    private void collapseItem(AddItemAdapter.AddItemViewHolder holder, int position) {
         try {
             currentViewHolder.detailsLayout.setVisibility(View.GONE);
             currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
@@ -420,6 +426,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             holder.imageViewExpandMore.setVisibility(View.VISIBLE);
             holder.imageViewCollapse.setVisibility(View.GONE);
             currentViewHolder = holder;
+            lastSelectedPosition = position;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -618,7 +625,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                 currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
                 currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
             }
-            notifyItemInserted(lstItems.size() - 1);
+            //notifyItemInserted(lstItems.size() - 1);
             notifyDataSetChanged();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -630,12 +637,13 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
     private void deleteItem(AddItemAdapter.AddItemViewHolder holder, int position) {
         try {
             lstItems.remove(position);
+            lastSelectedPosition = position;
             fragment.changeButtons();
             currentViewHolder = holder;
             clearInputs();
             currentViewHolder = null;
             notifyItemRemoved(position);
-            notifyDataSetChanged();
+           // notifyDataSetChanged();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
