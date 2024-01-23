@@ -54,7 +54,7 @@ public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemR
             String userInput = String.valueOf(item.getAmount());
 
             if (!TextUtils.isEmpty(userInput)) {
-                float floatValue = Float.parseFloat(userInput);
+                float floatValue = Float.parseFloat(userInput.replace(',', '.'));
                 userInput = String.format("%.2f",floatValue);
             }
             holder.txtAmount.setText("$" + userInput);

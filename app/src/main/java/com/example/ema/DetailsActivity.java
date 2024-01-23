@@ -6,14 +6,21 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.ema.adapters.DetailItemAdapter;
+import com.example.ema.events.Events;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +52,8 @@ public class DetailsActivity extends AppCompatActivity {
     RecyclerView itemRecyclerView;
     @BindView(R.id.materialToolbar)
     MaterialToolbar materialToolbar;
+    @BindView(R.id.buttonCancelRequest)
+    Button buttonCancelRequest;
 
     private ReimbursementViewModel reimbursementViewModel;
 
@@ -63,6 +72,35 @@ public class DetailsActivity extends AppCompatActivity {
         itemRecyclerView.setLayoutManager(layoutManager);
         DetailItemAdapter adapter = new DetailItemAdapter(reimbursementViewModel.getItems(), this);
         itemRecyclerView.setAdapter(adapter);
+
+        buttonCancelRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                   showAlertDialog();
+            }
+        });
+    }
+
+    private void showAlertDialog(){
+        new MaterialAlertDialogBuilder(DetailsActivity.this)
+                .setTitle("Are you sure you want to cancel request?")
+                .setMessage("By clicking confirm, your reimbursement will be deleted.")
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Events.CancelRequest event = new Events.CancelRequest();
+                        event.reimbursementViewModel = reimbursementViewModel;
+                        EventBus.getDefault().post(event);
+                        finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     private void setUpToolbar() {

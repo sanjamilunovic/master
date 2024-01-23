@@ -69,7 +69,7 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
             holder.txtDate.setText(sdf.format(date));
             String amountText = String.valueOf(reimbursementViewModel.getAmount());
             if (!TextUtils.isEmpty(amountText)) {
-                float floatValue = Float.parseFloat(amountText);
+                float floatValue = Float.parseFloat(amountText.replace(',', '.'));
                 amountText = String.format("%.2f",floatValue);
             }
             holder.txtTotalAmount.setText("$" + amountText);
@@ -171,5 +171,9 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+    public void removeItem(ReimbursementViewModel reimbursementViewModel){
+        lstReimbursement.remove(reimbursementViewModel);
+        notifyDataSetChanged();
     }
 }

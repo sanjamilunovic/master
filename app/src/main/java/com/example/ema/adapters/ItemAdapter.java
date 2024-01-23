@@ -62,7 +62,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         String amountText = String.valueOf(item.getAmount());
 
         if (!TextUtils.isEmpty(amountText)) {
-            float floatValue = Float.parseFloat(amountText);
+            float floatValue = Float.parseFloat(amountText.replace(',', '.'));
             amountText = String.format("%.2f",floatValue);
         }
         holder.textViewAmount.setText("$" +  amountText);
@@ -116,7 +116,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             tvType.setText(String.valueOf(item.getType()));
             String amountText = String.valueOf(item.getAmount());
             if (!TextUtils.isEmpty(amountText)) {
-                float floatValue = Float.parseFloat(amountText);
+                float floatValue = Float.parseFloat(amountText.replace(',', '.'));
                 amountText = String.format("%.2f",floatValue);
             }
             tvAmount.setText("$" + amountText);

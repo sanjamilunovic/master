@@ -25,10 +25,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ema.adapters.ListItemReimbursementAdapter;
 import com.example.ema.adapters.ReimbursementAdapter;
+import com.example.ema.events.Events;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -75,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.accountIcon)
     ImageView accountIcon;
     private ArrayList<ReimbursementViewModel> lstReimbursements;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private  ReimbursementAdapter adapter;
 
 
     @Override
@@ -85,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
+        EventBus.getDefault().register(this);
+
         lstReimbursements = new ArrayList<ReimbursementViewModel>();
 
 
@@ -101,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mainCont.setBackgroundColor(getResources().getColor(R.color.white));
             LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             reimbursementRecyclerView.setLayoutManager(layoutManager);
-            ReimbursementAdapter adapter = new ReimbursementAdapter(lstReimbursements, this);
+            adapter = new ReimbursementAdapter(lstReimbursements, this);
             reimbursementRecyclerView.setAdapter(adapter);
         }
 
@@ -146,6 +153,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dialog.getWindow().setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
             }
         });
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void cancelRequest(Events.CancelRequest event) {
+        lstReimbursements.remove(event.reimbursementViewModel);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        reimbursementRecyclerView.setLayoutManager(layoutManager);
+        adapter = new ReimbursementAdapter(lstReimbursements, this);
+        reimbursementRecyclerView.setAdapter(adapter);
+
+        if (lstReimbursements == null || lstReimbursements.size() == 0) {
+            tvReimbursementsEmpty.setVisibility(View.VISIBLE);
+            tvReimbursementsEmpty.setText("No recent reimbursements");
+            mainCont.setBackgroundColor(getResources().getColor(R.color.defaultColor));
+        }
 
     }
 
