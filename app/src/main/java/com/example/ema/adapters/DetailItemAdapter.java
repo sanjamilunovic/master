@@ -66,7 +66,7 @@ public class DetailItemAdapter extends RecyclerView.Adapter<DetailItemAdapter.De
             String amountText = String.valueOf(item.getAmount());
             if (!TextUtils.isEmpty(amountText)) {
                 float floatValue = Float.parseFloat(amountText);
-                amountText = String.format("%.2f",floatValue);
+                amountText = String.format(Locale.US,"%.2f",floatValue);
             }
             holder.tvAmount.setText("$" + amountText);
             holder.tvDescription.setText(String.valueOf(item.getDescription()));

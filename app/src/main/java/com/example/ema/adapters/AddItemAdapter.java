@@ -235,7 +235,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
 
                         if (!TextUtils.isEmpty(userInput)) {
                             float floatValue = Float.parseFloat(userInput.replace(',', '.'));
-                            userInput = String.format("%.2f",floatValue);
+                            userInput = String.format(Locale.US,"%.2f",floatValue);
                         }
 
                         holder.etAmount.setText("$" + userInput);

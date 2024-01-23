@@ -15,6 +15,7 @@ import com.example.ema.viewmodels.ItemViewModel;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +56,7 @@ public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemR
 
             if (!TextUtils.isEmpty(userInput)) {
                 float floatValue = Float.parseFloat(userInput.replace(',', '.'));
-                userInput = String.format("%.2f",floatValue);
+                userInput = String.format(Locale.US,"%.2f",floatValue);
             }
             holder.txtAmount.setText("$" + userInput);
 
@@ -63,7 +64,7 @@ public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemR
 
             if (position == lstItems.size() - 1) {
                 holder.totalLayout.setVisibility(View.VISIBLE);
-                holder.txtTotalAmount.setText("$" + String.format("%.2f",totalAmount));
+                holder.txtTotalAmount.setText("$" + String.format(Locale.US,"%.2f",totalAmount));
                 holder.view.setVisibility(View.VISIBLE);
                 reimbursementViewModel.setAmount(totalAmount);
             }

@@ -70,7 +70,7 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
             String amountText = String.valueOf(reimbursementViewModel.getAmount());
             if (!TextUtils.isEmpty(amountText)) {
                 float floatValue = Float.parseFloat(amountText.replace(',', '.'));
-                amountText = String.format("%.2f",floatValue);
+                amountText = String.format(Locale.US,"%.2f",floatValue);
             }
             holder.txtTotalAmount.setText("$" + amountText);
 
