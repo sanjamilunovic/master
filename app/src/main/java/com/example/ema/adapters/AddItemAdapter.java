@@ -156,6 +156,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                         holder.tilPurchaseDate.setError(null);
                     } else {
                         holder.tilPurchaseDate.setError("Purchase date required.");
+                        holder.tilPurchaseDate.setErrorIconDrawable(null);
                     }
                 }
             }
@@ -170,6 +171,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                         holder.tilInvoice.setError(null);
                     } else {
                         holder.tilInvoice.setError("Invoice # required.");
+                        holder.tilInvoice.setErrorIconDrawable(null);
                     }
                 }
             }
@@ -198,6 +200,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                         holder.tilType.setError(null);
                     } else {
                         holder.tilType.setError("Type required.");
+                        holder.tilType.setErrorIconDrawable(null);
                     }
                 } else {
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -230,6 +233,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                         holder.tilAmount.setError(null);
                     } else {
                         holder.tilAmount.setError("Amount required.");
+                        holder.tilAmount.setErrorIconDrawable(null);
                     }
                 }
             }
@@ -242,6 +246,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                         holder.tilDescription.setError(null);
                     } else {
                         holder.tilDescription.setError("Description required.");
+                        holder.tilDescription.setErrorIconDrawable(null);
                     }
                 }
             }
@@ -254,6 +259,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                         holder.tilEducationalBenefit.setError(null);
                     } else {
                         holder.tilEducationalBenefit.setError("Educational benefit required.");
+                        holder.tilEducationalBenefit.setErrorIconDrawable(null);
                     }
                 }
             }
