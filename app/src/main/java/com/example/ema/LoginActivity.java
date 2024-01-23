@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bugsnag.android.Bugsnag;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -78,6 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
         return false;
     }
@@ -120,6 +122,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             biometricPrompt.authenticate(promptInfo);
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -145,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
         return true;
     }

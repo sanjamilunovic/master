@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.viewmodels.ItemViewModel;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -87,6 +88,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
 

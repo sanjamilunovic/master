@@ -3,6 +3,8 @@ package com.example.ema.helpers;
 import android.app.Activity;
 import android.os.Environment;
 
+import com.bugsnag.android.Bugsnag;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +31,7 @@ public class CameraHelper {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
         return null;
     }

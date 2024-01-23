@@ -18,6 +18,7 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/ema"
         android:label="@string/app_name"
@@ -55,6 +56,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
+
+        <meta-data
+            android:name="com.bugsnag.android.API_KEY"
+            android:value="6171a2c62437bc50955e0f5b0ec74e06"/>
     </application>
 
 </manifest>

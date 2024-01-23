@@ -34,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.AddReimbursementActivity;
 import com.example.ema.MainActivity;
 import com.example.ema.R;
@@ -182,6 +183,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
+                Bugsnag.notify(ex);
             }
 
         }
@@ -211,6 +213,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+        try{
         if (addItemAdapter.getItemCount() == 0) {
             Toast.makeText(getContext(), "To continue, you must add at least one item.", Toast.LENGTH_SHORT).show();
             return;
@@ -234,35 +237,50 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
             itemRecyclerView.setAdapter(adapter);
 
         }
+          }catch(Exception ex){
+            ex.printStackTrace();
+            Bugsnag.notify(ex);
+        }
 
     }
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+        try{
         mainCont.setVisibility(View.VISIBLE);
         buttonAddItem.setVisibility(View.VISIBLE);
         subLayou1.setVisibility(View.GONE);
         subLayout2.setVisibility(View.GONE);
         callback.getStepperLayout().setCompleteButtonColor(getResources().getColor(R.color.primaryRed));
         callback.getStepperLayout().setCompleteButtonEnabled(true);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            Bugsnag.notify(ex);
+        }
 
     }
 
 
     public void setVoiceRecognizer(int requestCode) {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        // identifying application to the Google service
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
-        // hint in the dialog
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Try saying something");
-        // hint to the recognizer about what the user is going to say
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        // number of results
-        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
-        // recognition language
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
-        startActivityForResult(intent, requestCode);
+        try{
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            // identifying application to the Google service
+            intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
+            // hint in the dialog
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Try saying something");
+            // hint to the recognizer about what the user is going to say
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            // number of results
+            intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
+            // recognition language
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
+            startActivityForResult(intent, requestCode);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            Bugsnag.notify(ex);
+        }
+
     }
 
     public void changeButtons() {

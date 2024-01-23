@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ItemViewModel;
 import com.example.ema.viewmodels.ReimbursementViewModel;
@@ -70,6 +71,7 @@ public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemR
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
 

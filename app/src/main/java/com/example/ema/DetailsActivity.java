@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.adapters.DetailItemAdapter;
 import com.example.ema.events.Events;
 import com.example.ema.viewmodels.ReimbursementViewModel;
@@ -82,25 +83,31 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void showAlertDialog(){
-        new MaterialAlertDialogBuilder(DetailsActivity.this)
-                .setTitle("Are you sure you want to cancel request?")
-                .setMessage("By clicking confirm, your reimbursement will be deleted.")
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Events.CancelRequest event = new Events.CancelRequest();
-                        event.reimbursementViewModel = reimbursementViewModel;
-                        EventBus.getDefault().post(event);
-                        finish();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
+        try{
+            new MaterialAlertDialogBuilder(DetailsActivity.this)
+                    .setTitle("Are you sure you want to cancel request?")
+                    .setMessage("By clicking confirm, your reimbursement will be deleted.")
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Events.CancelRequest event = new Events.CancelRequest();
+                            event.reimbursementViewModel = reimbursementViewModel;
+                            EventBus.getDefault().post(event);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            Bugsnag.notify(ex);
+        }
+
     }
 
     private void setUpToolbar() {
@@ -117,6 +124,7 @@ public class DetailsActivity extends AppCompatActivity {
             drawable.setColorFilter(getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -125,6 +133,7 @@ public class DetailsActivity extends AppCompatActivity {
             materialToolbar.setTitle("Reimbursement Details");
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 

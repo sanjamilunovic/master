@@ -33,6 +33,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.AddReimbursementActivity;
 import com.example.ema.R;
 import com.example.ema.helpers.CameraHelper;
@@ -107,6 +108,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep, View.OnCl
             fabAntiRClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -130,6 +132,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep, View.OnCl
             dialog.show();
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -206,6 +209,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep, View.OnCl
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
     }
@@ -233,6 +237,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep, View.OnCl
             fabGallery.setVisibility(View.GONE);
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
     }
@@ -275,6 +280,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep, View.OnCl
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -297,6 +303,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep, View.OnCl
             return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
         return null;
     }
@@ -313,6 +320,7 @@ public class StepTwoFragment extends Fragment implements BlockingStep, View.OnCl
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 

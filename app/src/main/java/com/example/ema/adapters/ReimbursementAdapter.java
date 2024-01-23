@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.DetailsActivity;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ReimbursementViewModel;
@@ -85,6 +86,7 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
             });
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
     }
@@ -133,6 +135,7 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -160,6 +163,7 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -170,10 +174,8 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
             context.startActivity(intent);
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
-    public void removeItem(ReimbursementViewModel reimbursementViewModel){
-        lstReimbursement.remove(reimbursementViewModel);
-        notifyDataSetChanged();
-    }
+
 }

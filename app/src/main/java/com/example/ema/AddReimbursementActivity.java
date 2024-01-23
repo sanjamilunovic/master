@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.adapters.StepperAdapter;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -80,22 +81,28 @@ public class AddReimbursementActivity extends AppCompatActivity implements Stepp
     }
 
     private void showExitConfirmationDialog() {
-        new MaterialAlertDialogBuilder(AddReimbursementActivity.this)
-                .setTitle("Are you sure you want to leave?")
-                .setMessage("Your changes will not be saved.")
-                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                       finish();
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
+        try{
+            new MaterialAlertDialogBuilder(AddReimbursementActivity.this)
+                    .setTitle("Are you sure you want to leave?")
+                    .setMessage("Your changes will not be saved.")
+                    .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            Bugsnag.notify(ex);
+        }
+
     }
 
     @Override

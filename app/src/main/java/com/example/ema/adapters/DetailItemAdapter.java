@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.R;
 import com.example.ema.viewmodels.ItemViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -75,6 +76,7 @@ public class DetailItemAdapter extends RecyclerView.Adapter<DetailItemAdapter.De
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
 

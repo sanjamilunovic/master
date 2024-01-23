@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.ItemDetailActivity;
 import com.example.ema.MainActivity;
 import com.example.ema.R;
@@ -57,18 +58,22 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(ItemAdapter.ItemViewHolder holder, int position) {
-        ItemViewModel item = lstItems.get(position);
-        holder.textViewDescription.setText(item.getDescription());
-        String amountText = String.valueOf(item.getAmount());
+        try {
+            ItemViewModel item = lstItems.get(position);
+            holder.textViewDescription.setText(item.getDescription());
+            String amountText = String.valueOf(item.getAmount());
 
-        if (!TextUtils.isEmpty(amountText)) {
-            float floatValue = Float.parseFloat(amountText.replace(',', '.'));
-            amountText = String.format(Locale.US,"%.2f",floatValue);
+            if (!TextUtils.isEmpty(amountText)) {
+                float floatValue = Float.parseFloat(amountText.replace(',', '.'));
+                amountText = String.format(Locale.US, "%.2f", floatValue);
+            }
+            holder.textViewAmount.setText("$" + amountText);
+
+            holder.contMain.setOnClickListener(v -> onClick(item));
+        }catch(Exception ex){
+            ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
-        holder.textViewAmount.setText("$" +  amountText);
-
-        holder.contMain.setOnClickListener(v -> onClick(item));
-
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -130,6 +135,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             dialog.getWindow().setGravity(Gravity.BOTTOM);
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
     }

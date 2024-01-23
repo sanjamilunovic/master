@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.R;
 import com.example.ema.fragments.StepThreeFragment;
 import com.example.ema.helpers.PermissionHelper;
@@ -59,6 +60,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         this.lstItems = lstItems;
         this.context = context;
         this.fragment = fragment;
+
 
     }
 
@@ -281,8 +283,8 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
 
     @Override
     public void onBindViewHolder(AddItemAdapter.AddItemViewHolder holder, int position) {
-        ItemViewModel item = lstItems.get(position);
         try {
+            ItemViewModel item = lstItems.get(position);
             holder.txtItem.setText("Item" + " " + (position + 1));
             holder.mainCont.setOnClickListener(v -> onClick(holder, position));
             holder.iconDelete.setOnClickListener(v -> deleteItem(holder, position));
@@ -297,6 +299,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                 holder.etInvoice.setText(String.valueOf(item.getInvoice()));
             }
             if (item.getCategory() != null) {
+
                 holder.spinnerCategory.setText(String.valueOf(item.getCategory()));
             }
             if (item.getType() != null) {
@@ -447,6 +450,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             });
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
 
@@ -512,6 +516,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             currentViewHolder = holder;
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -532,6 +537,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             lastSelectedPosition = position;
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -547,6 +553,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             lastSelectedPosition = position;
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -567,6 +574,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             datePicker.show(fragment.getParentFragmentManager(), "DATE_PICKER");
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -589,6 +597,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             return true;
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
         return true;
     }
@@ -599,6 +608,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             text = editText.getText().toString().trim();
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
         return !TextUtils.isEmpty(text);
 
@@ -610,6 +620,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             text = field.getText().toString().trim();
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
         return !TextUtils.isEmpty(text);
     }
@@ -682,6 +693,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
         return false;
     }
@@ -719,6 +731,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
@@ -745,6 +758,8 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
+            Toast.makeText(context, "Couldn't save an item. Please try again.", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -763,6 +778,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             notifyDataSetChanged();
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
 
@@ -780,6 +796,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
            // notifyDataSetChanged();
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
 
     }
@@ -816,6 +833,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 }

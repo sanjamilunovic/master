@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bugsnag.android.Bugsnag;
 import com.example.ema.AddReimbursementActivity;
 import com.example.ema.R;
 import com.example.ema.helpers.PermissionHelper;
@@ -85,6 +86,7 @@ public class StepOneFragment extends Fragment implements BlockingStep {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            Bugsnag.notify(ex);
         }
     }
 
