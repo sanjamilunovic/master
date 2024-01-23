@@ -218,8 +218,11 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
             Toast.makeText(getContext(), "To continue, you must add at least one item.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (addItemAdapter.validateForm()) {
-            addItemAdapter.saveData();
+        if(buttonSaveItem.getVisibility()==View.VISIBLE) {
+            if (addItemAdapter.validateForm()) {
+                addItemAdapter.saveData();
+            }
+        }
 
             mainCont.setVisibility(View.GONE);
             buttonSaveItem.setVisibility(View.GONE);
@@ -236,8 +239,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
             ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items, getContext(), reimbursementViewModel);
             itemRecyclerView.setAdapter(adapter);
 
-        }
-          }catch(Exception ex){
+        } catch(Exception ex){
             ex.printStackTrace();
             Bugsnag.notify(ex);
         }

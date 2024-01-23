@@ -759,7 +759,6 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         } catch (Exception ex) {
             ex.printStackTrace();
             Bugsnag.notify(ex);
-            Toast.makeText(context, "Couldn't save an item. Please try again.", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -788,9 +787,9 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         try {
             lstItems.remove(position);
             lastSelectedPosition = position;
-            fragment.changeButtons();
             currentViewHolder = holder;
             clearInputs();
+            fragment.changeButtons();
             currentViewHolder = null;
             notifyItemRemoved(position);
            // notifyDataSetChanged();
