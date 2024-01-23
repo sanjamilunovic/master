@@ -668,6 +668,9 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                 currentViewHolder.tilVendor.clearFocus();
                 currentViewHolder.tilVendor.setError(null);
                 currentViewHolder.spinnerVendor.setText(null);
+                currentViewHolder.detailsLayout.setVisibility(View.GONE);
+                currentViewHolder.imageViewExpandMore.setVisibility(View.VISIBLE);
+                currentViewHolder.imageViewCollapse.setVisibility(View.GONE);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
