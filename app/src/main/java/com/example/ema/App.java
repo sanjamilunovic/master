@@ -8,7 +8,13 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
+        try{
         super.onCreate();
-        Bugsnag.init(this);
+            Bugsnag.start(getApplicationContext());
+        }catch(Exception ex){
+            ex.printStackTrace();
+            Bugsnag.notify(ex);
+        }
+
     }
 }

@@ -90,6 +90,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
     private AddItemAdapter addItemAdapter;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_step_three, container, false);
@@ -107,6 +108,7 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
                 buttonAddItem.setVisibility(View.GONE);
                 subLayou1.setVisibility(View.GONE);
                 subLayout2.setVisibility(View.VISIBLE);
+
             }
         });
         buttonRequestAnotherReimbursement.setOnClickListener(new View.OnClickListener() {
