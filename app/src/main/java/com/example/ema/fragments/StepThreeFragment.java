@@ -219,8 +219,11 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
             addItemAdapter.saveData();
 
             mainCont.setVisibility(View.GONE);
+            buttonSaveItem.setVisibility(View.GONE);
+            buttonAddItem.setVisibility(View.GONE);
             buttonAddItem.setVisibility(View.GONE);
             subLayou1.setVisibility(View.VISIBLE);
+
 
             callback.getStepperLayout().setCompleteButtonColor(getResources().getColor(R.color.white));
             callback.getStepperLayout().setCompleteButtonEnabled(false);
