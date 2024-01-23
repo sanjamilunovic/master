@@ -144,6 +144,8 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         holder.etPurchaseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 showDatePicker(holder);
             }
         });
