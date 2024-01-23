@@ -215,33 +215,34 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
-        try{
-        if (addItemAdapter.getItemCount() == 0) {
-            Toast.makeText(getContext(), "To continue, you must add at least one item.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(buttonSaveItem.getVisibility()==View.VISIBLE) {
-            if (addItemAdapter.validateForm()) {
-                addItemAdapter.saveData();
+        try {
+            if (addItemAdapter.getItemCount() == 0) {
+                Toast.makeText(getContext(), "To continue, you must add at least one item.", Toast.LENGTH_SHORT).show();
+                return;
             }
-        }
 
-            mainCont.setVisibility(View.GONE);
-            buttonSaveItem.setVisibility(View.GONE);
-            buttonAddItem.setVisibility(View.GONE);
-            buttonAddItem.setVisibility(View.GONE);
-            subLayou1.setVisibility(View.VISIBLE);
+            if (addItemAdapter.validateForm()) {
+                if (buttonSaveItem.getVisibility() == View.VISIBLE) {
+                    addItemAdapter.saveData();
+                }
+
+                mainCont.setVisibility(View.GONE);
+                buttonSaveItem.setVisibility(View.GONE);
+                buttonAddItem.setVisibility(View.GONE);
+                buttonAddItem.setVisibility(View.GONE);
+                subLayou1.setVisibility(View.VISIBLE);
 
 
-            callback.getStepperLayout().setCompleteButtonColor(getResources().getColor(R.color.white));
-            callback.getStepperLayout().setCompleteButtonEnabled(false);
+                callback.getStepperLayout().setCompleteButtonColor(getResources().getColor(R.color.white));
+                callback.getStepperLayout().setCompleteButtonEnabled(false);
 
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-            itemRecyclerView.setLayoutManager(layoutManager);
-            ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items, getContext(), reimbursementViewModel);
-            itemRecyclerView.setAdapter(adapter);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                itemRecyclerView.setLayoutManager(layoutManager);
+                ListItemReimbursementAdapter adapter = new ListItemReimbursementAdapter(items, getContext(), reimbursementViewModel);
+                itemRecyclerView.setAdapter(adapter);
 
-        } catch(Exception ex){
+            }
+        }catch(Exception ex){
             ex.printStackTrace();
             Bugsnag.notify(ex);
         }

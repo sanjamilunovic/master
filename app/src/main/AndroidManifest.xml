@@ -32,7 +32,7 @@
         <activity
             android:name=".AddReimbursementActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".MainActivity"
             android:exported="false" />

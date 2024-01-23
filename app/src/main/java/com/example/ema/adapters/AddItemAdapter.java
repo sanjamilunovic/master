@@ -233,6 +233,9 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                     if (isFieldValid(holder.etAmount)) {
                         holder.tilAmount.setError(null);
                         String userInput = holder.etAmount.getText().toString();
+                        if(userInput.contains("$")){
+                            userInput = userInput.replace("$", "");
+                        }
 
                         if (!TextUtils.isEmpty(userInput)) {
                             float floatValue = Float.parseFloat(userInput.replace(',', '.'));
