@@ -575,6 +575,9 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                     .build();
 
             datePicker.addOnPositiveButtonClickListener(selection -> {
+                if(!formatSelectedDate(selection).equals(holder.etPurchaseDate.toString())){
+                    fragment.updateButtons();
+                }
                 holder.etPurchaseDate.setText(formatSelectedDate(selection));
                 holder.tilPurchaseDate.setError(null);
 
