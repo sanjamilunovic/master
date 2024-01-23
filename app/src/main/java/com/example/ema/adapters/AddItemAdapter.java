@@ -86,170 +86,9 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         vendorAdapter.setDropDownViewResource(R.layout.drop_down_item);
         holder.spinnerVendor.setAdapter(vendorAdapter);
 
-        holder.tilInvoice.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
-                    Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                holder.tilInvoice.requestFocus();
-                fragment.setVoiceRecognizer(RECORD_AUDIO_INVOICE_RESULT_CODE);
-            }
-        });
-
-        holder.tilAmount.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
-                    Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                holder.tilAmount.requestFocus();
-                fragment.setVoiceRecognizer(RECORD_AUDIO_AMOUNT_RESULT_CODE);
-            }
-        });
-
-        holder.tilEducationalBenefit.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
-                    Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                holder.tilEducationalBenefit.requestFocus();
-                fragment.setVoiceRecognizer(RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE);
-            }
-        });
-
-        holder.tilDescription.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
-                    Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                holder.tilDescription.requestFocus();
-                fragment.setVoiceRecognizer(RECORD_AUDIO_DESCRIPTION_RESULT_CODE);
-            }
-        });
-
-
-        holder.etInvoice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (isFieldValid(holder.etInvoice)) {
-                        holder.tilInvoice.setError(null);
-                    } else {
-                        holder.tilInvoice.setError("Invoice # required.");
-                        holder.tilInvoice.setErrorIconDrawable(null);
-                    }
-                }
-            }
-        });
-        holder.spinnerCategory.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (isDropDownFieldValid(holder.spinnerCategory)) {
-                        holder.tilCategory.setError(null);
-                    } else {
-                        holder.tilCategory.setError("Category required.");
-                    }
-                } else {
-                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-            }
-        });
-
-        holder.spinnerType.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (isDropDownFieldValid(holder.spinnerType)) {
-                        holder.tilType.setError(null);
-                    } else {
-                        holder.tilType.setError("Type required.");
-                        holder.tilType.setErrorIconDrawable(null);
-                    }
-                } else {
-                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-            }
-        });
-
-        holder.spinnerVendor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (isDropDownFieldValid(holder.spinnerVendor)) {
-                        holder.tilVendor.setError(null);
-                    } else {
-                        holder.tilVendor.setError("Vendor required.");
-                    }
-                } else {
-                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                }
-            }
-        });
-
-        holder.etAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (isFieldValid(holder.etAmount)) {
-                        holder.tilAmount.setError(null);
-                        String userInput = holder.etAmount.getText().toString();
-                        if(userInput.contains("$")){
-                            userInput = userInput.replace("$", "");
-                        }
-
-                        if (!TextUtils.isEmpty(userInput)) {
-                            float floatValue = Float.parseFloat(userInput.replace(',', '.'));
-                            userInput = String.format(Locale.US,"%.2f",floatValue);
-                        }
-
-                        holder.etAmount.setText("$" + userInput);
-                    } else {
-                        holder.tilAmount.setError("Amount required.");
-                        holder.tilAmount.setErrorIconDrawable(null);
-                    }
-                }
-            }
-        });
-        holder.etDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (isFieldValid(holder.etDescription)) {
-                        holder.tilDescription.setError(null);
-                    } else {
-                        holder.tilDescription.setError("Description required.");
-                        holder.tilDescription.setErrorIconDrawable(null);
-                    }
-                }
-            }
-        });
-        holder.etEducationalBenefit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (isFieldValid(holder.etEducationalBenefit)) {
-                        holder.tilEducationalBenefit.setError(null);
-                    } else {
-                        holder.tilEducationalBenefit.setError("Educational benefit required.");
-                        holder.tilEducationalBenefit.setErrorIconDrawable(null);
-                    }
-                }
-            }
-        });
-
         holder.detailsLayout.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
 
+        holder.tilPurchaseDate.requestFocus();
         currentViewHolder = holder;
 
         return holder;
@@ -453,6 +292,168 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                         } else {
                             holder.tilPurchaseDate.setError("Purchase date required.");
                             holder.tilPurchaseDate.setErrorIconDrawable(null);
+                        }
+                    }
+                }
+            });
+
+            holder.tilInvoice.setEndIconOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
+                        Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    holder.tilInvoice.requestFocus();
+                    fragment.setVoiceRecognizer(RECORD_AUDIO_INVOICE_RESULT_CODE);
+                }
+            });
+
+            holder.tilAmount.setEndIconOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
+                        Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    holder.tilAmount.requestFocus();
+                    fragment.setVoiceRecognizer(RECORD_AUDIO_AMOUNT_RESULT_CODE);
+                }
+            });
+
+            holder.tilEducationalBenefit.setEndIconOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
+                        Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    holder.tilEducationalBenefit.requestFocus();
+                    fragment.setVoiceRecognizer(RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE);
+                }
+            });
+
+            holder.tilDescription.setEndIconOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!PermissionHelper.checkPermissions(context, PermissionHelper.getRecordAudioPermissions())) {
+                        Toast.makeText(context, "No permission to record audio", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    holder.tilDescription.requestFocus();
+                    fragment.setVoiceRecognizer(RECORD_AUDIO_DESCRIPTION_RESULT_CODE);
+                }
+            });
+
+
+            holder.etInvoice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (isFieldValid(holder.etInvoice)) {
+                            holder.tilInvoice.setError(null);
+                        } else {
+                            holder.tilInvoice.setError("Invoice # required.");
+                            holder.tilInvoice.setErrorIconDrawable(null);
+                        }
+                    }
+                }
+            });
+            holder.spinnerCategory.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (isDropDownFieldValid(holder.spinnerCategory)) {
+                            holder.tilCategory.setError(null);
+                        } else {
+                            holder.tilCategory.setError("Category required.");
+                        }
+                    } else {
+                        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                }
+            });
+
+            holder.spinnerType.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (isDropDownFieldValid(holder.spinnerType)) {
+                            holder.tilType.setError(null);
+                        } else {
+                            holder.tilType.setError("Type required.");
+                            holder.tilType.setErrorIconDrawable(null);
+                        }
+                    } else {
+                        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                }
+            });
+
+            holder.spinnerVendor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (isDropDownFieldValid(holder.spinnerVendor)) {
+                            holder.tilVendor.setError(null);
+                        } else {
+                            holder.tilVendor.setError("Vendor required.");
+                        }
+                    } else {
+                        InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                }
+            });
+
+            holder.etAmount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (isFieldValid(holder.etAmount)) {
+                            holder.tilAmount.setError(null);
+                            String userInput = holder.etAmount.getText().toString();
+                            if(userInput!=null && userInput.contains("$")){
+                                userInput = userInput.replace("$", "");
+                            }
+
+                            if (!TextUtils.isEmpty(userInput)) {
+                                float floatValue = Float.parseFloat(userInput.replace(',', '.'));
+                                userInput = String.format(Locale.US,"%.2f",floatValue);
+                            }
+
+                            holder.etAmount.setText("$" + userInput);
+                        } else {
+                            holder.tilAmount.setError("Amount required.");
+                            holder.tilAmount.setErrorIconDrawable(null);
+                        }
+                    }
+                }
+            });
+            holder.etDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (isFieldValid(holder.etDescription)) {
+                            holder.tilDescription.setError(null);
+                        } else {
+                            holder.tilDescription.setError("Description required.");
+                            holder.tilDescription.setErrorIconDrawable(null);
+                        }
+                    }
+                }
+            });
+            holder.etEducationalBenefit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (isFieldValid(holder.etEducationalBenefit)) {
+                            holder.tilEducationalBenefit.setError(null);
+                        } else {
+                            holder.tilEducationalBenefit.setError("Educational benefit required.");
+                            holder.tilEducationalBenefit.setErrorIconDrawable(null);
                         }
                     }
                 }
@@ -771,6 +772,7 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
         } catch (Exception ex) {
             ex.printStackTrace();
             Bugsnag.notify(ex);
+            Toast.makeText(context, "Couldn't save item. Please try again.", Toast.LENGTH_SHORT).show();
         }
 
 
