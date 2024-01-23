@@ -1,6 +1,7 @@
 package com.example.ema.adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
 public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemReimbursementAdapter.ListItemReimbursementViewHolder> {
     private ArrayList<ItemViewModel> lstItems;
     private Context context;
-    private int totalAmount;
+    private float totalAmount;
     private ReimbursementViewModel reimbursementViewModel;
 
     public ListItemReimbursementAdapter(ArrayList<ItemViewModel> lstItems, Context context, ReimbursementViewModel reimbursementViewModel) {
@@ -50,12 +51,19 @@ public class ListItemReimbursementAdapter extends RecyclerView.Adapter<ListItemR
         ItemViewModel item = lstItems.get(position);
         try {
             holder.txtItem.setText(item.getDescription());
-            holder.txtAmount.setText("$" + " " + item.getAmount());
+            String userInput = String.valueOf(item.getAmount());
+
+            if (!TextUtils.isEmpty(userInput)) {
+                float floatValue = Float.parseFloat(userInput);
+                userInput = String.format("%.2f",floatValue);
+            }
+            holder.txtAmount.setText("$" + userInput);
+
             totalAmount += item.getAmount();
 
             if (position == lstItems.size() - 1) {
                 holder.totalLayout.setVisibility(View.VISIBLE);
-                holder.txtTotalAmount.setText("$" + " " + totalAmount);
+                holder.txtTotalAmount.setText("$" + String.format("%.2f",totalAmount));
                 holder.view.setVisibility(View.VISIBLE);
                 reimbursementViewModel.setAmount(totalAmount);
             }

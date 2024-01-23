@@ -1,6 +1,7 @@
 package com.example.ema.adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,12 @@ public class DetailItemAdapter extends RecyclerView.Adapter<DetailItemAdapter.De
             holder.tvInvoice.setText(String.valueOf(item.getInvoice()));
             holder.tvCategory.setText(String.valueOf(item.getCategory()));
             holder.tvType.setText(String.valueOf(item.getType()));
-            holder.tvAmount.setText("$" + item.getAmount());
+            String amountText = String.valueOf(item.getAmount());
+            if (!TextUtils.isEmpty(amountText)) {
+                float floatValue = Float.parseFloat(amountText);
+                amountText = String.format("%.2f",floatValue);
+            }
+            holder.tvAmount.setText("$" + amountText);
             holder.tvDescription.setText(String.valueOf(item.getDescription()));
             holder.tvVendor.setText(String.valueOf(item.getVendor()));
             holder.tvEducationalBenefits.setText(String.valueOf(item.getEducationalBenefit()));

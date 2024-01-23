@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +59,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void onBindViewHolder(ItemAdapter.ItemViewHolder holder, int position) {
         ItemViewModel item = lstItems.get(position);
         holder.textViewDescription.setText(item.getDescription());
-        holder.textViewAmount.setText("$" + String.valueOf(item.getAmount()));
+        String amountText = String.valueOf(item.getAmount());
+
+        if (!TextUtils.isEmpty(amountText)) {
+            float floatValue = Float.parseFloat(amountText);
+            amountText = String.format("%.2f",floatValue);
+        }
+        holder.textViewAmount.setText("$" +  amountText);
 
         holder.contMain.setOnClickListener(v -> onClick(item));
 
@@ -107,7 +114,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             tvInvoice.setText(String.valueOf(item.getInvoice()));
             tvCategory.setText(String.valueOf(item.getCategory()));
             tvType.setText(String.valueOf(item.getType()));
-            tvAmount.setText("$" + item.getAmount());
+            String amountText = String.valueOf(item.getAmount());
+            if (!TextUtils.isEmpty(amountText)) {
+                float floatValue = Float.parseFloat(amountText);
+                amountText = String.format("%.2f",floatValue);
+            }
+            tvAmount.setText("$" + amountText);
             tvDescription.setText(String.valueOf(item.getDescription()));
             tvVendor.setText(String.valueOf(item.getVendor()));
             tvEducationalBenefit.setText(String.valueOf(item.getEducationalBenefit()));

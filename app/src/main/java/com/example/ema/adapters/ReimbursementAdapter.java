@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,12 @@ public class ReimbursementAdapter extends RecyclerView.Adapter<ReimbursementAdap
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
             holder.txtDate.setText(sdf.format(date));
-            holder.txtTotalAmount.setText("$" + reimbursementViewModel.getAmount());
+            String amountText = String.valueOf(reimbursementViewModel.getAmount());
+            if (!TextUtils.isEmpty(amountText)) {
+                float floatValue = Float.parseFloat(amountText);
+                amountText = String.format("%.2f",floatValue);
+            }
+            holder.txtTotalAmount.setText("$" + amountText);
 
 
             holder.buttonViewReceipt.setOnClickListener(v -> openFullScreenImage(position));

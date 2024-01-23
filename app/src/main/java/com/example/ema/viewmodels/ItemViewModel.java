@@ -6,7 +6,7 @@ public class ItemViewModel {
     private Date purchaseDate;
     private String invoice;
     private String category;
-    private int amount;
+    private double amount;
     private String educationalBenefit;
     private String description;
     private String type;
@@ -36,11 +36,11 @@ public class ItemViewModel {
         this.category = category;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

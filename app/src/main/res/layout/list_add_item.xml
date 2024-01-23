@@ -186,7 +186,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAmount"
                         style="@style/TextInputLayoutStyle"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:textCursorDrawable="@null"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>

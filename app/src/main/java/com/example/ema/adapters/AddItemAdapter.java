@@ -231,6 +231,14 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                 if (!hasFocus) {
                     if (isFieldValid(holder.etAmount)) {
                         holder.tilAmount.setError(null);
+                        String userInput = holder.etAmount.getText().toString();
+
+                        if (!TextUtils.isEmpty(userInput)) {
+                            float floatValue = Float.parseFloat(userInput);
+                            userInput = String.format("%.2f",floatValue);
+                        }
+
+                        holder.etAmount.setText("$" + userInput);
                     } else {
                         holder.tilAmount.setError("Amount required.");
                         holder.tilAmount.setErrorIconDrawable(null);
@@ -580,7 +588,8 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                 itemViewModel.setPurchaseDate(new Date(currentViewHolder.etPurchaseDate.getText().toString().trim()));
                 itemViewModel.setInvoice(currentViewHolder.etInvoice.getText().toString().trim());
                 itemViewModel.setCategory(currentViewHolder.spinnerCategory.getText().toString().trim());
-                itemViewModel.setAmount(Integer.valueOf(currentViewHolder.etAmount.getText().toString().trim()));
+                String amountText = currentViewHolder.etAmount.getText().toString().replace("$", "");
+                itemViewModel.setAmount(Double.valueOf(amountText));
                 itemViewModel.setDescription(currentViewHolder.etDescription.getText().toString().trim());
                 itemViewModel.setType(currentViewHolder.spinnerType.getText().toString().trim());
                 itemViewModel.setVendor(currentViewHolder.spinnerVendor.getText().toString().trim());
