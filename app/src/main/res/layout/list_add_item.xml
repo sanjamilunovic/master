@@ -90,9 +90,7 @@
                         style="@style/TextInputLayoutStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:endIconTint="@color/primaryBlue"
-                        android:textCursorDrawable="@null"
-                        android:inputType="text"/>
+                        app:endIconTint="@color/primaryBlue"/>
 
 
                 </com.google.android.material.textfield.TextInputLayout>

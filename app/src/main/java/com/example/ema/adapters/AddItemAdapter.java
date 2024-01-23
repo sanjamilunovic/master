@@ -136,6 +136,14 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                 showDatePicker(holder);
             }
         });
+        holder.etPurchaseDate.setClickable(true);
+        holder.etPurchaseDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker(holder);
+            }
+        });
+
 
         holder.spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
