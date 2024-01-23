@@ -134,28 +134,6 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             }
         });
 
-        holder.tilPurchaseDate.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePicker(holder);
-            }
-        });
-
-
-        holder.etPurchaseDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (isFieldValid(holder.etPurchaseDate)) {
-                        holder.tilPurchaseDate.setError(null);
-                    } else {
-                        holder.tilPurchaseDate.setError("Purchase date required.");
-                        holder.tilPurchaseDate.setErrorIconDrawable(null);
-                    }
-                }
-            }
-        });
-
 
         holder.etInvoice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -452,6 +430,31 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     showDatePicker(holder);
+                }
+            });
+
+            holder.etPurchaseDate.setClickable(false);
+            holder.etPurchaseDate.setFocusableInTouchMode(false);
+
+            holder.tilPurchaseDate.setEndIconOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDatePicker(holder);
+                }
+            });
+
+
+            holder.etPurchaseDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        if (isFieldValid(holder.etPurchaseDate)) {
+                            holder.tilPurchaseDate.setError(null);
+                        } else {
+                            holder.tilPurchaseDate.setError("Purchase date required.");
+                            holder.tilPurchaseDate.setErrorIconDrawable(null);
+                        }
+                    }
                 }
             });
         } catch (Exception ex) {
