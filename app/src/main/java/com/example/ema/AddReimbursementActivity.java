@@ -2,6 +2,7 @@ package com.example.ema;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.example.ema.adapters.StepperAdapter;
 import com.example.ema.viewmodels.ReimbursementViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
@@ -66,7 +68,7 @@ public class AddReimbursementActivity extends AppCompatActivity implements Stepp
         materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                showExitConfirmationDialog();
             }
         });
 
@@ -74,6 +76,26 @@ public class AddReimbursementActivity extends AppCompatActivity implements Stepp
         stepperLayout.setListener(this);
 
 
+
+    }
+
+    private void showExitConfirmationDialog() {
+        new MaterialAlertDialogBuilder(AddReimbursementActivity.this)
+                .setTitle("Are you sure you want to leave?")
+                .setMessage("Your changes will not be saved.")
+                .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
     @Override
