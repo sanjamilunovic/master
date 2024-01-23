@@ -270,4 +270,9 @@ public class StepThreeFragment extends Fragment implements BlockingStep {
         buttonSaveItem.setVisibility(View.GONE);
 
     }
+    public void updateButtons() {
+        buttonAddItem.setVisibility(View.GONE);
+        buttonSaveItem.setVisibility(View.VISIBLE);
+
+    }
 }

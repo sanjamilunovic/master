@@ -4,7 +4,9 @@ import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,17 +146,6 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
             }
         });
 
-
-        holder.spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                holder.tilType.setVisibility(View.VISIBLE);
-                holder.tilDescription.setVisibility(View.VISIBLE);
-                holder.tilVendor.setVisibility(View.VISIBLE);
-                holder.tilCategory.setError(null);
-
-            }
-        });
 
         holder.etPurchaseDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -335,6 +326,125 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
                 currentViewHolder.imageViewExpandMore.setVisibility(View.GONE);
                 currentViewHolder.imageViewCollapse.setVisibility(View.VISIBLE);
             }
+
+            holder.etInvoice.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (!editable.toString().equals(item.getInvoice())) {
+                        fragment.updateButtons();
+                    }
+                }
+            });
+            holder.etDescription.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (!editable.toString().equals(item.getDescription())) {
+                        fragment.updateButtons();
+                    }
+                }
+            });
+            holder.etAmount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (!editable.toString().equals(String.valueOf(item.getAmount()))) {
+                        fragment.updateButtons();
+                    }
+                }
+            });
+            holder.etEducationalBenefit.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if (!editable.toString().equals(item.getEducationalBenefit())) {
+                        fragment.updateButtons();
+                    }
+                }
+            });
+
+
+            holder.spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    holder.tilType.setVisibility(View.VISIBLE);
+                    holder.tilDescription.setVisibility(View.VISIBLE);
+                    holder.tilVendor.setVisibility(View.VISIBLE);
+                    holder.tilCategory.setError(null);
+
+                    Object selectedItem = parent.getItemAtPosition(position);
+
+                    if (selectedItem instanceof String) {
+                        String selectedCategory = (String) selectedItem;
+
+                        if(!selectedCategory.equals(item.getCategory()) && item.getCategory()!=null){
+                            fragment.updateButtons();
+                        }
+                    }
+
+                }
+            });
+
+            holder.spinnerType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Object selectedItem = parent.getItemAtPosition(position);
+
+                    if (selectedItem instanceof String) {
+                        String selectedCategory = (String) selectedItem;
+
+                        if(!selectedCategory.equals(item.getType()) && item.getType()!=null){
+                            fragment.updateButtons();
+                        }
+                    }
+
+                }
+            });
+
+            holder.spinnerVendor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Object selectedItem = parent.getItemAtPosition(position);
+
+                    if (selectedItem instanceof String) {
+                        String selectedCategory = (String) selectedItem;
+
+                        if(!selectedCategory.equals(item.getVendor()) && item.getVendor()!=null){
+                            fragment.updateButtons();
+                        }
+                    }
+
+                }
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -579,15 +689,31 @@ public class AddItemAdapter extends RecyclerView.Adapter<AddItemAdapter.AddItemV
     public void fillForm(int requestCode, String recognizedText) {
         try {
             if (requestCode == RECORD_AUDIO_INVOICE_RESULT_CODE) {
+                if(!currentViewHolder.etInvoice.getText().toString().equals(recognizedText)){
+                    fragment.updateButtons();
+                }
                 currentViewHolder.etInvoice.setText(recognizedText);
                 currentViewHolder.tilInvoice.setError(null);
             } else if (requestCode == RECORD_AUDIO_AMOUNT_RESULT_CODE) {
-                currentViewHolder.etAmount.setText(recognizedText);
+                if(!currentViewHolder.etAmount.getText().toString().equals(recognizedText)){
+                    fragment.updateButtons();
+                }
+                if (!TextUtils.isEmpty(recognizedText)) {
+                    float floatValue = Float.parseFloat(recognizedText.replace(',', '.'));
+                    recognizedText = String.format(Locale.US,"%.2f",floatValue);
+                }
+                currentViewHolder.etAmount.setText("$" + recognizedText);
                 currentViewHolder.tilAmount.setError(null);
             } else if (requestCode == RECORD_AUDIO_EDUCATIONAL_BENEFIT_RESULT_CODE) {
+                if(!currentViewHolder.etEducationalBenefit.getText().toString().equals(recognizedText)){
+                    fragment.updateButtons();
+                }
                 currentViewHolder.etEducationalBenefit.setText(recognizedText);
                 currentViewHolder.tilEducationalBenefit.setError(null);
             } else if (requestCode == RECORD_AUDIO_DESCRIPTION_RESULT_CODE) {
+                if(!currentViewHolder.etDescription.getText().toString().equals(recognizedText)){
+                    fragment.updateButtons();
+                }
                 currentViewHolder.etDescription.setText(recognizedText);
                 currentViewHolder.tilDescription.setError(null);
             }
